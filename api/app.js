@@ -35,7 +35,7 @@ app.use('/api/chats', chatRoute);
 app.use('/api/messages', messageRoute);
 
 // Inicia o servidor
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000; // ← Agora 3000 como padrão
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });

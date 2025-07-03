@@ -1,57 +1,158 @@
+@import '../../responsive.scss';
+
 .newPostPage {
   height: 100%;
   display: flex;
+  background-color: #f8f9fa;
 
   .formContainer {
     flex: 3;
-    overflow: scroll;
+    overflow-y: auto;
+    padding: 2rem;
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      font-weight: 600;
+    }
 
     .wrapper {
-      margin: 30px 50px 100px 0px;
+      max-width: 900px;
 
       form {
         display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 20px;
+        flex-direction: column;
+        gap: 2rem;
 
-        .item {
-          width: 30%;
-          display: flex;
-          flex-direction: column;
-          gap: 5px;
+        .section {
+          background: white;
+          padding: 2rem;
+          border-radius: 12px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          border: 1px solid #e9ecef;
 
-          label {
+          h3 {
+            color: #495057;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-bottom: 2px solid #fece51;
+            padding-bottom: 0.5rem;
           }
 
-          input {
-            padding: 20px;
-            border-radius: 5px;
-            border: 1px solid gray;
+          .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+
+            @include md {
+              grid-template-columns: 1fr;
+            }
           }
 
-          select {
-            padding: 19px;
-          }
+          .item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
 
-          &.description {
-            width: 100%;
-            height: 320px;
+            label {
+              font-weight: 600;
+              color: #495057;
+              font-size: 0.9rem;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            }
 
-            .quill > .ql-container > .ql-editor{
-              height: 200px;
-              font-size: 16px;
+            input,
+            select {
+              padding: 1rem;
+              border: 2px solid #e9ecef;
+              border-radius: 8px;
+              font-size: 1rem;
+              transition: all 0.3s ease;
+              background-color: #fff;
+
+              &:focus {
+                outline: none;
+                border-color: #fece51;
+                box-shadow: 0 0 0 3px rgba(254, 206, 81, 0.1);
+              }
+
+              &::placeholder {
+                color: #6c757d;
+              }
+            }
+
+            select {
+              cursor: pointer;
+            }
+
+            &.description {
+              grid-column: 1 / -1;
+
+              .quill {
+                .ql-toolbar {
+                  border: 2px solid #e9ecef;
+                  border-bottom: none;
+                  border-radius: 8px 8px 0 0;
+                }
+
+                .ql-container {
+                  border: 2px solid #e9ecef;
+                  border-top: none;
+                  border-radius: 0 0 8px 8px;
+
+                  .ql-editor {
+                    height: 200px;
+                    font-size: 1rem;
+                    line-height: 1.6;
+                  }
+                }
+
+                &:focus-within {
+                  .ql-toolbar,
+                  .ql-container {
+                    border-color: #fece51;
+                  }
+                }
+              }
             }
           }
         }
+
         .sendButton {
-          width: 30%;
-          border-radius: 5px;
-          border: none;
-          background-color: teal;
+          background: linear-gradient(135deg, #fece51 0%, #f39c12 100%);
           color: white;
-          font-weight: bold;
+          border: none;
+          padding: 1.2rem 2rem;
+          border-radius: 8px;
+          font-size: 1.1rem;
+          font-weight: 600;
           cursor: pointer;
+          transition: all 0.3s ease;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(254, 206, 81, 0.3);
+          }
+
+          &:active {
+            transform: translateY(0);
+          }
+        }
+
+        .error {
+          color: #dc3545;
+          background-color: #f8d7da;
+          border: 1px solid #f5c6cb;
+          padding: 1rem;
+          border-radius: 8px;
+          text-align: center;
+          font-weight: 500;
         }
       }
     }
@@ -59,18 +160,124 @@
 
   .sideContainer {
     flex: 2;
-    background-color: #fcf5f3;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem;
+    color: white;
 
-    img {
-      width: 50%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 5px;
+    h3 {
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .imageGallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+
+      .imagePreview {
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
+        aspect-ratio: 1;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .removeImage {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          background: rgba(220, 53, 69, 0.9);
+          color: white;
+          border: none;
+          border-radius: 50%;
+          width: 25px;
+          height: 25px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.2rem;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: #dc3545;
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+
+    .cloudinary-button {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px dashed rgba(255, 255, 255, 0.5);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.8);
+      }
+    }
+
+    .uploadTips {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+
+      h4 {
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          margin-bottom: 0.8rem;
+          padding-left: 1.5rem;
+          position: relative;
+          line-height: 1.4;
+
+          &::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #fece51;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+
+  @include md {
+    flex-direction: column;
+    height: auto;
+
+    .formContainer {
+      padding: 1rem;
+    }
+
+    .sideContainer {
+      padding: 1.5rem;
     }
   }
 }
