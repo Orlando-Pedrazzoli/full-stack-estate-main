@@ -18,13 +18,15 @@ function Navbar() {
     <nav>
       <div className='left'>
         <a href='/' className='logo'>
-          <img src='/rqfavicon.jpg' alt='' />
-          <span>Raquel Perez </span>
+          <img src='/rqfavicon.jpg' alt='Logo RP' />
+          <div className='textBlock'>
+            <span className='name'>Raquel Perez</span>
+            <span className='subtitle'>Consultora Imobiliária</span>
+          </div>
         </a>
         <a href='/'>Home</a>
-        <a href='/about'>About</a>
-        <a href='/contact'>Contact</a>
-        <a href='/'>Agents</a>
+        <a href='/about'>Sobre</a>
+        <a href='/contact'>Contacto</a>
       </div>
       <div className='right'>
         {currentUser ? (
@@ -51,7 +53,6 @@ function Navbar() {
           <a href='/'>Home</a>
           <a href='/about'>About</a>
           <a href='/contact'>Contact</a>
-          <a href='/'>Agents</a>
           <a href='/'>Sign in</a>
           <a href='/'>Sign up</a>
         </div>

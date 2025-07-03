@@ -22,30 +22,43 @@ nav {
     flex: 3;
     display: flex;
     align-items: center;
-    gap: 50px;
+    justify-content: flex-start;
+    gap: 70px;
+    padding-left: 20px;
 
     .logo {
-      font-weight: bold;
-      font-size: 20px;
       display: flex;
       align-items: center;
       gap: 10px;
 
       img {
-        width: 28px;
+        width: 32px;
+        height: auto;
       }
 
-      span {
-        @include md {
-          display: none;
+      .textBlock {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.1;
+
+        .name {
+          font-family: 'Cinzel', serif;
+          font-size: 18px;
+          font-weight: 600;
+          letter-spacing: 0.05em;
         }
 
-        @include sm {
-          display: initial;
+        .subtitle {
+          font-family: 'Montserrat', sans-serif;
+          font-size: 10px;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: #444;
         }
       }
     }
   }
+
   .right {
     flex: 2;
     display: flex;
