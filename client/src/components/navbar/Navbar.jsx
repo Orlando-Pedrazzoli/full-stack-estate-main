@@ -24,9 +24,11 @@ function Navbar() {
             <span className='subtitle'>Consultora Imobiliária</span>
           </div>
         </a>
-        <a href='/'>Home</a>
-        <a href='/about'>Sobre</a>
-        <a href='/contact'>Contacto</a>
+        {/*  <Link to='/'>Home</Link> */}
+        <Link to='/about'>Sobre mim</Link>
+        {/*  <Link to='/contact'>Contacto</Link> */}
+        <Link to='/list?type=buy'>Comprar</Link>
+        <Link to='/list?type=rent'>Arrendar</Link>
       </div>
       <div className='right'>
         {currentUser ? (
