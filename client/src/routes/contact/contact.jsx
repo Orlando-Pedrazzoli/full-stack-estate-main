@@ -108,12 +108,6 @@ function ContactPage() {
                   </div>
                 </div>
               </div>
-
-              <div className='emergencyContact'>
-                <h3>Contacto de Emergência</h3>
-                <p>Para situações urgentes fora do horário normal:</p>
-                <strong>+351 962 123 456</strong>
-              </div>
             </div>
 
             <div className='contactForm'>
