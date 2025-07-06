@@ -5,6 +5,8 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 100; // Garante que o navbar fique por cima
 
   a {
     transition: all 0.4s ease;
@@ -26,14 +28,32 @@ nav {
     gap: 70px;
     padding-left: 20px;
 
+    @include md {
+      gap: 40px;
+      padding-left: 10px;
+    }
+
+    @include sm {
+      gap: 20px;
+      padding-left: 5px;
+    }
+
     .logo {
       display: flex;
       align-items: center;
       gap: 10px;
 
+      @include sm {
+        display: flex !important; // Override do display: none
+      }
+
       img {
         width: 32px;
         height: auto;
+
+        @include sm {
+          width: 28px;
+        }
       }
 
       .textBlock {
@@ -41,11 +61,19 @@ nav {
         flex-direction: column;
         line-height: 1.1;
 
+        @include sm {
+          display: none; // Oculta só o texto em mobile
+        }
+
         .name {
           font-family: 'Cinzel', serif;
           font-size: 18px;
           font-weight: 600;
           letter-spacing: 0.05em;
+
+          @include md {
+            font-size: 16px;
+          }
         }
 
         .subtitle {
@@ -54,7 +82,20 @@ nav {
           text-transform: uppercase;
           letter-spacing: 0.1em;
           color: #444;
+
+          @include md {
+            font-size: 9px;
+          }
         }
+      }
+    }
+
+    // Links do menu em desktop
+    a:not(.logo) {
+      @include md {
+        font-size: 14px;
+        padding: 8px 16px;
+        margin: 10px;
       }
     }
   }
@@ -66,14 +107,25 @@ nav {
     justify-content: flex-end;
     background-color: #fcf5f3;
     height: 100%;
+    position: relative;
 
     @include md {
       background-color: transparent;
+      flex: 1;
     }
 
     a {
       padding: 12px 24px;
       margin: 20px;
+
+      @include md {
+        padding: 8px 16px;
+        margin: 10px;
+      }
+
+      @include sm {
+        display: none;
+      }
     }
 
     .user {
@@ -81,12 +133,22 @@ nav {
       align-items: center;
       font-weight: bold;
 
+      @include sm {
+        margin-right: 60px; // Espaço para o menu icon
+      }
+
       img {
         width: 40px;
         height: 40px;
         border-radius: 50%;
         object-fit: cover;
         margin-right: 20px;
+
+        @include sm {
+          width: 35px;
+          height: 35px;
+          margin-right: 10px;
+        }
       }
 
       span {
@@ -102,6 +164,14 @@ nav {
         border: none;
         position: relative;
 
+        @include md {
+          padding: 10px 20px;
+        }
+
+        @include sm {
+          padding: 8px 16px;
+        }
+
         .notification {
           position: absolute;
           top: -8px;
@@ -114,6 +184,12 @@ nav {
           display: flex;
           align-items: center;
           justify-content: center;
+
+          @include sm {
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+          }
         }
       }
     }
@@ -124,7 +200,9 @@ nav {
 
     .menuIcon {
       display: none;
-      z-index: 999;
+      z-index: 1001; // Maior que o menu
+      position: absolute;
+      right: 20px;
 
       img {
         width: 36px;
@@ -138,29 +216,78 @@ nav {
     }
 
     .menu {
-      position: absolute;
+      position: fixed; // Mudança de absolute para fixed
       top: 0;
-      right: -50%;
-      background-color: black;
+      right: -100%; // Começa totalmente fora da tela
+      background-color: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
       color: white;
       height: 100vh;
-      width: 50%;
-      transition: all 1s ease;
+      width: 70%;
+      max-width: 300px;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       font-size: 24px;
+      z-index: 1000; // Muito alto para ficar por cima de tudo
+      padding: 2rem;
 
       &.active {
         right: 0;
       }
 
+      // Overlay escuro atrás do menu
+      &::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: -1;
+      }
+
+      &.active::before {
+        opacity: 1;
+        visibility: visible;
+      }
+
       @include sm {
         a {
-          display: initial;
+          display: block !important;
+          width: 100%;
+          text-align: center;
+          padding: 1rem 0;
+          margin: 0.5rem 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          transition: all 0.3s ease;
+
+          &:hover {
+            background-color: rgba(254, 206, 81, 0.2);
+            transform: translateX(10px);
+          }
+
+          &:last-child {
+            border-bottom: none;
+          }
         }
       }
     }
+  }
+}
+
+// Previne scroll quando menu está aberto
+body.menu-open {
+  overflow: hidden;
+
+  @include sm {
+    position: fixed;
+    width: 100%;
   }
 }

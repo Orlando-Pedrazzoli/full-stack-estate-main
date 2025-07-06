@@ -9,10 +9,13 @@ function Map({ items }) {
       center={
         items.length === 1
           ? [items[0].latitude, items[0].longitude]
-          : [39.3999, -8.2245] // ← Lisboa, Portugal como centro
+          : [39.3999, -8.2245]
       }
       zoom={7}
-      scrollWheelZoom={false}
+      scrollWheelZoom={true} // ← Scroll com rodinha
+      doubleClickZoom={true} // ← Zoom com duplo clique
+      dragging={true} // ← Arrastar mapa
+      zoomControl={true} // ← Botões de zoom
       className='map'
     >
       <TileLayer

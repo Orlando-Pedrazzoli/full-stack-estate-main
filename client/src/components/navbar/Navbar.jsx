@@ -52,9 +52,11 @@ function Navbar() {
           <img src='/menu.png' alt='' onClick={() => setOpen(prev => !prev)} />
         </div>
         <div className={open ? 'menu active' : 'menu'}>
-          <a href='/'>Home</a>
-          <a href='/about'>About</a>
-          <a href='/contact'>Contact</a>
+          {/*  <Link to='/'>Home</Link> */}
+          <Link to='/about'>Sobre mim</Link>
+          {/*  <Link to='/contact'>Contacto</Link> */}
+          <Link to='/list?type=buy'>Comprar</Link>
+          <Link to='/list?type=rent'>Arrendar</Link>
           <a href='/'>Sign in</a>
           <a href='/'>Sign up</a>
         </div>

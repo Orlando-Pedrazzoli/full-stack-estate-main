@@ -1,8 +1,15 @@
-@import "../../responsive.scss";
+@import '../../responsive.scss';
 
 .searchBar {
-  .type {
+  position: relative;
+  z-index: 10; // Garante que fique acima dos boxes
 
+  .type {
+    display: flex;
+
+    @include sm {
+      width: 100%;
+    }
 
     button {
       padding: 16px 36px;
@@ -11,6 +18,19 @@
       cursor: pointer;
       background-color: white;
       text-transform: capitalize;
+      font-size: 16px;
+      transition: all 0.3s ease;
+
+      @include md {
+        padding: 14px 28px;
+        font-size: 14px;
+      }
+
+      @include sm {
+        flex: 1;
+        padding: 12px 20px;
+        font-size: 14px;
+      }
 
       &.active {
         background-color: black;
@@ -25,6 +45,10 @@
         border-top-right-radius: 5px;
         border-left: none;
       }
+
+      &:hover:not(.active) {
+        background-color: #f8f9fa;
+      }
     }
   }
 
@@ -34,65 +58,135 @@
     justify-content: space-between;
     height: 64px;
     gap: 5px;
+    position: relative;
+    z-index: 10;
+
+    @include md {
+      height: 56px;
+    }
 
     @include sm {
       flex-direction: column;
       border: none;
+      height: auto;
+      gap: 10px;
     }
 
     input {
       border: none;
       padding: 0px 10px;
       width: 200px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+
+      &:focus {
+        outline: none;
+        background-color: #f8f9fa;
+      }
 
       @include lg {
         padding: 0px 5px;
+        width: 180px;
 
         &:nth-child(2),
         &:nth-child(3) {
           width: 140px;
         }
       }
+
       @include md {
-        width: 200px;
+        width: 160px;
+        padding: 0px 8px;
+
         &:nth-child(2),
         &:nth-child(3) {
-          width: 200px;
+          width: 140px;
         }
       }
 
-      @include sm{
-        width: auto;
+      @include sm {
+        width: 100%;
+        height: 48px;
+        padding: 12px 16px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 16px;
+
         &:nth-child(2),
         &:nth-child(3) {
-          width: auto;
+          width: 100%;
         }
-        padding: 20px;
-        border: 1px solid #999;
+
+        &:focus {
+          border-color: #fece51;
+          background-color: white;
+        }
+
+        &::placeholder {
+          color: #6c757d;
+        }
       }
     }
 
-    a{
+    a {
       flex: 1;
       background-color: #fece51;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #e6b84a;
+      }
+
+      @include sm {
+        border-radius: 8px;
+        height: 48px;
+      }
 
       button {
         border: none;
         cursor: pointer;
-        background-color: #fece51;
-        
-        @include sm{
-          padding: 10px;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+
+        @include sm {
+          padding: 12px;
         }
-        
+
         img {
           width: 24px;
           height: 24px;
+
+          @include sm {
+            width: 20px;
+            height: 20px;
+          }
         }
       }
+    }
+  }
+
+  // Melhorias para telas muito pequenas
+  @media (max-width: 480px) {
+    .type button {
+      font-size: 12px;
+      padding: 10px 15px;
+    }
+
+    form input {
+      font-size: 14px;
+      height: 44px;
+      padding: 10px 14px;
+    }
+
+    form a {
+      height: 44px;
     }
   }
 }

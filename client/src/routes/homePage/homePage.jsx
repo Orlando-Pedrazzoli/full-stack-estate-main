@@ -26,9 +26,10 @@ function HomePage() {
             <br />
             ✔️ Plano de Marketing estratégico
             <br />
-            ✔️ Apoio Jurídico e Processual durante todo o processo Trabalho com
-            ética, transparência e total dedicação. Meu compromisso é com o
-            sucesso do seu negócio e a sua plena satisfação.
+            ✔️ Apoio Jurídico e Processual durante todo o processo
+            <br />
+            Trabalho com ética, transparência e total dedicação. Meu compromisso
+            é com o sucesso do seu negócio e a sua plena satisfação.
           </p>
           <SearchBar />
           <div className='boxes'>
@@ -48,7 +49,11 @@ function HomePage() {
         </div>
       </div>
       <div className='imgContainer'>
-        <img src='/raquel-foto.png' alt='' />
+        <img
+          src='/raquel-foto.png'
+          alt='Raquel - Consultora Imobiliária'
+          loading='lazy'
+        />
       </div>
     </div>
   );

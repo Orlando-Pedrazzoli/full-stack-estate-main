@@ -1,18 +1,18 @@
+import { useState } from "react";
 import "./register.scss";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useState } from "react";
 import apiRequest from "../../lib/apiRequest";
 
 function Register() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("")
+    setError("");
     setIsLoading(true);
     const formData = new FormData(e.target);
 
@@ -34,21 +34,139 @@ function Register() {
       setIsLoading(false);
     }
   };
+
   return (
     <div className="registerPage">
-      <div className="formContainer">
-        <form onSubmit={handleSubmit}>
-          <h1>Create an Account</h1>
-          <input name="username" type="text" placeholder="Username" />
-          <input name="email" type="text" placeholder="Email" />
-          <input name="password" type="password" placeholder="Password" />
-          <button disabled={isLoading}>Register</button>
-          {error && <span>{error}</span>}
-          <Link to="/login">Do you have an account?</Link>
-        </form>
-      </div>
-      <div className="imgContainer">
-        <img src="/bg.png" alt="" />
+      <div className="registerContainer">
+        <div className="registerForm">
+          <div className="brandSection">
+            <div className="logo">
+              <div className="logoIcon">🏠</div>
+              <h2>RaquelPerez</h2>
+            </div>
+            <p className="tagline">Junte-se à nossa comunidade</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="form">
+            <div className="formHeader">
+              <h1>Criar Nova Conta</h1>
+              <p>Preencha os seus dados para começar</p>
+            </div>
+
+            <div className="inputGroup">
+              <div className="inputWrapper">
+                <label htmlFor="username">Nome de utilizador</label>
+                <input
+                  id="username"
+                  name="username"
+                  type="text"
+                  placeholder="Escolha um nome de utilizador"
+                  required
+                  minLength={3}
+                  maxLength={20}
+                />
+              </div>
+
+              <div className="inputWrapper">
+                <label htmlFor="email">Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Digite o seu email"
+                  required
+                />
+              </div>
+
+              <div className="inputWrapper">
+                <label htmlFor="password">Palavra-passe</label>
+                <div className="passwordInput">
+                  <input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Crie uma palavra-passe segura"
+                    required
+                    minLength={6}
+                  />
+                  <button
+                    type="button"
+                    className="passwordToggle"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? "👁️" : "👁️‍🗨️"}
+                  </button>
+                </div>
+                <small className="passwordHint">
+                  Mínimo 6 caracteres
+                </small>
+              </div>
+            </div>
+
+            {error && (
+              <div className="errorMessage">
+                <span className="errorIcon">⚠️</span>
+                <span>{error}</span>
+              </div>
+            )}
+
+            <button disabled={isLoading} className="submitButton">
+              {isLoading ? (
+                <>
+                  <div className="spinner"></div>
+                  A criar conta...
+                </>
+              ) : (
+                "Criar Conta"
+              )}
+            </button>
+
+            <div className="formFooter">
+              <p>
+                Já tem uma conta?{" "}
+                <Link to="/login" className="authLink">
+                  Entrar
+                </Link>
+              </p>
+            </div>
+          </form>
+        </div>
+
+        <div className="registerVisual">
+          <div className="visualContent">
+            <h3>Comece a sua jornada imobiliária</h3>
+            <p>
+              Aceda às melhores propriedades em Portugal e conte com o apoio
+              especializado da Raquel Perez.
+            </p>
+            <div className="benefits">
+              <div className="benefit">
+                <span className="benefitIcon">🔍</span>
+                <div>
+                  <strong>Pesquisa Avançada</strong>
+                  <p>Encontre exatamente o que procura</p>
+                </div>
+              </div>
+              <div className="benefit">
+                <span className="benefitIcon">❤️</span>
+                <div>
+                  <strong>Lista de Favoritos</strong>
+                  <p>Guarde as suas propriedades preferidas</p>
+                </div>
+              </div>
+              <div className="benefit">
+                <span className="benefitIcon">💬</span>
+                <div>
+                  <strong>Contacto Direto</strong>
+                  <p>Fale diretamente com a consultora</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="visualImage">
+            <img src="/bg.png" alt="Propriedades exclusivas" />
+          </div>
+        </div>
       </div>
     </div>
   );

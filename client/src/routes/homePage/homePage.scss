@@ -1,8 +1,15 @@
-@import "../../responsive.scss";
+@import '../../responsive.scss';
 
 .homePage {
   display: flex;
   height: 100%;
+  min-height: 100vh;
+
+  // Layout padrão desktop
+  @include lg {
+    flex-direction: column;
+    min-height: auto;
+  }
 
   .textContainer {
     flex: 3;
@@ -14,46 +21,139 @@
       justify-content: center;
       gap: 50px;
       height: 100%;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
 
-      @include lg{
+      @include lg {
         padding-right: 50px;
+        gap: 30px;
       }
 
-      @include md{
-        padding: 0;
+      @include md {
+        padding: 2rem 1rem;
+        gap: 25px;
+        justify-content: flex-start;
       }
 
-      @include sm{
+      @include sm {
+        padding: 1.5rem 1rem;
+        gap: 20px;
         justify-content: flex-start;
       }
 
       .title {
         font-size: 64px;
+        line-height: 1.1;
+        margin-bottom: 0;
 
         @include lg {
           font-size: 48px;
+        }
+
+        @include md {
+          font-size: 36px;
+          text-align: center;
+        }
+
+        @include sm {
+          font-size: 28px;
+          text-align: center;
+        }
+      }
+
+      p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 0;
+
+        @include md {
+          font-size: 15px;
+          text-align: justify;
+        }
+
+        @include sm {
+          font-size: 14px;
+          text-align: left;
         }
       }
 
       .boxes {
         display: flex;
         justify-content: space-between;
+        gap: 1rem;
+        position: relative;
+        z-index: 1;
+
+        @include md {
+          justify-content: space-around;
+          flex-wrap: wrap;
+          gap: 1.5rem;
+        }
 
         @include sm {
-          display: none;
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+          margin-top: 1rem;
+          position: static;
+        }
+
+        .box {
+          text-align: center;
+          padding: 1rem;
+          position: relative;
+
+          @include md {
+            flex: 1;
+            min-width: 120px;
+            position: static;
+          }
+
+          @include sm {
+            width: 100%;
+            max-width: 200px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: static;
+            z-index: auto;
+          }
         }
 
         h1 {
           font-size: 36px;
+          margin: 0 0 0.5rem 0;
+          color: #2c3e50;
 
           @include lg {
             font-size: 32px;
+          }
+
+          @include md {
+            font-size: 28px;
+          }
+
+          @include sm {
+            font-size: 32px;
+            color: #e74c3c;
           }
         }
 
         h2 {
           font-size: 20px;
           font-weight: 300;
+          margin: 0;
+          color: #666;
+
+          @include md {
+            font-size: 18px;
+          }
+
+          @include sm {
+            font-size: 16px;
+            font-weight: 400;
+          }
         }
       }
     }
@@ -65,18 +165,106 @@
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
+
+    @include lg {
+      flex: none;
+      height: 300px;
+      order: -1; // Coloca a imagem no topo em tablets
+    }
 
     @include md {
-      display: none;
+      height: 250px;
+      background: linear-gradient(135deg, #fcf5f3 0%, #f8e8e3 100%);
+      order: -1; // Coloca a imagem no topo em mobile
+    }
+
+    @include sm {
+      height: 200px;
+      margin-bottom: 1rem;
     }
 
     img {
       width: 115%;
       position: absolute;
       right: 0;
+      object-fit: cover;
+      height: 90%;
 
       @include lg {
         width: 105%;
+        position: static;
+        height: auto;
+        max-height: 90%;
+        object-fit: contain;
+      }
+
+      @include md {
+        position: static;
+        width: auto;
+        height: 80%;
+        max-width: 200px;
+        object-fit: contain;
+        border-radius: 50%;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      @include sm {
+        height: 70%;
+        max-width: 150px;
+        border-radius: 50%;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+}
+
+// Melhorias adicionais para mobile
+@include sm {
+  .homePage {
+    .textContainer .wrapper {
+      // Adiciona mais espaçamento entre elementos
+      > * + * {
+        margin-top: 1rem;
+      }
+
+      // Garante que elementos de busca/filtros tenham prioridade
+      .searchBar,
+      [class*='filter'],
+      [class*='search'] {
+        position: relative;
+        z-index: 10;
+      }
+    }
+  }
+}
+
+// Correção específica para evitar sobreposição
+.boxes {
+  // Remove qualquer posicionamento absoluto em mobile
+  @include sm {
+    position: static !important;
+
+    .box {
+      position: static !important;
+      z-index: auto !important;
+    }
+  }
+}
+
+// Animações suaves para transições
+@media (prefers-reduced-motion: no-preference) {
+  .homePage {
+    .imgContainer img {
+      transition: transform 0.3s ease;
+    }
+
+    .boxes .box {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       }
     }
   }
