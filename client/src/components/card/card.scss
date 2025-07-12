@@ -246,6 +246,22 @@
             transform: translateY(-1px);
           }
 
+          // Estilo específico para o ícone WhatsApp
+          &.whatsapp-icon {
+            border-color: #25d366;
+
+            &:hover {
+              background-color: #25d366;
+              border-color: #25d366;
+              transform: translateY(-2px);
+              box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+
+              img {
+                filter: brightness(0) invert(1);
+              }
+            }
+          }
+
           img {
             width: 16px;
             height: 16px;

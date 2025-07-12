@@ -10,6 +10,7 @@ import ProfileUpdatePage from './routes/profileUpdatePage/profileUpdatePage';
 import NewPostPage from './routes/newPostPage/newPostPage';
 import AboutPage from './routes/about/about';
 import ContactPage from './routes/contact/contact';
+import SellPropertyPage from './routes/sellProperty/SellPropertyPage';
 
 import {
   listPageLoader,
@@ -34,6 +35,10 @@ function App() {
         {
           path: '/contact',
           element: <ContactPage />,
+        },
+        {
+          path: '/sell-property',
+          element: <SellPropertyPage />,
         },
         {
           path: '/list',

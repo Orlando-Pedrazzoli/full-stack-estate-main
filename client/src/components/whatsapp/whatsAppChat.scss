@@ -1,0 +1,224 @@
+// client/src/components/whatsapp/whatsAppChat.scss
+@import '../../responsive.scss';
+
+.whatsapp-chat {
+  .whatsapp-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    min-width: 200px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+    @include md {
+      padding: 10px 20px;
+      font-size: 14px;
+      min-width: 180px;
+    }
+
+    @include sm {
+      padding: 12px 16px;
+      font-size: 14px;
+      min-width: 100%;
+    }
+
+    .whatsapp-icon {
+      width: 24px;
+      height: 24px;
+      filter: brightness(0) invert(1);
+
+      @include sm {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    // Variações por tipo
+    &.property {
+      background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+      color: white;
+
+      &:hover {
+        background: linear-gradient(135deg, #128c7e 0%, #075e54 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+      }
+    }
+
+    &.sell {
+      background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+      color: white;
+
+      &:hover {
+        background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+      }
+    }
+
+    &.buy {
+      background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+      color: white;
+
+      &:hover {
+        background: linear-gradient(135deg, #2980b9 0%, #21618c 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+      }
+    }
+
+    &.rent {
+      background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+      color: white;
+
+      &:hover {
+        background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(243, 156, 18, 0.3);
+      }
+    }
+
+    &.general {
+      background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+      color: white;
+
+      &:hover {
+        background: linear-gradient(135deg, #128c7e 0%, #075e54 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+      }
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+// Botão flutuante do WhatsApp
+.whatsapp-floating {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1000;
+
+  @include sm {
+    width: 55px;
+    height: 55px;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  img {
+    width: 35px;
+    height: 35px;
+    filter: brightness(0) invert(1);
+
+    @include sm {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .tooltip {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    background: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    transform: translateY(10px);
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      right: 15px;
+      border: 5px solid transparent;
+      border-top-color: #333;
+    }
+  }
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 35px rgba(37, 211, 102, 0.4);
+
+    .tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+
+  // Animação de pulse
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background: #25d366;
+    animation: whatsapp-pulse 2s infinite;
+    z-index: -1;
+  }
+}
+
+@keyframes whatsapp-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+// Responsividade adicional
+@media (max-width: 480px) {
+  .whatsapp-chat .whatsapp-btn {
+    padding: 14px 20px;
+    font-size: 16px;
+
+    span {
+      font-size: 15px;
+    }
+  }
+}
+
+// Estado de loading/desabilitado
+.whatsapp-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}

@@ -1,7 +1,29 @@
+// client/src/components/card/Card.jsx
 import { Link } from 'react-router-dom';
+import WhatsAppChat from '../whatsapp/WhatsAppChat';
 import './card.scss';
 
 function Card({ item }) {
+  const openWhatsApp = () => {
+    const RAQUEL_WHATSAPP = '351912164220'; // Substitua pelo número real
+
+    const message = encodeURIComponent(`Olá Raquel! 👋
+
+Tenho interesse na seguinte propriedade:
+
+🏠 *${item.title}*
+📍 ${item.address}
+💰 €${item.price.toLocaleString('pt-PT')}
+🛏️ ${item.bedroom} quartos | 🚿 ${item.bathroom} casas de banho
+
+Poderia fornecer mais informações sobre este imóvel?
+
+Obrigado(a)! 🙏`);
+
+    const whatsappURL = `https://wa.me/${RAQUEL_WHATSAPP}?text=${message}`;
+    window.open(whatsappURL, '_blank');
+  };
+
   return (
     <div className='card'>
       <Link to={`/${item.id}`} className='imageContainer'>
@@ -31,8 +53,12 @@ function Card({ item }) {
             <div className='icon'>
               <img src='/save.png' alt='' />
             </div>
-            <div className='icon'>
-              <img src='/chat.png' alt='' />
+            <div
+              className='icon whatsapp-icon'
+              onClick={openWhatsApp}
+              title='Contactar via WhatsApp'
+            >
+              <img src='/whatsapp.png' alt='WhatsApp' />
             </div>
           </div>
         </div>
