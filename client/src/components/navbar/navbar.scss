@@ -3,24 +3,44 @@
 
 .professional-navbar {
   height: 90px;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center; // Centraliza o conteúdo
   align-items: center;
   position: relative;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.95);
+  background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  padding: 0 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  margin: 0;
+  box-sizing: border-box;
 
   @include md {
-    padding: 0 1rem;
     height: 80px;
   }
 
   @include sm {
-    padding: 0 0.75rem;
     height: 70px;
+  }
+
+  // Container interno que limita a largura
+  .navbar-container {
+    width: 100%;
+    max-width: 1200px; // Mesma largura do hero
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+
+    @include md {
+      padding: 0 1rem;
+    }
+
+    @include sm {
+      padding: 0 0.75rem;
+    }
   }
 
   .left {
@@ -52,6 +72,7 @@
         height: 40px;
         border-radius: 8px;
         object-fit: cover;
+        border: 2px solid rgba(255, 255, 255, 0.2);
 
         @include sm {
           width: 35px;
@@ -72,7 +93,7 @@
           font-family: 'Playfair Display', serif;
           font-size: 1.25rem;
           font-weight: 600;
-          color: #2c3e50;
+          color: #ffffff;
           letter-spacing: -0.02em;
 
           @include md {
@@ -84,7 +105,7 @@
           font-family: 'Inter', sans-serif;
           font-size: 0.75rem;
           font-weight: 400;
-          color: #7f8c8d;
+          color: #b0b0b0;
           text-transform: uppercase;
           letter-spacing: 0.1em;
 
@@ -108,7 +129,7 @@
         font-family: 'Inter', sans-serif;
         font-size: 0.9rem;
         font-weight: 500;
-        color: #495057;
+        color: #e0e0e0;
         text-decoration: none;
         padding: 0.5rem 1rem;
         border-radius: 6px;
@@ -116,20 +137,21 @@
         position: relative;
 
         &:hover {
-          color: #2c3e50;
-          background: rgba(44, 62, 80, 0.05);
+          color: #ffffff;
+          background: rgba(255, 255, 255, 0.1);
         }
 
         &.sell-link {
-          background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-          color: white;
+          background: linear-gradient(135deg, #fece51 0%, #f39c12 100%);
+          color: #1a1a1a;
           font-weight: 600;
           padding: 0.75rem 1.5rem;
 
           &:hover {
-            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.2);
+            box-shadow: 0 4px 12px rgba(254, 206, 81, 0.3);
+            color: #000000;
           }
         }
       }
@@ -161,14 +183,14 @@
           height: 38px;
           border-radius: 50%;
           object-fit: cover;
-          border: 2px solid #e9ecef;
+          border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
         .username {
           font-family: 'Inter', sans-serif;
           font-size: 0.9rem;
           font-weight: 500;
-          color: #2c3e50;
+          color: #ffffff;
         }
       }
     }
@@ -192,8 +214,8 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      background: white;
-      border: 1px solid #e9ecef;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 8px;
       padding: 0.75rem 1rem;
       cursor: pointer;
@@ -201,17 +223,23 @@
       font-family: 'Inter', sans-serif;
       font-size: 0.9rem;
       font-weight: 500;
-      color: #495057;
+      color: #e0e0e0;
 
       &:hover {
-        border-color: #2c3e50;
-        background: rgba(44, 62, 80, 0.02);
+        border-color: rgba(255, 255, 255, 0.4);
+        background: rgba(255, 255, 255, 0.15);
         transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+        color: #ffffff;
       }
 
       svg {
         transition: transform 0.3s ease;
+        color: #e0e0e0;
+      }
+
+      &:hover svg {
+        color: #ffffff;
       }
 
       &.active svg {
@@ -224,10 +252,10 @@
       top: 100%;
       right: 0;
       margin-top: 0.5rem;
-      background: white;
-      border: 1px solid #e9ecef;
+      background: #2c2c2c;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
       min-width: 200px;
       overflow: hidden;
       z-index: 1000;
@@ -241,7 +269,7 @@
         font-family: 'Inter', sans-serif;
         font-size: 0.9rem;
         font-weight: 500;
-        color: #495057;
+        color: #e0e0e0;
         text-decoration: none;
         border: none;
         background: none;
@@ -250,28 +278,38 @@
         cursor: pointer;
         transition: all 0.2s ease;
 
+        svg {
+          color: #b0b0b0;
+        }
+
         &:hover {
-          background: rgba(44, 62, 80, 0.05);
-          color: #2c3e50;
+          background: rgba(255, 255, 255, 0.1);
+          color: #ffffff;
+
+          svg {
+            color: #ffffff;
+          }
         }
 
         &.logout {
-          border-top: 1px solid #f1f3f4;
-          color: #dc3545;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          color: #ff6b6b;
 
           &:hover {
-            background: rgba(220, 53, 69, 0.05);
+            background: rgba(255, 107, 107, 0.1);
+            color: #ff8a8a;
           }
         }
 
         &.register {
-          background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-          color: white;
+          background: linear-gradient(135deg, #fece51 0%, #f39c12 100%);
+          color: #1a1a1a;
           margin: 0.5rem;
           border-radius: 8px;
 
           &:hover {
-            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: #000000;
           }
         }
       }
@@ -289,12 +327,16 @@
         border: none;
         cursor: pointer;
         padding: 0.5rem;
-        color: #495057;
+        color: #e0e0e0;
         transition: all 0.3s ease;
 
         &:hover {
-          color: #2c3e50;
+          color: #ffffff;
           transform: scale(1.1);
+        }
+
+        svg {
+          color: inherit;
         }
       }
     }
@@ -305,8 +347,8 @@
       right: -100%;
       width: 300px;
       height: 100vh;
-      background: white;
-      box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+      box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
       transition: all 0.3s ease;
       z-index: 1001;
 
@@ -330,7 +372,7 @@
           font-family: 'Inter', sans-serif;
           font-size: 1rem;
           font-weight: 500;
-          color: #495057;
+          color: #e0e0e0;
           text-decoration: none;
           border-radius: 8px;
           transition: all 0.3s ease;
@@ -341,34 +383,36 @@
           cursor: pointer;
 
           &:hover {
-            background: rgba(44, 62, 80, 0.05);
-            color: #2c3e50;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
             transform: translateX(5px);
           }
 
           &.logout {
-            color: #dc3545;
+            color: #ff6b6b;
 
             &:hover {
-              background: rgba(220, 53, 69, 0.05);
+              background: rgba(255, 107, 107, 0.1);
+              color: #ff8a8a;
             }
           }
 
           &.register {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
+            background: linear-gradient(135deg, #fece51 0%, #f39c12 100%);
+            color: #1a1a1a;
             margin-top: 1rem;
 
             &:hover {
-              background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+              background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
               transform: translateX(0);
+              color: #000000;
             }
           }
         }
 
         .mobile-divider {
           height: 1px;
-          background: #e9ecef;
+          background: rgba(255, 255, 255, 0.1);
           margin: 1.5rem 0;
         }
       }

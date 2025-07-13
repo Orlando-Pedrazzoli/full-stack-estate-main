@@ -1,7 +1,18 @@
+// client/src/index.scss
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 a {
@@ -10,6 +21,82 @@ a {
 }
 
 body {
-  font-family: 'Lato', sans-serif;
-  overflow-x: hidden; /* ← Só bloqueia scroll horizontal */
+  font-family: 'Inter', 'Lato', sans-serif;
+  overflow-x: hidden; // Previne scroll horizontal
+  line-height: 1.6;
+  color: #333;
+  background-color: #ffffff;
+}
+
+// Remove qualquer limitação de largura padrão
+.layout,
+.homePage,
+.aboutPage,
+.sellPropertyPage,
+.listPage,
+.profilePage,
+.loginPage,
+.registerPage,
+.contactPage {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+// Reset para containers que podem limitar largura
+.container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 2rem;
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 0.75rem;
+  }
+}
+
+// Para seções que precisam de conteúdo centrado (opcional)
+.content-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 0.75rem;
+  }
+}
+
+// Hero sections full width
+.hero,
+.heroSection,
+.hero-section {
+  width: 100%;
+  margin: 0;
+  padding: 4rem 2rem;
+
+  @media (max-width: 768px) {
+    padding: 3rem 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 2rem 0.75rem;
+  }
+}
+
+// Utility classes
+.w-full {
+  width: 100% !important;
+}
+
+.mx-0 {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
