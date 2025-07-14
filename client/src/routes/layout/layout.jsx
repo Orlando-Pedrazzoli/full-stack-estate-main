@@ -41,4 +41,8 @@ function RequireAuth() {
   }
 }
 
-export { Layout, RequireAuth };
+// Exportação padrão
+export default Layout;
+
+// Exportação nomeada
+export { RequireAuth };

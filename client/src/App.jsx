@@ -13,6 +13,12 @@ import NewPostPage from './routes/newPostPage/newPostPage';
 import LoginPage from './routes/login/login';
 import RegisterPage from './routes/register/register';
 
+// Páginas adicionais
+import AboutPage from './routes/about/about';
+import ContactPage from './routes/contact/contact';
+import SellPropertyPage from './routes/sellProperty/SellPropertyPage';
+import PrivacyPolicy from './routes/privacyPolicy/PrivacyPolicy';
+
 // Loaders
 import {
   listPageLoader,
@@ -37,9 +43,20 @@ function App() {
           loader: listPageLoader,
         },
         {
-          path: '/:id',
-          element: <SinglePage />,
-          loader: singlePageLoader,
+          path: '/about',
+          element: <AboutPage />,
+        },
+        {
+          path: '/sell-property',
+          element: <SellPropertyPage />,
+        },
+        {
+          path: '/contact',
+          element: <ContactPage />,
+        },
+        {
+          path: '/privacy-policy',
+          element: <PrivacyPolicy />,
         },
         {
           path: '/profile',
@@ -62,6 +79,12 @@ function App() {
         {
           path: '/register',
           element: <RegisterPage />,
+        },
+        {
+          // Esta rota deve ser a ÚLTIMA para capturar posts individuais
+          path: '/:id',
+          element: <SinglePage />,
+          loader: singlePageLoader,
         },
       ],
     },
