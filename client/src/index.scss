@@ -28,27 +28,20 @@ body {
   background-color: #ffffff;
 }
 
-// Remove qualquer limitação de largura padrão
-.layout,
-.homePage,
-.aboutPage,
-.sellPropertyPage,
-.listPage,
-.profilePage,
-.loginPage,
-.registerPage,
-.contactPage {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
+// SISTEMA DE LAYOUT PADRONIZADO
+// ===============================
 
-// Reset para containers que podem limitar largura
-.container {
+// Container principal para todas as páginas
+.page-container {
   width: 100%;
-  max-width: none;
-  margin: 0;
+  max-width: 1400px; // Largura máxima padrão
+  margin: 0 auto;
   padding: 0 2rem;
+
+  @media (max-width: 1440px) {
+    max-width: 1200px;
+    padding: 0 1.5rem;
+  }
 
   @media (max-width: 768px) {
     padding: 0 1rem;
@@ -59,9 +52,31 @@ body {
   }
 }
 
-// Para seções que precisam de conteúdo centrado (opcional)
-.content-wrapper {
+// Container para seções específicas
+.section-container {
+  width: 100%;
   max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+
+  @media (max-width: 1440px) {
+    max-width: 1200px;
+    padding: 3rem 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.5rem 0.75rem;
+  }
+}
+
+// Container para conteúdo de texto (mais estreito)
+.content-container {
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
 
@@ -74,20 +89,126 @@ body {
   }
 }
 
-// Hero sections full width
+// APLICAR PADRÃO A PÁGINAS ESPECÍFICAS
+// ====================================
+
+// Reset para containers que podem limitar largura
+.layout,
+.homePage,
+.aboutPage,
+.sellPropertyPage,
+.listPage,
+.profilePage,
+.loginPage,
+.registerPage,
+.contactPage,
+.singlePage {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+// Aplicar container padrão automaticamente
+.homePage,
+.aboutPage,
+.sellPropertyPage,
+.contactPage {
+  .container,
+  .hero-content,
+  .heroContent {
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+
+    @media (max-width: 1440px) {
+      max-width: 1200px !important;
+      padding-left: 1.5rem !important;
+      padding-right: 1.5rem !important;
+    }
+
+    @media (max-width: 768px) {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+
+    @media (max-width: 480px) {
+      padding-left: 0.75rem !important;
+      padding-right: 0.75rem !important;
+    }
+  }
+}
+
+// Hero sections com largura total mas conteúdo centralizado
 .hero,
 .heroSection,
 .hero-section {
   width: 100%;
   margin: 0;
-  padding: 4rem 2rem;
+  padding: 4rem 0; // Apenas padding vertical
 
-  @media (max-width: 768px) {
-    padding: 3rem 1rem;
+  .hero-content,
+  .heroContent {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+
+    @media (max-width: 1440px) {
+      max-width: 1200px;
+      padding: 0 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      padding: 0 1rem;
+    }
+
+    @media (max-width: 480px) {
+      padding: 0 0.75rem;
+    }
   }
+}
 
-  @media (max-width: 480px) {
-    padding: 2rem 0.75rem;
+// Profile page específica
+.profilePage {
+  .details .wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+
+    @media (max-width: 1440px) {
+      max-width: 1200px;
+      padding: 2rem 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      padding: 2rem 1rem;
+    }
+
+    @media (max-width: 480px) {
+      padding: 1.5rem 0.75rem;
+    }
+  }
+}
+
+// Single page específica
+.singlePage {
+  .details .wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+
+    @media (max-width: 1440px) {
+      max-width: 1200px;
+      padding: 2rem 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      padding: 2rem 1rem;
+    }
+
+    @media (max-width: 480px) {
+      padding: 1.5rem 0.75rem;
+    }
   }
 }
 
@@ -96,7 +217,56 @@ body {
   width: 100% !important;
 }
 
-.mx-0 {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
+.mx-auto {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.container-padding {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+
+  @media (max-width: 768px) {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  @media (max-width: 480px) {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+}
+
+// Melhorias gerais de UX
+.page-transition {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Scrollbar personalizada global
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+
+  &:hover {
+    background: #a8a8a8;
+  }
 }
