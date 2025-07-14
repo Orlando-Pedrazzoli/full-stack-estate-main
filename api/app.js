@@ -16,12 +16,13 @@ dotenv.config();
 
 const app = express();
 
-// Configuração de CORS para produção
+// Configuração de CORS
 const allowedOrigins = [
   process.env.CLIENT_URL,
-  'http://localhost:5173', // para desenvolvimento local
-  'http://localhost:3000', // caso use porta 3000 local
-].filter(Boolean); // Remove valores undefined
+  'http://localhost:5173', // Vite dev server
+  'http://localhost:3000', // Create React App
+  'http://localhost:3001', // Alternativa
+].filter(Boolean);
 
 // Middlewares
 app.use(
@@ -45,7 +46,12 @@ app.use(cookieParser());
 
 // Rota de health check
 app.get('/', (req, res) => {
-  res.json({ message: 'API funcionando!', status: 'OK' });
+  res.json({
+    message: 'API funcionando!',
+    status: 'OK',
+    port: process.env.PORT || 3000,
+    env: process.env.NODE_ENV || 'development',
+  });
 });
 
 // Rotas da API
@@ -61,12 +67,19 @@ app.use('*', (req, res) => {
   res.status(404).json({ message: 'Rota não encontrada' });
 });
 
-// No Vercel, não usamos app.listen() - o serverless cuida disso
+// Configuração de porta para desenvolvimento local
+const PORT = process.env.PORT || 3000;
+
+// Sempre inicia o servidor em desenvolvimento local
+// Para produção (Vercel), isso será ignorado
 if (process.env.NODE_ENV !== 'production') {
-  const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
+    console.log(`🚀 Servidor rodando na porta ${PORT}`);
+    console.log(`📍 http://localhost:${PORT}`);
+    console.log(`🌍 Ambiente: ${process.env.NODE_ENV || 'development'}`);
   });
+} else {
+  console.log('🔧 Modo produção - Vercel gerencia o servidor');
 }
 
 export default app;

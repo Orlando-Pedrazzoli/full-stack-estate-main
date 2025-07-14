@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "build": "echo 'Build completed'",
+    "test": "echo 'No tests specified'"
   },
   "keywords": [],
   "author": "",
