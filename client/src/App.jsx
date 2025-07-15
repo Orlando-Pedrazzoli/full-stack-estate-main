@@ -81,8 +81,8 @@ function App() {
           element: <RegisterPage />,
         },
         {
-          // Esta rota deve ser a ÚLTIMA para capturar posts individuais
-          path: '/:id',
+          // ROTA ESPECÍFICA para posts individuais
+          path: '/post/:id',
           element: <SinglePage />,
           loader: singlePageLoader,
         },

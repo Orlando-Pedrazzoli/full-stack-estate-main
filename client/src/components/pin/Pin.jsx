@@ -34,7 +34,7 @@ function Pin({ item }) {
             />
           )}
           <div className='textContainer'>
-            <Link to={`/${item.id}`}>{item.title || 'Propriedade'}</Link>
+            <Link to={`/post/${item.id}`}>{item.title || 'Propriedade'}</Link>
             <span>
               {item.bedroom} {item.bedroom === 1 ? 'quarto' : 'quartos'}
             </span>

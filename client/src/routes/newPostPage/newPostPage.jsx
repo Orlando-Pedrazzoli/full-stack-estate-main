@@ -38,6 +38,9 @@ function NewPostPage() {
     'Vila Franca de Xira',
   ];
 
+  // 1. ATUALIZAR newPostPage.jsx - Apenas a função handleSubmit
+  // Substitua a função handleSubmit existente por esta:
+
   const handleSubmit = async e => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -54,8 +57,9 @@ function NewPostPage() {
           bathroom: parseInt(inputs.bathroom),
           type: inputs.type,
           property: inputs.property,
-          latitude: inputs.latitude,
-          longitude: inputs.longitude,
+          // Converter coordenadas para números (serão convertidas para string no controller)
+          latitude: inputs.latitude ? parseFloat(inputs.latitude) : null,
+          longitude: inputs.longitude ? parseFloat(inputs.longitude) : null,
           images: images,
         },
         postDetail: {
@@ -63,16 +67,38 @@ function NewPostPage() {
           utilities: inputs.utilities,
           pet: inputs.pet,
           income: inputs.income,
-          size: parseInt(inputs.size),
-          school: parseInt(inputs.school),
-          bus: parseInt(inputs.bus),
-          restaurant: parseInt(inputs.restaurant),
+          size: parseInt(inputs.size) || null,
+          school: parseInt(inputs.school) || null,
+          bus: parseInt(inputs.bus) || null,
+          restaurant: parseInt(inputs.restaurant) || null,
         },
       });
-      navigate('/' + res.data.id);
+
+      // 🔍 LOGS PARA DEBUG
+      console.log('📦 Resposta completa:', res);
+      console.log('📦 res.data:', res.data);
+      console.log('📦 res.data.post:', res.data.post);
+      console.log('📦 ID do post:', res.data.post?.id);
+
+      // 🎯 CORREÇÃO: O ID está dentro de res.data.post.id
+      const postId = res.data.post?.id;
+
+      if (postId) {
+        console.log('✅ Redirecionando para:', `/post/${postId}`);
+        navigate(`/post/${postId}`);
+      } else {
+        console.error('❌ ID não encontrado na resposta');
+        console.error('Estrutura da resposta:', res.data);
+        setError(
+          'Post criado com sucesso, mas houve um problema no redirecionamento.'
+        );
+
+        // Fallback: redirecionar para lista de posts
+        navigate('/profile');
+      }
     } catch (err) {
-      console.log(err);
-      setError('Erro ao criar o anúncio. Tente novamente.');
+      console.error('💥 Erro ao criar post:', err);
+      setError('Erro ao criar o anúncio');
     }
   };
 

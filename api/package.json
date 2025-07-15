@@ -8,7 +8,16 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "build": "echo 'Build completed'",
-    "test": "echo 'No tests specified'"
+    "test": "echo 'No tests specified'",
+    "test:db": "node scripts/testDatabase.js",
+    "db:reset": "npx prisma migrate reset --force",
+    "db:push": "npx prisma db push",
+    "db:generate": "npx prisma generate",
+    "db:studio": "npx prisma studio",
+    "debug": "node --inspect app.js",
+    "db:seed": "node scripts/seedDatabase.js",
+    "logs:clear": "rm -f *.log",
+    "health": "curl http://localhost:3000/"
   },
   "keywords": [],
   "author": "",
