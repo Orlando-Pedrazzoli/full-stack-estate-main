@@ -1,269 +1,481 @@
-@import '../../responsive.scss';
+/* client/src/routes/listPage/listPage.scss */
 
 .listPage {
-  width: 100%;
-  background: #f8f9fa;
-  min-height: calc(100vh - 90px);
   display: flex;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem;
-  gap: 2rem;
-
-  @include lg {
-    max-width: 1200px;
-    padding: 1.5rem;
-  }
-
-  @include md {
-    flex-direction: column;
-    overflow: auto;
-    height: auto;
-    padding: 1rem;
-    gap: 1.5rem;
-  }
-
-  @include sm {
-    padding: 0.75rem;
-  }
-
-  // Estados de loading e erro
-  .loading,
-  .error-message,
-  .no-results,
-  .map-loading,
-  .map-error {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 3rem 2rem;
-    text-align: center;
-    color: #6c757d;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    margin: 1rem 0;
-
-    h3 {
-      color: #2c3e50;
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-    }
-
-    p {
-      margin-bottom: 1rem;
-      font-size: 1rem;
-    }
-
-    button {
-      background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-      color: white;
-      border: none;
-      padding: 0.8rem 1.5rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 600;
-
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
-      }
-    }
-  }
-
-  .map-loading,
-  .map-error {
-    height: 100%;
-    min-height: 300px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border: 2px dashed #dee2e6;
-  }
+  height: calc(100vh - 80px); // Ajustar conforme altura do navbar
 
   .listContainer {
-    flex: 2; // Reduzido de 3 para dar mais espaço ao mapa
-    height: 100%;
-    min-width: 0; // Permite que o flex funcione corretamente
-
-    @include md {
-      flex: none;
-      height: auto;
-      margin-bottom: 2rem;
-    }
+    flex: 3;
+    padding: 20px;
+    overflow-y: auto;
+    background: #f8f9fa;
 
     .wrapper {
-      height: 100%;
-      padding-right: 0; // Removido padding extra
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Cabeçalho da lista */
+    .listHeader {
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #e9ecef;
+
+      .listTitle {
+        margin: 0 0 15px 0;
+        font-size: 28px;
+        font-weight: 700;
+        color: #2c3e50;
+        line-height: 1.2;
+      }
+
+      .activeFilters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+
+        .filterTag {
+          display: inline-block;
+          padding: 6px 12px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+          border-radius: 20px;
+          font-size: 12px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+      }
+    }
+
+    /* Informações dos resultados */
+    .resultsInfo {
+      margin-bottom: 20px;
+
+      .resultsCount {
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 15px;
+      }
+
+      .noResults {
+        text-align: center;
+        padding: 60px 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+        .noResultsIcon {
+          font-size: 4rem;
+          margin-bottom: 20px;
+        }
+
+        h3 {
+          margin: 0 0 10px 0;
+          font-size: 24px;
+          color: #495057;
+        }
+
+        p {
+          margin: 0 0 30px 0;
+          color: #6c757d;
+          font-size: 16px;
+        }
+
+        .suggestions {
+          text-align: left;
+          max-width: 400px;
+          margin: 0 auto;
+
+          h4 {
+            margin: 0 0 15px 0;
+            color: #495057;
+            font-size: 18px;
+          }
+
+          ul {
+            margin: 0;
+            padding-left: 20px;
+
+            li {
+              margin-bottom: 8px;
+              color: #6c757d;
+              line-height: 1.5;
+            }
+          }
+        }
+      }
+    }
+
+    /* Grid de resultados */
+    .listContent {
       display: flex;
       flex-direction: column;
-      gap: 2rem; // Reduzido gap
-      overflow-y: auto;
-      padding-bottom: 2rem;
+      gap: 20px;
+    }
 
-      @include md {
-        gap: 1.5rem;
-        padding-bottom: 1rem;
+    /* Estados de loading */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+      font-size: 18px;
+      color: #6c757d;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  /* Container do Mapa */
+  .mapContainer {
+    flex: 2;
+    position: relative;
+    background: white;
+
+    .mapWrapper {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .mapHeader {
+        padding: 20px;
+        border-bottom: 1px solid #e9ecef;
+        background: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+
+        h3 {
+          margin: 0;
+          font-size: 18px;
+          font-weight: 600;
+          color: #495057;
+        }
+
+        .mapLegend {
+          display: flex;
+          gap: 20px;
+
+          .legendItem {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #6c757d;
+
+            .legendIcon {
+              width: 12px;
+              height: 12px;
+              border-radius: 50%;
+
+              &.buy {
+                background: linear-gradient(135deg, #4caf50, #45a049);
+              }
+
+              &.rent {
+                background: linear-gradient(135deg, #2196f3, #1976d2);
+              }
+            }
+          }
+        }
       }
 
-      // Scrollbar personalizada
-      &::-webkit-scrollbar {
-        width: 6px;
+      /* Área do mapa */
+      .map {
+        flex: 1;
+        min-height: 0;
       }
 
-      &::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 3px;
+      .mapFooter {
+        padding: 10px 20px;
+        background: #f8f9fa;
+        border-top: 1px solid #e9ecef;
+        text-align: center;
+
+        small {
+          color: #6c757d;
+          font-size: 12px;
+        }
       }
+    }
 
-      &::-webkit-scrollbar-thumb {
-        background: #c1c1c1;
-        border-radius: 3px;
+    /* Estados de loading e erro do mapa */
+    .mapLoading,
+    .mapError {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+      color: #6c757d;
+      background: #f8f9fa;
+    }
 
-        &:hover {
-          background: #a8a8a8;
+    .mapError {
+      color: #dc3545;
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    height: auto;
+
+    .listContainer {
+      flex: none;
+      max-height: 60vh;
+
+      .listHeader {
+        .listTitle {
+          font-size: 24px;
+        }
+
+        .activeFilters {
+          .filterTag {
+            font-size: 11px;
+            padding: 4px 10px;
+          }
+        }
+      }
+    }
+
+    .mapContainer {
+      flex: none;
+      height: 40vh;
+      min-height: 300px;
+
+      .mapWrapper .mapHeader {
+        padding: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .mapLegend {
+          gap: 15px;
         }
       }
     }
   }
 
-  .mapContainer {
-    flex: 3; // Aumentado de 2 para dar mais espaço ao mapa
-    height: 100%;
-    background: white; // Mudança de cor para melhor visibilidade
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    position: relative;
-    border: 1px solid #e9ecef; // Borda para melhor definição
-    display: flex; // Garantir que seja um flex container
-    flex-direction: column;
+  @media (max-width: 768px) {
+    .listContainer {
+      padding: 15px;
+      max-height: 50vh;
 
-    // DESKTOP: sempre mostrar
-    @media (min-width: 769px) {
-      display: flex !important;
-      height: 100% !important;
-      min-height: 500px;
-    }
+      .listHeader {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
 
-    // TABLET E MOBILE
-    @include md {
-      display: flex !important; // Forçar exibição
-      height: 400px; // Altura fixa em mobile
-      order: -1; // Colocar antes da lista em mobile
-      min-height: 400px;
-    }
+        .listTitle {
+          font-size: 20px;
+        }
 
-    @include sm {
-      height: 350px;
-      min-height: 350px;
-    }
+        .activeFilters {
+          gap: 6px;
 
-    // Debug: adicionar indicador visual
-    &::after {
-      content: 'Área do Mapa - Desktop';
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: rgba(44, 62, 80, 0.8);
-      color: white;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 10px;
-      z-index: 1000;
-      pointer-events: none;
+          .filterTag {
+            font-size: 10px;
+            padding: 3px 8px;
+          }
+        }
+      }
 
-      @include md {
-        content: 'Área do Mapa - Mobile';
+      .resultsInfo {
+        .noResults {
+          padding: 40px 15px;
+
+          .noResultsIcon {
+            font-size: 3rem;
+          }
+
+          h3 {
+            font-size: 20px;
+          }
+
+          p {
+            font-size: 14px;
+          }
+        }
       }
     }
 
-    // Garantir que o mapa ocupe todo o espaço
-    .map-wrapper {
-      height: 100% !important;
-      width: 100% !important;
-      display: flex !important;
-      flex-direction: column;
+    .mapContainer {
+      height: 50vh;
+
+      .mapWrapper .mapHeader {
+        padding: 10px;
+
+        h3 {
+          font-size: 16px;
+        }
+
+        .mapLegend {
+          gap: 10px;
+
+          .legendItem {
+            font-size: 12px;
+            gap: 6px;
+
+            .legendIcon {
+              width: 10px;
+              height: 10px;
+            }
+          }
+        }
+      }
+
+      .mapWrapper .mapFooter {
+        padding: 8px 10px;
+
+        small {
+          font-size: 11px;
+        }
+      }
     }
+  }
 
-    .map {
-      height: 100% !important;
-      width: 100% !important;
-      flex: 1;
-    }
+  @media (max-width: 480px) {
+    .listContainer {
+      padding: 10px;
 
-    // Estilos específicos para o Leaflet
-    .leaflet-container {
-      height: 100% !important;
-      width: 100% !important;
-      z-index: 1;
-      flex: 1;
-    }
+      .listHeader {
+        .listTitle {
+          font-size: 18px;
+        }
+      }
 
-    // Placeholder melhorado quando não há mapa
-    .map-placeholder {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-      border: 2px dashed #dee2e6;
-      color: #6c757d;
-      font-size: 1.1rem;
-      font-weight: 500;
-      text-align: center;
+      .resultsInfo {
+        .resultsCount {
+          font-size: 14px;
+        }
 
-      p {
-        margin: 0;
-        padding: 2rem;
+        .noResults {
+          padding: 30px 10px;
+
+          .suggestions {
+            h4 {
+              font-size: 16px;
+            }
+
+            ul li {
+              font-size: 14px;
+            }
+          }
+        }
       }
     }
 
-    // Loading states específicos
-    .map-loading,
-    .map-error {
-      display: flex !important;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      min-height: 300px;
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-      border: 2px dashed #dee2e6;
-      color: #6c757d;
-      font-size: 1.1rem;
-      font-weight: 500;
-      text-align: center;
+    .mapContainer .mapWrapper .mapHeader {
+      .mapLegend {
+        width: 100%;
+        justify-content: center;
+      }
     }
   }
-}
 
-@keyframes spin {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
+  /* Animações */
+  .filterTag {
+    animation: slideInFromTop 0.3s ease-out;
   }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
+
+  .listContent > * {
+    animation: fadeInUp 0.4s ease-out;
   }
-}
 
-// Melhorias específicas para o filtro
-.filter {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e9ecef;
-  transition: all 0.3s ease;
-
-  &:hover {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  .mapWrapper {
+    animation: slideInFromRight 0.5s ease-out;
   }
 }
 
-// Melhorias para os cards
-.card {
-  transition: all 0.3s ease;
+/* Keyframes para animações */
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-  &:hover {
-    transform: translateY(-2px);
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Melhorias de acessibilidade */
+.filterTag:focus,
+.legendItem:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* Modo escuro (opcional) */
+@media (prefers-color-scheme: dark) {
+  .listPage {
+    .listContainer {
+      background: #1a1a1a;
+
+      .listHeader .listTitle {
+        color: #f8f9fa;
+      }
+
+      .resultsInfo .resultsCount {
+        color: #ced4da;
+      }
+
+      .loading {
+        background: #2d2d2d;
+        color: #ced4da;
+      }
+    }
+
+    .mapContainer {
+      .mapWrapper .mapHeader {
+        background: #2d2d2d;
+        border-bottom-color: #495057;
+
+        h3 {
+          color: #f8f9fa;
+        }
+
+        .mapLegend .legendItem {
+          color: #ced4da;
+        }
+      }
+
+      .mapWrapper .mapFooter {
+        background: #1a1a1a;
+        border-top-color: #495057;
+
+        small {
+          color: #6c757d;
+        }
+      }
+    }
   }
 }

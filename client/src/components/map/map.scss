@@ -1,307 +1,319 @@
-// client/src/components/map/map.scss
+/* client/src/components/map/map.scss */
 
 .map-wrapper {
-  width: 100%;
   height: 100%;
-  position: relative;
-  min-height: 300px;
-  background: #f8f9fa;
-  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
-  .map-info {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(44, 62, 80, 0.9);
-    color: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 11px;
-    z-index: 1000;
+  .map-header {
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
     display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 150px;
-
-    span {
-      white-space: nowrap;
-    }
-  }
-
-  .map-placeholder {
-    display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    height: 100%;
-    min-height: 300px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border: 2px dashed #dee2e6;
-    border-radius: 12px;
-    color: #6c757d;
-    font-size: 1.1rem;
 
-    p {
+    h3 {
       margin: 0;
-      text-align: center;
-      font-weight: 500;
-    }
-  }
-}
-
-.map {
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: 12px;
-  overflow: hidden;
-  z-index: 1;
-  position: relative;
-
-  // Garantir que o Leaflet seja renderizado corretamente
-  .leaflet-container {
-    width: 100% !important;
-    height: 100% !important;
-    border-radius: 12px;
-    background: #f8f9fa !important;
-    font-family: 'Inter', sans-serif;
-
-    // Força a renderização no desktop
-    @media (min-width: 769px) {
-      display: block !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      position: relative !important;
-      z-index: 1 !important;
-    }
-  }
-
-  // Força exibição no desktop
-  @media (min-width: 769px) {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    min-height: 500px !important;
-  }
-
-  // Estilos aprimorados para os controles do mapa
-  .leaflet-control-zoom {
-    border: none !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
-    border-radius: 8px !important;
-    overflow: hidden;
-    margin: 15px !important;
-  }
-
-  .leaflet-control-zoom a {
-    background: white !important;
-    color: #2c3e50 !important;
-    border: none !important;
-    width: 34px !important;
-    height: 34px !important;
-    line-height: 34px !important;
-    font-size: 20px !important;
-    font-weight: 600 !important;
-    transition: all 0.2s ease !important;
-
-    &:hover {
-      background: #f8f9fa !important;
-      color: #2c3e50 !important;
-      transform: scale(1.05);
+      font-size: 16px;
+      font-weight: 600;
+      color: #495057;
     }
 
-    &:first-child {
-      border-bottom: 1px solid #e9ecef !important;
-    }
-  }
-
-  // Estilos aprimorados para os popups
-  .leaflet-popup-content-wrapper {
-    border-radius: 12px !important;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
-    border: 1px solid #e9ecef !important;
-    overflow: hidden;
-  }
-
-  .leaflet-popup-content {
-    margin: 0 !important;
-    font-family: 'Inter', sans-serif !important;
-    font-size: 14px !important;
-    line-height: 1.4 !important;
-  }
-
-  .leaflet-popup-tip {
-    background: white !important;
-    border: 1px solid #e9ecef !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-  }
-
-  // Remover borda padrão do popup
-  .leaflet-popup-content-wrapper,
-  .leaflet-popup-tip {
-    background: white !important;
-  }
-
-  // Attribution melhorado
-  .leaflet-control-attribution {
-    font-size: 10px !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    color: #6c757d !important;
-    border-radius: 4px !important;
-    padding: 2px 6px !important;
-    margin: 8px !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-
-    a {
-      color: #2c3e50 !important;
-      text-decoration: none !important;
-
-      &:hover {
-        text-decoration: underline !important;
+    .map-info {
+      .count {
+        background: #007bff;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 600;
       }
     }
   }
 
-  // Estilo para marcadores customizados
-  .leaflet-marker-icon {
-    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
-    transition: all 0.3s ease;
+  .map-container {
+    flex: 1;
+    position: relative;
+    min-height: 400px;
+
+    .leaflet-container {
+      height: 100%;
+      width: 100%;
+      font-family: inherit;
+    }
+
+    /* Overlay para quando não há resultados */
+    .no-results-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(248, 249, 250, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+
+      .no-results-content {
+        text-align: center;
+        padding: 40px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+        h4 {
+          margin: 0 0 10px 0;
+          color: #6c757d;
+          font-size: 18px;
+        }
+
+        p {
+          margin: 0;
+          color: #adb5bd;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .map-legend {
+    padding: 12px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #495057;
+
+      .legend-marker {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+
+        &.buy {
+          background: #28a745;
+        }
+
+        &.rent {
+          background: #007bff;
+        }
+      }
+    }
+  }
+}
+
+/* Customização dos marcadores */
+.buy-marker {
+  filter: hue-rotate(90deg) saturate(1.5);
+}
+
+.rent-marker {
+  filter: hue-rotate(200deg) saturate(1.2);
+}
+
+/* Popups */
+.leaflet-popup {
+  .leaflet-popup-content-wrapper {
+    border-radius: 8px;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .leaflet-popup-content {
+    margin: 0;
+    width: 250px !important;
+  }
+
+  .popup-content {
+    .popup-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+
+      &:hover {
+        .popup-info h4 {
+          color: #007bff;
+        }
+      }
+    }
+
+    .popup-image {
+      width: 100%;
+      height: 120px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .popup-info {
+      padding: 12px;
+
+      h4 {
+        margin: 0 0 8px 0;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        line-height: 1.3;
+        transition: color 0.3s ease;
+      }
+
+      .price {
+        margin: 0 0 6px 0;
+        font-size: 16px;
+        font-weight: 700;
+        color: #007bff;
+      }
+
+      .address {
+        margin: 0 0 8px 0;
+        font-size: 12px;
+        color: #6c757d;
+      }
+
+      .details {
+        margin: 0 0 8px 0;
+        display: flex;
+        gap: 10px;
+        font-size: 12px;
+        color: #6c757d;
+      }
+
+      .type {
+        .badge {
+          display: inline-block;
+          padding: 3px 8px;
+          border-radius: 12px;
+          font-size: 10px;
+          font-weight: 600;
+          text-transform: uppercase;
+
+          &.buy {
+            background: #28a745;
+            color: white;
+          }
+
+          &.rent {
+            background: #007bff;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  .leaflet-popup-close-button {
+    color: #adb5bd;
+    font-size: 16px;
 
     &:hover {
-      filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.3));
-      transform: scale(1.1);
-    }
-  }
-
-  // Loading state
-  &.loading {
-    &::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 40px;
-      height: 40px;
-      border: 3px solid #f3f3f3;
-      border-top: 3px solid #2c3e50;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      z-index: 1000;
-    }
-
-    &::after {
-      content: 'A carregar mapa...';
-      position: absolute;
-      top: 60%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       color: #6c757d;
-      font-size: 14px;
-      font-weight: 500;
-      z-index: 1000;
     }
   }
 }
 
-// Melhorias específicas para diferentes tamanhos de tela
-@media (max-width: 1024px) {
-  .map {
-    border-radius: 10px;
+/* Controles do mapa */
+.leaflet-control-zoom {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
-    .leaflet-container {
-      border-radius: 10px;
-    }
+  a {
+    border: none;
+    background: white;
+    color: #495057;
 
-    .leaflet-control-zoom {
-      margin: 12px !important;
-    }
-
-    .leaflet-control-zoom a {
-      width: 32px !important;
-      height: 32px !important;
-      line-height: 32px !important;
-      font-size: 18px !important;
+    &:hover {
+      background: #f8f9fa;
+      color: #007bff;
     }
   }
 }
 
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 10px;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .map {
+  .map-wrapper {
+    .map-header {
+      padding: 12px 15px;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start;
+
+      h3 {
+        font-size: 14px;
+      }
+    }
+
+    .map-container {
+      min-height: 300px;
+    }
+
+    .map-legend {
+      padding: 10px 15px;
+      gap: 15px;
+
+      .legend-item {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .leaflet-popup .leaflet-popup-content {
+    width: 200px !important;
+  }
+
+  .popup-content {
+    .popup-image {
+      height: 100px;
+    }
+
+    .popup-info {
+      padding: 10px;
+
+      h4 {
+        font-size: 13px;
+      }
+
+      .price {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+/* Loading state */
+.map-container.loading {
+  &::after {
+    content: 'Carregando mapa...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
     border-radius: 8px;
-
-    .leaflet-container {
-      border-radius: 8px;
-    }
-
-    .leaflet-control-zoom {
-      margin: 10px !important;
-    }
-
-    .leaflet-control-zoom a {
-      width: 30px !important;
-      height: 30px !important;
-      line-height: 30px !important;
-      font-size: 16px !important;
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .map {
-    .leaflet-control-zoom a {
-      width: 28px !important;
-      height: 28px !important;
-      line-height: 28px !important;
-      font-size: 14px !important;
-    }
-
-    .leaflet-control-attribution {
-      font-size: 9px !important;
-      padding: 1px 4px !important;
-    }
-  }
-}
-
-// Animações suaves
-.leaflet-tile-loaded {
-  animation: leaflet-fade-in 0.3s ease;
-}
-
-.leaflet-zoom-animated .leaflet-zoom-hide {
-  transition: opacity 0.2s ease;
-}
-
-@keyframes leaflet-fade-in {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-// Estilos para quando o mapa está em tela cheia (se implementado)
-.map-fullscreen {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  z-index: 9999 !important;
-  border-radius: 0 !important;
-
-  .leaflet-container {
-    border-radius: 0 !important;
+    font-weight: 600;
+    color: #6c757d;
+    z-index: 1000;
   }
 }
