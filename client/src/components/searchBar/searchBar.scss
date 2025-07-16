@@ -141,7 +141,7 @@
         }
 
         &:focus {
-          border-color: #fece51; // Cor igual ao botão Vender
+          border-color: #fece51;
           background-color: white;
           box-shadow: 0 2px 15px rgba(254, 206, 81, 0.15);
         }
@@ -152,13 +152,66 @@
       }
     }
 
-    a {
+    .searchButton {
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(
+        135deg,
+        #ffd700 0%,
+        #d4af37 50%,
+        #996515 100%
+      );
+      border: 3px solid #42413c;
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 80px;
+      height: 100%;
       transition: all 0.3s ease;
-      width: 60px; // Largura específica para a lupa
+      position: relative;
+      overflow: hidden;
       border-radius: 0 6px 6px 0;
+
+      // Efeito de brilho no hover
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent
+        );
+        transition: left 0.7s ease;
+      }
+
+      &:hover {
+        background: linear-gradient(
+          135deg,
+          #ffd700 0%,
+          #d4af37 50%,
+          #996515 100%
+        );
+        border-color: #42413c;
+        transform: scale(1.02);
+        box-shadow: 0 6px 20px rgba(254, 206, 81, 0.5);
+
+        &::before {
+          left: 100%;
+        }
+
+        .searchIcon {
+          transform: scale(1.1);
+        }
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
 
       @include sm {
         border-radius: 8px;
@@ -166,93 +219,41 @@
         width: 100%;
       }
 
-      .searchButton {
-        border: none;
-        cursor: pointer;
-        background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
-        border: 3px solid #d35400; // Contorno amarelo escuro
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-        transition: all 0.3s ease;
+      .searchIcon {
+        width: 24px;
+        height: 24px;
+        color: white;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        z-index: 1;
         position: relative;
-        overflow: hidden;
-        border-radius: 0 6px 6px 0;
+        transition: transform 0.3s ease;
 
-        // Efeito de brilho no hover
-        &::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.3),
-            transparent
-          );
-          transition: left 0.5s ease;
-        }
-
-        &:hover {
-          background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
-          border-color: #e67e22;
-          transform: scale(1.05);
-          box-shadow: 0 6px 20px rgba(254, 206, 81, 0.4); // Sombra com cor do botão Vender
-
-          &::before {
-            left: 100%;
-          }
-        }
-
-        &:active {
-          transform: scale(0.98);
+        @include md {
+          width: 22px;
+          height: 22px;
         }
 
         @include sm {
-          border-radius: 8px;
-          padding: 12px;
+          width: 20px;
+          height: 20px;
         }
+      }
 
-        .searchIcon {
+      // Fallback para imagem (se não usar SVG)
+      img {
+        width: 24px;
+        height: 24px;
+        filter: brightness(0) invert(1)
+          drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+
+        @include md {
           width: 22px;
           height: 22px;
-          color: white;
-          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-          z-index: 1;
-          position: relative;
-
-          @include md {
-            width: 20px;
-            height: 20px;
-          }
-
-          @include sm {
-            width: 18px;
-            height: 18px;
-          }
         }
 
-        // Fallback para imagem (se não usar SVG)
-        img {
-          width: 22px;
-          height: 22px;
-          filter: brightness(0) invert(1)
-            drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-
-          @include md {
-            width: 20px;
-            height: 20px;
-          }
-
-          @include sm {
-            width: 18px;
-            height: 18px;
-          }
+        @include sm {
+          width: 20px;
+          height: 20px;
         }
       }
     }
@@ -272,21 +273,13 @@
         padding: 10px 14px;
       }
 
-      a {
+      .searchButton {
         height: 44px;
 
-        .searchButton {
-          border-radius: 8px;
-
-          .searchIcon {
-            width: 16px;
-            height: 16px;
-          }
-
-          img {
-            width: 16px;
-            height: 16px;
-          }
+        .searchIcon,
+        img {
+          width: 20px;
+          height: 20px;
         }
       }
     }
@@ -298,7 +291,7 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
     100% {
-      box-shadow: 0 4px 20px rgba(254, 206, 81, 0.2); // Cor igual ao botão Vender
+      box-shadow: 0 4px 20px rgba(254, 206, 81, 0.2);
     }
   }
 

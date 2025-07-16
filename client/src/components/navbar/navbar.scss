@@ -146,13 +146,23 @@
         }
 
         &.sell-link {
-          background: linear-gradient(135deg, #fece51 0%, #f39c12 100%);
+          background: linear-gradient(
+            135deg,
+            #ffd700 0%,
+            #d4af37 50%,
+            #996515 100%
+          );
           color: #1a1a1a;
           font-weight: 600;
           padding: 0.75rem 1.5rem;
 
           &:hover {
-            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            background: linear-gradient(
+              135deg,
+              #ffd700 0%,
+              #d4af37 50%,
+              #996515 100%
+            );
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(254, 206, 81, 0.3);
             color: #000000;

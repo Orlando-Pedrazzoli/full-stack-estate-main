@@ -20,7 +20,6 @@ function AboutPage() {
                 </div>
               </div>
               <div className='contactInfo'>
-                <WhatsAppChat contactType='general' />
                 <a href='/contact' className='email-contact'>
                   Email Profissional
                 </a>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './searchBar.scss';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const types = ['buy', 'rent'];
 
@@ -11,8 +11,8 @@ function SearchBar() {
     minPrice: 0,
     maxPrice: 0,
   });
+  const navigate = useNavigate();
 
-  // Cidades portuguesas populares
   const cities = [
     'Lisboa',
     'Porto',
@@ -36,6 +36,16 @@ function SearchBar() {
     setQuery(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handleSearch = e => {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    if (query.type) params.append('type', query.type);
+    if (query.city) params.append('city', query.city);
+    if (query.minPrice > 0) params.append('minPrice', query.minPrice);
+    if (query.maxPrice > 0) params.append('maxPrice', query.maxPrice);
+    navigate(`/list?${params.toString()}`);
+  };
+
   return (
     <div className='searchBar'>
       <div className='type'>
@@ -49,7 +59,7 @@ function SearchBar() {
           </button>
         ))}
       </div>
-      <form>
+      <form onSubmit={handleSearch}>
         <input
           type='text'
           name='city'
@@ -79,28 +89,24 @@ function SearchBar() {
           placeholder='Preço Máx (€)'
           onChange={handleChange}
         />
-        <Link
-          to={`/list?type=${query.type}&city=${query.city}&minPrice=${query.minPrice}&maxPrice=${query.maxPrice}`}
-        >
-          <button className='searchButton'>
-            <svg 
-              width="20" 
-              height="20" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-              className='searchIcon'
-            >
-              <path 
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </Link>
+        <button type='submit' className='searchButton'>
+          <svg
+            width='24' // Aumentei de 20 para 24
+            height='24' // Aumentei de 20 para 24
+            viewBox='0 0 24 24'
+            fill='none'
+            xmlns='http://www.w3.org/2000/svg'
+            className='searchIcon'
+          >
+            <path
+              d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
+              stroke='currentColor'
+              strokeWidth='2.5' // Aumentei de 2 para 2.5
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+        </button>
       </form>
     </div>
   );

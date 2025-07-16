@@ -1,17 +1,217 @@
+// responsive.scss - Sistema de Breakpoints Completo
+// ================================================
+
+// Breakpoints do sistema
+$breakpoints: (
+  xs: 480px,
+  // Extra Small - Mobile pequeno
+  sm: 768px,
+  // Small - Mobile grande/Tablet pequeno
+  md: 1024px,
+  // Medium - Tablet/Laptop pequeno
+  lg: 1366px,
+  // Large - Desktop padrão
+  xl: 1920px,
+  // Extra Large - Desktop grande
+  xxl: 2560px // Extra Extra Large - Telas muito grandes,
+);
+
+// Mixins para max-width (mobile-first approach)
+@mixin xs {
+  @media (max-width: #{map-get($breakpoints, xs)}) {
+    @content;
+  }
+}
+
 @mixin sm {
-  @media (max-width: 738px) {
+  @media (max-width: #{map-get($breakpoints, sm)}) {
     @content;
   }
 }
 
 @mixin md {
-  @media (max-width: 1024px) {
+  @media (max-width: #{map-get($breakpoints, md)}) {
     @content;
   }
 }
 
 @mixin lg {
-  @media (max-width: 1366px) {
+  @media (max-width: #{map-get($breakpoints, lg)}) {
     @content;
   }
+}
+
+@mixin xl {
+  @media (max-width: #{map-get($breakpoints, xl)}) {
+    @content;
+  }
+}
+
+@mixin xxl {
+  @media (max-width: #{map-get($breakpoints, xxl)}) {
+    @content;
+  }
+}
+
+// Mixins para min-width (desktop-first approach)
+@mixin xs-up {
+  @media (min-width: #{map-get($breakpoints, xs) + 1px}) {
+    @content;
+  }
+}
+
+@mixin sm-up {
+  @media (min-width: #{map-get($breakpoints, sm) + 1px}) {
+    @content;
+  }
+}
+
+@mixin md-up {
+  @media (min-width: #{map-get($breakpoints, md) + 1px}) {
+    @content;
+  }
+}
+
+@mixin lg-up {
+  @media (min-width: #{map-get($breakpoints, lg) + 1px}) {
+    @content;
+  }
+}
+
+@mixin xl-up {
+  @media (min-width: #{map-get($breakpoints, xl) + 1px}) {
+    @content;
+  }
+}
+
+@mixin xxl-up {
+  @media (min-width: #{map-get($breakpoints, xxl) + 1px}) {
+    @content;
+  }
+}
+
+// Mixins para ranges específicos
+@mixin xs-only {
+  @media (max-width: #{map-get($breakpoints, xs)}) {
+    @content;
+  }
+}
+
+@mixin sm-only {
+  @media (min-width: #{map-get($breakpoints, xs) + 1px}) and (max-width: #{map-get($breakpoints, sm)}) {
+    @content;
+  }
+}
+
+@mixin md-only {
+  @media (min-width: #{map-get($breakpoints, sm) + 1px}) and (max-width: #{map-get($breakpoints, md)}) {
+    @content;
+  }
+}
+
+@mixin lg-only {
+  @media (min-width: #{map-get($breakpoints, md) + 1px}) and (max-width: #{map-get($breakpoints, lg)}) {
+    @content;
+  }
+}
+
+@mixin xl-only {
+  @media (min-width: #{map-get($breakpoints, lg) + 1px}) and (max-width: #{map-get($breakpoints, xl)}) {
+    @content;
+  }
+}
+
+@mixin xxl-only {
+  @media (min-width: #{map-get($breakpoints, xl) + 1px}) and (max-width: #{map-get($breakpoints, xxl)}) {
+    @content;
+  }
+}
+
+@mixin ultra-wide {
+  @media (min-width: #{map-get($breakpoints, xxl) + 1px}) {
+    @content;
+  }
+}
+
+// Mixins utilitários
+@mixin mobile-only {
+  @media (max-width: #{map-get($breakpoints, sm)}) {
+    @content;
+  }
+}
+
+@mixin tablet-only {
+  @media (min-width: #{map-get($breakpoints, sm) + 1px}) and (max-width: #{map-get($breakpoints, md)}) {
+    @content;
+  }
+}
+
+@mixin desktop-only {
+  @media (min-width: #{map-get($breakpoints, md) + 1px}) {
+    @content;
+  }
+}
+
+// Mixins para orientação
+@mixin portrait {
+  @media (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin landscape {
+  @media (orientation: landscape) {
+    @content;
+  }
+}
+
+// Mixins para densidade de pixels
+@mixin retina {
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    @content;
+  }
+}
+
+// Mixin para preferências de movimento
+@mixin reduce-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+@mixin no-reduce-motion {
+  @media (prefers-reduced-motion: no-preference) {
+    @content;
+  }
+}
+
+// Mixin para tema escuro
+@mixin dark-mode {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+// Função para obter breakpoints
+@function get-breakpoint($size) {
+  @return map-get($breakpoints, $size);
+}
+
+// Mixins para containers fluidos
+@mixin fluid-container($min-width: 320px, $max-width: 1400px) {
+  width: 100%;
+  min-width: $min-width;
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 5vw, 2rem);
+}
+
+// Mixin para tipografia responsiva
+@mixin fluid-typography($min-size, $max-size, $min-vw: 320px, $max-vw: 1400px) {
+  font-size: clamp(
+    #{$min-size},
+    #{$min-size} + (#{$max-size} - #{$min-size}) * ((100vw - #{$min-vw}) /
+          (#{$max-vw} - #{$min-vw})),
+    #{$max-size}
+  );
 }

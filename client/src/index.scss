@@ -1,13 +1,32 @@
-// client/src/index.scss - Versão Otimizada
+// index.scss - Sistema de Layout Responsivo Completo
+// ================================================
 
 // Import dos mixins responsivos
 @import './responsive.scss';
 
-// Reset global
+// Reset global aprimorado
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px; // Base para rem
+  scroll-behavior: smooth;
+
+  @include xs {
+    font-size: 14px;
+  }
+
+  @include ultra-wide {
+    font-size: 18px;
+  }
 }
 
 html,
@@ -25,55 +44,83 @@ a {
 }
 
 body {
-  font-family: 'Inter', 'Lato', sans-serif;
+  font-family: 'Inter', 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, sans-serif;
   overflow-x: hidden;
   line-height: 1.6;
   color: #333;
   background-color: #ffffff;
+
+  @include fluid-typography(0.875rem, 1rem);
+
+  @include dark-mode {
+    color: #f0f0f0;
+    background-color: #121212;
+  }
 }
 
-// SISTEMA DE LAYOUT PADRONIZADO
-// ===============================
+// SISTEMA DE LAYOUT PADRONIZADO RESPONSIVO
+// =======================================
 
 // Container principal para todas as páginas
 .page-container {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 2rem;
+  @include fluid-container(320px, 1400px);
 
-  @include lg {
-    max-width: 1200px;
-    padding: 0 1.5rem;
-  }
-
-  @include md {
-    padding: 0 1rem;
+  @include xs {
+    padding: 0 0.75rem;
   }
 
   @include sm {
-    padding: 0 0.75rem;
+    padding: 0 1rem;
+  }
+
+  @include md {
+    padding: 0 1.5rem;
+  }
+
+  @include lg {
+    padding: 0 2rem;
+  }
+
+  @include xl {
+    max-width: 1600px;
+    padding: 0 2.5rem;
+  }
+
+  @include ultra-wide {
+    max-width: 1800px;
+    padding: 0 3rem;
   }
 }
 
 // Container para seções específicas
 .section-container {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 4rem 2rem;
+  @include fluid-container(320px, 1400px);
 
-  @include lg {
-    max-width: 1200px;
-    padding: 3rem 1.5rem;
-  }
-
-  @include md {
-    padding: 2rem 1rem;
+  @include xs {
+    padding: 1rem 0.75rem;
   }
 
   @include sm {
-    padding: 1.5rem 0.75rem;
+    padding: 1.5rem 1rem;
+  }
+
+  @include md {
+    padding: 2rem 1.5rem;
+  }
+
+  @include lg {
+    padding: 3rem 2rem;
+  }
+
+  @include xl {
+    max-width: 1600px;
+    padding: 4rem 2.5rem;
+  }
+
+  @include ultra-wide {
+    max-width: 1800px;
+    padding: 5rem 3rem;
   }
 }
 
@@ -82,14 +129,31 @@ body {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
 
-  @include md {
-    padding: 0 1rem;
+  @include xs {
+    padding: 0 0.75rem;
   }
 
   @include sm {
-    padding: 0 0.75rem;
+    padding: 0 1rem;
+  }
+
+  @include md {
+    padding: 0 1.5rem;
+  }
+
+  @include lg {
+    padding: 0 2rem;
+  }
+
+  @include xl {
+    max-width: 1300px;
+    padding: 0 2.5rem;
+  }
+
+  @include ultra-wide {
+    max-width: 1400px;
+    padding: 0 3rem;
   }
 }
 
@@ -99,30 +163,175 @@ body {
 .hero-section {
   width: 100%;
   margin: 0;
-  padding: 4rem 0;
+
+  @include xs {
+    padding: 2rem 0;
+  }
+
+  @include sm {
+    padding: 3rem 0;
+  }
+
+  @include md {
+    padding: 4rem 0;
+  }
+
+  @include lg {
+    padding: 5rem 0;
+  }
+
+  @include xl {
+    padding: 6rem 0;
+  }
+
+  @include ultra-wide {
+    padding: 8rem 0;
+  }
 
   .hero-content,
   .heroContent {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 2rem;
+    @include fluid-container(320px, 1400px);
 
-    @include lg {
-      max-width: 1200px;
-      padding: 0 1.5rem;
-    }
-
-    @include md {
-      padding: 0 1rem;
+    @include xs {
+      padding: 0 0.75rem;
     }
 
     @include sm {
-      padding: 0 0.75rem;
+      padding: 0 1rem;
+    }
+
+    @include md {
+      padding: 0 1.5rem;
+    }
+
+    @include lg {
+      padding: 0 2rem;
+    }
+
+    @include xl {
+      max-width: 1600px;
+      padding: 0 2.5rem;
+    }
+
+    @include ultra-wide {
+      max-width: 1800px;
+      padding: 0 3rem;
     }
   }
 }
 
-// Utility classes
+// Grid system responsivo
+.grid {
+  display: grid;
+  gap: 1rem;
+
+  @include xs {
+    gap: 0.75rem;
+  }
+
+  @include sm {
+    gap: 1rem;
+  }
+
+  @include md {
+    gap: 1.25rem;
+  }
+
+  @include lg {
+    gap: 1.5rem;
+  }
+
+  @include xl {
+    gap: 2rem;
+  }
+
+  @include ultra-wide {
+    gap: 2.5rem;
+  }
+}
+
+.grid-cols-1 {
+  grid-template-columns: 1fr;
+}
+
+.grid-cols-2 {
+  grid-template-columns: 1fr;
+
+  @include sm-up {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.grid-cols-3 {
+  grid-template-columns: 1fr;
+
+  @include sm-up {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include md-up {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.grid-cols-4 {
+  grid-template-columns: 1fr;
+
+  @include sm-up {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include md-up {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include lg-up {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// Flex utilities responsivos
+.flex {
+  display: flex;
+
+  &.flex-col {
+    flex-direction: column;
+  }
+
+  &.flex-wrap {
+    flex-wrap: wrap;
+  }
+
+  &.items-center {
+    align-items: center;
+  }
+
+  &.justify-center {
+    justify-content: center;
+  }
+
+  &.justify-between {
+    justify-content: space-between;
+  }
+
+  &.gap-1 {
+    gap: 0.25rem;
+  }
+
+  &.gap-2 {
+    gap: 0.5rem;
+  }
+
+  &.gap-4 {
+    gap: 1rem;
+  }
+
+  &.gap-8 {
+    gap: 2rem;
+  }
+}
+
+// Utility classes responsivas
 .w-full {
   width: 100% !important;
 }
@@ -132,24 +341,193 @@ body {
   margin-right: auto !important;
 }
 
-.container-padding {
-  padding-left: 2rem !important;
-  padding-right: 2rem !important;
+.text-center {
+  text-align: center !important;
+}
 
-  @include md {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+// Visibility utilities
+.hidden {
+  display: none !important;
+}
+
+.visible {
+  display: block !important;
+}
+
+// Responsive visibility
+.hidden-xs {
+  @include xs {
+    display: none !important;
   }
+}
 
+.hidden-sm {
   @include sm {
-    padding-left: 0.75rem !important;
-    padding-right: 0.75rem !important;
+    display: none !important;
   }
+}
+
+.hidden-md {
+  @include md {
+    display: none !important;
+  }
+}
+
+.hidden-lg {
+  @include lg {
+    display: none !important;
+  }
+}
+
+.visible-xs {
+  display: none !important;
+
+  @include xs {
+    display: block !important;
+  }
+}
+
+.visible-sm {
+  display: none !important;
+
+  @include sm-only {
+    display: block !important;
+  }
+}
+
+.visible-md {
+  display: none !important;
+
+  @include md-only {
+    display: block !important;
+  }
+}
+
+.visible-lg {
+  display: none !important;
+
+  @include lg-only {
+    display: block !important;
+  }
+}
+
+// Spacing utilities responsivos
+.p-0 {
+  padding: 0 !important;
+}
+.p-1 {
+  padding: 0.25rem !important;
+}
+.p-2 {
+  padding: 0.5rem !important;
+}
+.p-4 {
+  padding: 1rem !important;
+}
+.p-8 {
+  padding: 2rem !important;
+}
+
+.m-0 {
+  margin: 0 !important;
+}
+.m-1 {
+  margin: 0.25rem !important;
+}
+.m-2 {
+  margin: 0.5rem !important;
+}
+.m-4 {
+  margin: 1rem !important;
+}
+.m-8 {
+  margin: 2rem !important;
+}
+
+.mt-0 {
+  margin-top: 0 !important;
+}
+.mt-1 {
+  margin-top: 0.25rem !important;
+}
+.mt-2 {
+  margin-top: 0.5rem !important;
+}
+.mt-4 {
+  margin-top: 1rem !important;
+}
+.mt-8 {
+  margin-top: 2rem !important;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+.mb-1 {
+  margin-bottom: 0.25rem !important;
+}
+.mb-2 {
+  margin-bottom: 0.5rem !important;
+}
+.mb-4 {
+  margin-bottom: 1rem !important;
+}
+.mb-8 {
+  margin-bottom: 2rem !important;
+}
+
+// Typography responsiva
+.text-xs {
+  @include fluid-typography(0.75rem, 0.875rem);
+}
+
+.text-sm {
+  @include fluid-typography(0.875rem, 1rem);
+}
+
+.text-base {
+  @include fluid-typography(1rem, 1.125rem);
+}
+
+.text-lg {
+  @include fluid-typography(1.125rem, 1.25rem);
+}
+
+.text-xl {
+  @include fluid-typography(1.25rem, 1.5rem);
+}
+
+.text-2xl {
+  @include fluid-typography(1.5rem, 2rem);
+}
+
+.text-3xl {
+  @include fluid-typography(1.875rem, 2.5rem);
+}
+
+.text-4xl {
+  @include fluid-typography(2.25rem, 3rem);
+}
+
+.text-5xl {
+  @include fluid-typography(3rem, 4rem);
 }
 
 // Animações e melhorias de UX
 .page-transition {
   animation: fadeInUp 0.4s ease-out;
+
+  @include reduce-motion {
+    animation: none;
+  }
 }
 
 @keyframes fadeInUp {
@@ -163,13 +541,42 @@ body {
   }
 }
 
+// Hover e focus states
+.hover-scale {
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  @include reduce-motion {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
 // Scrollbar personalizada
 ::-webkit-scrollbar {
   width: 8px;
+
+  @include xs {
+    width: 6px;
+  }
+
+  @include ultra-wide {
+    width: 12px;
+  }
 }
 
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
+
+  @include dark-mode {
+    background: #2a2a2a;
+  }
 }
 
 ::-webkit-scrollbar-thumb {
@@ -178,5 +585,46 @@ body {
 
   &:hover {
     background: #a8a8a8;
+  }
+
+  @include dark-mode {
+    background: #555;
+
+    &:hover {
+      background: #777;
+    }
+  }
+}
+
+// Print styles
+@media print {
+  * {
+    color: #000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  .page-container,
+  .section-container,
+  .content-container {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  .hidden-print {
+    display: none !important;
+  }
+}
+
+// High contrast mode
+@media (prefers-contrast: high) {
+  body {
+    background-color: white;
+    color: black;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #000;
   }
 }

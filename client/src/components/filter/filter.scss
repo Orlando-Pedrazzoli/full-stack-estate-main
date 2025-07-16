@@ -89,9 +89,21 @@
 
     select {
       cursor: pointer;
-      
+
       option {
         padding: 8px;
+      }
+
+      &:disabled {
+        background-color: #f9fafb;
+        color: #1f2937;
+        cursor: not-allowed;
+        border-color: #e5e7eb;
+        opacity: 1;
+        font-weight: 500;
+        &:hover {
+          border-color: #e5e7eb;
+        }
       }
     }
   }

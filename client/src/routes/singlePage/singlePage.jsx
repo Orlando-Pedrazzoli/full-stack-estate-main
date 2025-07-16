@@ -24,155 +24,180 @@ function SinglePage() {
                   <div className='content'>
                     {/* Lado Esquerdo - Conteúdo Principal */}
                     <div className='left'>
-                      {/* Slider de Imagens */}
-                      <Slider images={post.images} />
+                      <div className='content-inner'>
+                        {/* Slider de Imagens */}
+                        <Slider images={post.images} />
 
-                      {/* Informações Principais */}
-                      <div className='info'>
-                        <div className='top'>
-                          <div className='post'>
-                            <h1>{post.title}</h1>
-                            <div className='address'>
-                              <img src='/pin.png' alt='' />
-                              <span>{post.address}</span>
+                        {/* Informações Principais */}
+                        <div className='info'>
+                          <div className='top'>
+                            <div className='post'>
+                              <h1>{post.title}</h1>
+                              <div className='address'>
+                                <img src='/pin.png' alt='' />
+                                <span>{post.address}</span>
+                              </div>
+                              <div className='price'>
+                                € {post.price.toLocaleString('pt-PT')}
+                              </div>
                             </div>
-                            <div className='price'>
-                              € {post.price.toLocaleString('pt-PT')}
+                            <div className='user'>
+                              <img
+                                src={post.user.avatar || '/noavatar.jpg'}
+                                alt={`Avatar de ${post.user.username}`}
+                              />
+                              <span>{post.user.username}</span>
                             </div>
                           </div>
-                          <div className='user'>
-                            <img
-                              src={post.user.avatar || '/noavatar.jpg'}
-                              alt=''
-                            />
-                            <span>{post.user.username}</span>
+
+                          {/* Descrição */}
+                          <div className='bottom'>
+                            <div className='description'>
+                              <h2>Descrição</h2>
+                              <div
+                                dangerouslySetInnerHTML={{
+                                  __html: post.postDetail.desc,
+                                }}
+                              />
+                            </div>
                           </div>
                         </div>
 
-                        {/* Descrição */}
-                        <div className='bottom'>
-                          <div className='description'>
-                            <h2>Descrição</h2>
-                            <div
-                              dangerouslySetInnerHTML={{
-                                __html: post.postDetail.desc,
-                              }}
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Características */}
-                      <div className='features'>
-                        <div className='wrapper'>
-                          <p className='title'>Características</p>
-                          <div className='listVertical'>
-                            <div className='feature'>
-                              <img src='/utility.png' alt='' />
-                              <div className='featureText'>
-                                <span>Despesas</span>
-                                <p>
-                                  {post.postDetail.utilities ||
-                                    'Não especificado'}
-                                </p>
-                              </div>
-                            </div>
-                            <div className='feature'>
-                              <img src='/pet.png' alt='' />
-                              <div className='featureText'>
-                                <span>Política de Animais</span>
-                                <p>
-                                  {post.postDetail.pet || 'Não especificado'}
-                                </p>
-                              </div>
-                            </div>
-                            <div className='feature'>
-                              <img src='/fee.png' alt='' />
-                              <div className='featureText'>
-                                <span>Requisitos de Rendimento</span>
-                                <p>
-                                  {post.postDetail.income || 'Não especificado'}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className='listHorizontal'>
-                            <div className='size'>
-                              <img src='/size.png' alt='' />
-                              <span>{post.postDetail.size || '-'} m²</span>
-                            </div>
-                            <div className='size'>
-                              <img src='/bed.png' alt='' />
-                              <span>{post.bedroom} quartos</span>
-                            </div>
-                            <div className='size'>
-                              <img src='/bath.png' alt='' />
-                              <span>
-                                {post.bathroom} casa
-                                {post.bathroom > 1 ? 's' : ''} de banho
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Proximidades */}
-                      {(post.postDetail.school ||
-                        post.postDetail.bus ||
-                        post.postDetail.restaurant) && (
-                        <div className='proximities'>
+                        {/* Características */}
+                        <div className='features'>
                           <div className='wrapper'>
-                            <p className='title'>Proximidades</p>
+                            <p className='title'>Características</p>
                             <div className='listVertical'>
-                              {post.postDetail.school && (
-                                <div className='feature'>
-                                  <img src='/school.png' alt='' />
-                                  <div className='featureText'>
-                                    <span>Escola</span>
-                                    <p>
-                                      {post.postDetail.school}m de distância
-                                    </p>
-                                  </div>
+                              <div className='feature'>
+                                <img src='/utility.png' alt='Despesas' />
+                                <div className='featureText'>
+                                  <span>Despesas</span>
+                                  <p>
+                                    {post.postDetail.utilities ||
+                                      'Não especificado'}
+                                  </p>
                                 </div>
-                              )}
-                              {post.postDetail.bus && (
-                                <div className='feature'>
-                                  <img src='/bus.png' alt='' />
-                                  <div className='featureText'>
-                                    <span>Paragem de Autocarro</span>
-                                    <p>{post.postDetail.bus}m de distância</p>
-                                  </div>
+                              </div>
+                              <div className='feature'>
+                                <img src='/pet.png' alt='Política de Animais' />
+                                <div className='featureText'>
+                                  <span>Política de Animais</span>
+                                  <p>
+                                    {post.postDetail.pet || 'Não especificado'}
+                                  </p>
                                 </div>
-                              )}
-                              {post.postDetail.restaurant && (
-                                <div className='feature'>
-                                  <img src='/restaurant.png' alt='' />
-                                  <div className='featureText'>
-                                    <span>Restaurante</span>
-                                    <p>
-                                      {post.postDetail.restaurant}m de distância
-                                    </p>
-                                  </div>
+                              </div>
+                              <div className='feature'>
+                                <img
+                                  src='/fee.png'
+                                  alt='Requisitos de Rendimento'
+                                />
+                                <div className='featureText'>
+                                  <span>Requisitos de Rendimento</span>
+                                  <p>
+                                    {post.postDetail.income ||
+                                      'Não especificado'}
+                                  </p>
                                 </div>
-                              )}
+                              </div>
+                            </div>
+
+                            <div className='listHorizontal'>
+                              <div className='size'>
+                                <img src='/size.png' alt='Área' />
+                                <span>{post.postDetail.size || '-'} m²</span>
+                              </div>
+                              <div className='size'>
+                                <img src='/bed.png' alt='Quartos' />
+                                <span>{post.bedroom} quartos</span>
+                              </div>
+                              <div className='size'>
+                                <img src='/bath.png' alt='Casas de banho' />
+                                <span>
+                                  {post.bathroom} casa
+                                  {post.bathroom > 1 ? 's' : ''} de banho
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      )}
 
-                      {/* Botões de Ação */}
-                      <div className='actions'>
-                        <button className='contactBtn'>
-                          <img src='/chat.png' alt='' />
-                          Contactar sobre este imóvel
-                        </button>
-                        <button className='saveBtn'>
-                          <img src='/save.png' alt='' />
-                          {post.isSaved
-                            ? 'Remover dos Favoritos'
-                            : 'Guardar Imóvel'}
-                        </button>
+                        {/* Proximidades */}
+                        {(post.postDetail.school ||
+                          post.postDetail.bus ||
+                          post.postDetail.restaurant) && (
+                          <div className='proximities'>
+                            <div className='wrapper'>
+                              <p className='title'>Proximidades</p>
+                              <div className='listVertical'>
+                                {post.postDetail.school && (
+                                  <div className='feature'>
+                                    <img src='/school.png' alt='Escola' />
+                                    <div className='featureText'>
+                                      <span>Escola</span>
+                                      <p>
+                                        {post.postDetail.school}m de distância
+                                      </p>
+                                    </div>
+                                  </div>
+                                )}
+                                {post.postDetail.bus && (
+                                  <div className='feature'>
+                                    <img
+                                      src='/bus.png'
+                                      alt='Paragem de Autocarro'
+                                    />
+                                    <div className='featureText'>
+                                      <span>Paragem de Autocarro</span>
+                                      <p>{post.postDetail.bus}m de distância</p>
+                                    </div>
+                                  </div>
+                                )}
+                                {post.postDetail.restaurant && (
+                                  <div className='feature'>
+                                    <img
+                                      src='/restaurant.png'
+                                      alt='Restaurante'
+                                    />
+                                    <div className='featureText'>
+                                      <span>Restaurante</span>
+                                      <p>
+                                        {post.postDetail.restaurant}m de
+                                        distância
+                                      </p>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Botões de Ação */}
+                        <div className='actions'>
+                          <button
+                            className='contactBtn'
+                            onClick={() => {
+                              // Adicionar lógica de contacto aqui
+                              console.log('Contactar sobre imóvel');
+                            }}
+                          >
+                            <img src='/chat.png' alt='' />
+                            Contactar sobre este imóvel
+                          </button>
+                          <button
+                            className='saveBtn'
+                            onClick={() => {
+                              // Adicionar lógica para salvar/remover favoritos
+                              console.log('Toggle favorito');
+                            }}
+                          >
+                            <img src='/save.png' alt='' />
+                            {post.isSaved
+                              ? 'Remover dos Favoritos'
+                              : 'Guardar Imóvel'}
+                          </button>
+                        </div>
                       </div>
                     </div>
 
@@ -207,7 +232,7 @@ function SinglePage() {
                               <span>{post.city}, Portugal</span>
                             </div>
 
-                            {/* Botão WhatsApp */}
+                            {/* Botões de Contacto */}
                             <div className='contactActions'>
                               <button
                                 className='whatsappBtn'
@@ -229,12 +254,22 @@ Obrigado(a)! 🙏`);
                                   const whatsappURL = `https://wa.me/${RAQUEL_WHATSAPP}?text=${message}`;
                                   window.open(whatsappURL, '_blank');
                                 }}
+                                aria-label='Contactar via WhatsApp'
                               >
                                 <img src='/whatsapp.png' alt='WhatsApp' />
                                 Contactar via WhatsApp
                               </button>
 
-                              <button className='directionsBtn'>
+                              <button
+                                className='directionsBtn'
+                                onClick={() => {
+                                  const lat = parseFloat(post.latitude);
+                                  const lng = parseFloat(post.longitude);
+                                  const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+                                  window.open(googleMapsUrl, '_blank');
+                                }}
+                                aria-label='Ver direções no Google Maps'
+                              >
                                 <img src='/directions.png' alt='Direções' />
                                 Ver Direções
                               </button>
