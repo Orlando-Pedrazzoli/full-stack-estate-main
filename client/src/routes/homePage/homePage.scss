@@ -4,19 +4,19 @@
   // Hero Section
   .heroSection {
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    padding: 4rem 2rem;
-    min-height: 90vh;
+    padding: 2rem 2rem 4rem 2rem; // Reduzido padding top de 4rem para 2rem
+    min-height: 85vh; // Reduzido de 100vh para 85vh
     display: flex;
     align-items: center;
 
     @include md {
-      padding: 3rem 1rem;
-      min-height: 80vh;
+      padding: 1.5rem 1rem 3rem 1rem; // Reduzido padding top
+      min-height: 80vh; // Reduzido altura mínima
     }
 
     @include sm {
-      min-height: auto;
-      padding: 2rem 1rem;
+      min-height: 75vh; // Reduzido altura mínima
+      padding: 1rem 1rem 2rem 1rem;
     }
 
     .heroContent {
@@ -33,7 +33,7 @@
 
       @include md {
         grid-template-columns: 1fr;
-        gap: 3rem;
+        gap: 4rem;
         text-align: center;
       }
 
@@ -171,30 +171,32 @@
       .heroImage {
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
+        margin-top: -2rem; // Move a imagem um pouco para cima
 
         @include md {
           order: -1;
+          margin-top: 0;
         }
 
         .imageContainer {
           position: relative;
-          width: 350px;
-          height: 350px;
+          width: 400px; // Aumentado de 350px para 400px
+          height: 400px; // Aumentado de 350px para 400px
 
           @include lg {
-            width: 300px;
-            height: 300px;
+            width: 380px;
+            height: 380px;
           }
 
           @include md {
-            width: 280px;
-            height: 280px;
+            width: 320px;
+            height: 320px;
           }
 
           @include sm {
-            width: 250px;
-            height: 250px;
+            width: 280px;
+            height: 280px;
           }
 
           img {
@@ -208,7 +210,7 @@
 
           .imageBadge {
             position: absolute;
-            bottom: 20px;
+            bottom: 30px;
             right: -10px;
             background: white;
             padding: 1.2rem 1.5rem;
@@ -217,7 +219,7 @@
             text-align: center;
 
             @include sm {
-              bottom: 15px;
+              bottom: 20px;
               right: -5px;
               padding: 1rem 1.2rem;
             }
@@ -251,419 +253,6 @@
       }
     }
   }
-
-  // Services Preview
-  .servicesPreview {
-    padding: 5rem 2rem;
-    background: white;
-
-    @include md {
-      padding: 4rem 1rem;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-
-      .sectionHeader {
-        text-align: center;
-        margin-bottom: 3rem;
-
-        h2 {
-          font-size: 2.5rem;
-          color: #2c3e50;
-          margin-bottom: 1rem;
-          font-weight: 600;
-
-          @include md {
-            font-size: 2rem;
-          }
-        }
-
-        p {
-          font-size: 1.1rem;
-          color: #6c757d;
-          max-width: 500px;
-          margin: 0 auto;
-        }
-      }
-
-      .servicesGrid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 2rem;
-        margin-bottom: 3rem;
-
-        @include sm {
-          grid-template-columns: 1fr;
-        }
-
-        .serviceCard {
-          background: #f8f9fa;
-          padding: 2.5rem 2rem;
-          border-radius: 15px;
-          text-align: center;
-          transition: all 0.3s ease;
-          border: 1px solid #e9ecef;
-
-          &:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            background: white;
-          }
-
-          .serviceIcon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 1.5rem;
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            span {
-              font-size: 2rem;
-            }
-          }
-
-          h3 {
-            color: #2c3e50;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            font-weight: 600;
-          }
-
-          p {
-            color: #6c757d;
-            line-height: 1.6;
-            font-size: 0.95rem;
-          }
-        }
-      }
-
-      .servicesAction {
-        text-align: center;
-
-        .btn-secondary {
-          display: inline-block;
-          background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-          color: white;
-          padding: 1rem 2rem;
-          border-radius: 8px;
-          text-decoration: none;
-          font-weight: 600;
-          transition: all 0.3s ease;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          font-size: 0.9rem;
-
-          &:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.3);
-          }
-        }
-      }
-    }
-  }
-
-  // Why Choose Section
-  .whyChoose {
-    padding: 5rem 2rem;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-
-    @include md {
-      padding: 4rem 1rem;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-
-      .whyContent {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
-
-        @include md {
-          grid-template-columns: 1fr;
-          gap: 3rem;
-        }
-
-        .whyText {
-          h2 {
-            font-size: 2.5rem;
-            color: #2c3e50;
-            margin-bottom: 2.5rem;
-            font-weight: 600;
-
-            @include md {
-              font-size: 2rem;
-              text-align: center;
-            }
-          }
-
-          .advantagesList {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-
-            .advantage {
-              display: flex;
-              gap: 1.5rem;
-              align-items: flex-start;
-
-              .advantageIcon {
-                width: 60px;
-                height: 60px;
-                background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-
-                span {
-                  font-size: 1.8rem;
-                }
-              }
-
-              .advantageContent {
-                h3 {
-                  color: #2c3e50;
-                  margin-bottom: 0.8rem;
-                  font-size: 1.2rem;
-                  font-weight: 600;
-                }
-
-                p {
-                  color: #6c757d;
-                  line-height: 1.6;
-                  font-size: 0.95rem;
-                }
-              }
-            }
-          }
-        }
-
-        .whyImage {
-          img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-
-            @include md {
-              height: 300px;
-              order: -1;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  // Testimonials
-  .testimonials {
-    padding: 5rem 2rem;
-    background: white;
-
-    @include md {
-      padding: 4rem 1rem;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-
-      h2 {
-        text-align: center;
-        font-size: 2.5rem;
-        color: #2c3e50;
-        margin-bottom: 3rem;
-        font-weight: 600;
-
-        @include md {
-          font-size: 2rem;
-        }
-      }
-
-      .testimonialsGrid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 2rem;
-
-        @include sm {
-          grid-template-columns: 1fr;
-        }
-
-        .testimonial {
-          background: #f8f9fa;
-          border-radius: 20px;
-          padding: 0;
-          overflow: hidden;
-          transition: all 0.3s ease;
-          border: 1px solid #e9ecef;
-
-          &:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            background: white;
-          }
-
-          .testimonialContent {
-            padding: 2.5rem;
-            position: relative;
-
-            .quote {
-              position: absolute;
-              top: 1rem;
-              left: 2rem;
-              font-size: 3.5rem;
-              color: #e9ecef;
-              font-family: serif;
-              line-height: 1;
-            }
-
-            p {
-              font-style: italic;
-              color: #495057;
-              line-height: 1.7;
-              margin-bottom: 2rem;
-              padding-top: 1.5rem;
-              font-size: 1rem;
-            }
-
-            .testimonialAuthor {
-              display: flex;
-              justify-content: space-between;
-              align-items: flex-end;
-
-              .authorInfo {
-                strong {
-                  display: block;
-                  color: #2c3e50;
-                  font-weight: 600;
-                  margin-bottom: 0.3rem;
-                }
-
-                span {
-                  color: #6c757d;
-                  font-size: 0.85rem;
-                }
-              }
-
-              .rating {
-                color: #f39c12;
-                font-size: 1.1rem;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  // CTA Section
-  .ctaSection {
-    padding: 5rem 2rem;
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-    color: white;
-    text-align: center;
-
-    @include md {
-      padding: 4rem 1rem;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-
-      .ctaContent {
-        h2 {
-          font-size: 2.5rem;
-          margin-bottom: 1.5rem;
-          font-weight: 600;
-
-          @include md {
-            font-size: 2rem;
-          }
-
-          @include sm {
-            font-size: 1.8rem;
-          }
-        }
-
-        p {
-          font-size: 1.2rem;
-          margin-bottom: 2.5rem;
-          opacity: 0.95;
-          line-height: 1.6;
-
-          @include md {
-            font-size: 1.1rem;
-          }
-        }
-
-        .ctaButtons {
-          display: flex;
-          gap: 1.5rem;
-          justify-content: center;
-          align-items: center;
-          flex-wrap: wrap;
-
-          @include sm {
-            flex-direction: column;
-            gap: 1rem;
-          }
-
-          .btn-secondary,
-          .btn-outline {
-            padding: 1.2rem 2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            font-size: 1rem;
-            display: inline-block;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-
-            @include sm {
-              width: 100%;
-              max-width: 280px;
-            }
-          }
-
-          .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-
-            &:hover {
-              background: rgba(255, 255, 255, 0.2);
-              transform: translateY(-2px);
-            }
-          }
-
-          .btn-outline {
-            background: transparent;
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-
-            &:hover {
-              background: rgba(255, 255, 255, 0.1);
-              border-color: rgba(255, 255, 255, 0.8);
-              transform: translateY(-2px);
-            }
-          }
-        }
-      }
-    }
-  }
 }
 
 // Container utility
@@ -671,6 +260,36 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0;
+}
+
+// Melhorar estilo da lupa do SearchBar
+// Nota: Este CSS deve ser aplicado ao componente SearchBar
+.searchBar {
+  .searchForm {
+    .searchButton {
+      background: #f39c12 !important; // Amarelo
+      border: 2px solid #e67e22 !important; // Contorno amarelo mais escuro
+      width: 50px !important; // Aumentar largura
+      height: 50px !important; // Manter altura consistente
+      border-radius: 0 8px 8px 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      transition: all 0.3s ease !important;
+
+      &:hover {
+        background: #e67e22 !important;
+        border-color: #d35400 !important;
+        transform: scale(1.05) !important;
+      }
+
+      svg {
+        width: 20px !important;
+        height: 20px !important;
+        color: white !important;
+      }
+    }
+  }
 }
 
 // Responsive utilities
@@ -684,18 +303,6 @@
       .heroStats .stat .number {
         font-size: 2rem;
       }
-    }
-
-    .servicesPreview .container .servicesGrid .serviceCard {
-      padding: 2rem 1.5rem;
-    }
-
-    .testimonials
-      .container
-      .testimonialsGrid
-      .testimonial
-      .testimonialContent {
-      padding: 2rem 1.5rem;
     }
   }
 }

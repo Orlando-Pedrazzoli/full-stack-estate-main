@@ -2,7 +2,7 @@
 
 .searchBar {
   position: relative;
-  z-index: 10; // Garante que fique acima dos boxes
+  z-index: 10;
 
   .type {
     display: flex;
@@ -20,6 +20,7 @@
       text-transform: capitalize;
       font-size: 16px;
       transition: all 0.3s ease;
+      font-weight: 500;
 
       @include md {
         padding: 14px 28px;
@@ -33,33 +34,44 @@
       }
 
       &.active {
-        background-color: black;
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
         color: white;
+        border-color: #2c3e50;
       }
 
       &:first-child {
-        border-top-left-radius: 5px;
+        border-top-left-radius: 8px;
         border-right: none;
       }
       &:last-child {
-        border-top-right-radius: 5px;
+        border-top-right-radius: 8px;
         border-left: none;
       }
 
       &:hover:not(.active) {
         background-color: #f8f9fa;
+        transform: translateY(-1px);
       }
     }
   }
 
   form {
-    border: 1px solid #999;
+    border: 2px solid #e9ecef;
     display: flex;
     justify-content: space-between;
     height: 64px;
-    gap: 5px;
+    gap: 0;
     position: relative;
     z-index: 10;
+    background: white;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+
+    &:focus-within {
+      border-color: #f39c12;
+      box-shadow: 0 4px 20px rgba(243, 156, 18, 0.2);
+    }
 
     @include md {
       height: 56px;
@@ -70,22 +82,31 @@
       border: none;
       height: auto;
       gap: 10px;
+      box-shadow: none;
+      background: transparent;
     }
 
     input {
       border: none;
-      padding: 0px 10px;
+      padding: 0px 15px;
       width: 200px;
       font-size: 14px;
       transition: all 0.3s ease;
+      background: transparent;
+      color: #2c3e50;
 
       &:focus {
         outline: none;
         background-color: #f8f9fa;
       }
 
+      &::placeholder {
+        color: #adb5bd;
+        font-weight: 400;
+      }
+
       @include lg {
-        padding: 0px 5px;
+        padding: 0px 10px;
         width: 180px;
 
         &:nth-child(2),
@@ -111,6 +132,8 @@
         border: 2px solid #e9ecef;
         border-radius: 8px;
         font-size: 16px;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 
         &:nth-child(2),
         &:nth-child(3) {
@@ -118,8 +141,9 @@
         }
 
         &:focus {
-          border-color: #fece51;
+          border-color: #fece51; // Cor igual ao botão Vender
           background-color: white;
+          box-shadow: 0 2px 15px rgba(254, 206, 81, 0.15);
         }
 
         &::placeholder {
@@ -129,43 +153,105 @@
     }
 
     a {
-      flex: 1;
-      background-color: #fece51;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
-
-      &:hover {
-        background-color: #e6b84a;
-      }
+      width: 60px; // Largura específica para a lupa
+      border-radius: 0 6px 6px 0;
 
       @include sm {
         border-radius: 8px;
         height: 48px;
+        width: 100%;
       }
 
-      button {
+      .searchButton {
         border: none;
         cursor: pointer;
-        background-color: transparent;
+        background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+        border: 3px solid #d35400; // Contorno amarelo escuro
         display: flex;
         align-items: center;
         justify-content: center;
         width: 100%;
         height: 100%;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        border-radius: 0 6px 6px 0;
+
+        // Efeito de brilho no hover
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent
+          );
+          transition: left 0.5s ease;
+        }
+
+        &:hover {
+          background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+          border-color: #e67e22;
+          transform: scale(1.05);
+          box-shadow: 0 6px 20px rgba(254, 206, 81, 0.4); // Sombra com cor do botão Vender
+
+          &::before {
+            left: 100%;
+          }
+        }
+
+        &:active {
+          transform: scale(0.98);
+        }
 
         @include sm {
+          border-radius: 8px;
           padding: 12px;
         }
 
-        img {
-          width: 24px;
-          height: 24px;
+        .searchIcon {
+          width: 22px;
+          height: 22px;
+          color: white;
+          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+          z-index: 1;
+          position: relative;
 
-          @include sm {
+          @include md {
             width: 20px;
             height: 20px;
+          }
+
+          @include sm {
+            width: 18px;
+            height: 18px;
+          }
+        }
+
+        // Fallback para imagem (se não usar SVG)
+        img {
+          width: 22px;
+          height: 22px;
+          filter: brightness(0) invert(1)
+            drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+
+          @include md {
+            width: 20px;
+            height: 20px;
+          }
+
+          @include sm {
+            width: 18px;
+            height: 18px;
           }
         }
       }
@@ -179,14 +265,48 @@
       padding: 10px 15px;
     }
 
-    form input {
-      font-size: 14px;
-      height: 44px;
-      padding: 10px 14px;
-    }
+    form {
+      input {
+        font-size: 14px;
+        height: 44px;
+        padding: 10px 14px;
+      }
 
-    form a {
-      height: 44px;
+      a {
+        height: 44px;
+
+        .searchButton {
+          border-radius: 8px;
+
+          .searchIcon {
+            width: 16px;
+            height: 16px;
+          }
+
+          img {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  // Animação para focus
+  @keyframes searchFocus {
+    0% {
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    100% {
+      box-shadow: 0 4px 20px rgba(254, 206, 81, 0.2); // Cor igual ao botão Vender
+    }
+  }
+
+  // Hover effects para desktop
+  @media (min-width: 769px) {
+    form:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     }
   }
 }

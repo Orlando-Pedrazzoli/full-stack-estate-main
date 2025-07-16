@@ -5,7 +5,7 @@
   height: 90px;
   width: 100%;
   display: flex;
-  justify-content: center; // Centraliza o conteúdo
+  justify-content: center;
   align-items: center;
   position: relative;
   z-index: 100;
@@ -28,7 +28,7 @@
   // Container interno que limita a largura
   .navbar-container {
     width: 100%;
-    max-width: 1400px; // Mesma largura do hero
+    max-width: 1400px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -68,15 +68,19 @@
       }
 
       img {
-        width: 40px;
-        height: 40px;
-        border-radius: 8px;
+        width: 42px; // Ligeiramente maior
+        height: 42px;
+        border-radius: 10px; // Bordas mais arredondadas
         object-fit: cover;
-        border: 2px solid rgba(255, 255, 255, 0.2);
+        border: 3px solid rgba(255, 255, 255, 0.9); // Borda branca mais espessa e opaca
+        background: white; // Fundo branco para garantir contraste
+        padding: 2px; // Espaço interno branco ao redor do logo
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); // Sombra sutil
 
         @include sm {
-          width: 35px;
-          height: 35px;
+          width: 38px;
+          height: 38px;
+          padding: 2px;
         }
       }
 
@@ -91,26 +95,26 @@
 
         .name {
           font-family: 'Playfair Display', serif;
-          font-size: 1.25rem;
+          font-size: 1.3rem; // Aumentado de 1.25rem
           font-weight: 600;
           color: #ffffff;
           letter-spacing: -0.02em;
 
           @include md {
-            font-size: 1.1rem;
+            font-size: 1.15rem; // Aumentado de 1.1rem
           }
         }
 
         .subtitle {
           font-family: 'Inter', sans-serif;
-          font-size: 0.75rem;
+          font-size: 0.8rem; // Aumentado de 0.75rem
           font-weight: 400;
           color: #b0b0b0;
           text-transform: uppercase;
           letter-spacing: 0.1em;
 
           @include md {
-            font-size: 0.7rem;
+            font-size: 0.75rem; // Aumentado de 0.7rem
           }
         }
       }
@@ -127,7 +131,7 @@
 
       .nav-link {
         font-family: 'Inter', sans-serif;
-        font-size: 0.9rem;
+        font-size: 1rem; // Aumentado de 0.9rem para melhor legibilidade
         font-weight: 500;
         color: #e0e0e0;
         text-decoration: none;
@@ -188,7 +192,7 @@
 
         .username {
           font-family: 'Inter', sans-serif;
-          font-size: 0.9rem;
+          font-size: 1rem; // Aumentado de 0.9rem
           font-weight: 500;
           color: #ffffff;
         }
@@ -221,7 +225,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
       font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
+      font-size: 1rem; // Aumentado de 0.9rem
       font-weight: 500;
       color: #e0e0e0;
 
@@ -267,7 +271,7 @@
         gap: 0.75rem;
         padding: 1rem 1.25rem;
         font-family: 'Inter', sans-serif;
-        font-size: 0.9rem;
+        font-size: 1rem; // Aumentado de 0.9rem
         font-weight: 500;
         color: #e0e0e0;
         text-decoration: none;
@@ -370,7 +374,7 @@
           padding: 1rem 1.25rem;
           margin-bottom: 0.5rem;
           font-family: 'Inter', sans-serif;
-          font-size: 1rem;
+          font-size: 1.1rem; // Aumentado de 1rem para mobile
           font-weight: 500;
           color: #e0e0e0;
           text-decoration: none;

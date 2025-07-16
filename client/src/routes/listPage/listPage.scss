@@ -1,4 +1,5 @@
 /* client/src/routes/listPage/listPage.scss */
+@import '../../responsive.scss';
 
 .listPage {
   display: flex;
@@ -11,8 +12,18 @@
     background: #f8f9fa;
 
     .wrapper {
-      max-width: 1200px;
+      max-width: 800px; // Reduzido de 1200px para 800px
       margin: 0 auto;
+      padding: 0 1rem; // Adicionar padding interno
+
+      @include lg {
+        max-width: 700px;
+      }
+
+      @include md {
+        max-width: 100%;
+        padding: 0 0.5rem;
+      }
     }
 
     /* Cabeçalho da lista */
@@ -23,10 +34,18 @@
 
       .listTitle {
         margin: 0 0 15px 0;
-        font-size: 28px;
+        font-size: 24px; // Reduzido de 28px
         font-weight: 700;
         color: #2c3e50;
         line-height: 1.2;
+
+        @include md {
+          font-size: 20px;
+        }
+
+        @include sm {
+          font-size: 18px;
+        }
       }
 
       .activeFilters {
@@ -63,37 +82,37 @@
 
       .noResults {
         text-align: center;
-        padding: 60px 20px;
+        padding: 40px 20px; // Reduzido de 60px
         background: white;
         border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 
         .noResultsIcon {
-          font-size: 4rem;
+          font-size: 3rem; // Reduzido de 4rem
           margin-bottom: 20px;
         }
 
         h3 {
           margin: 0 0 10px 0;
-          font-size: 24px;
+          font-size: 20px; // Reduzido de 24px
           color: #495057;
         }
 
         p {
-          margin: 0 0 30px 0;
+          margin: 0 0 20px 0; // Reduzido de 30px
           color: #6c757d;
-          font-size: 16px;
+          font-size: 14px; // Reduzido de 16px
         }
 
         .suggestions {
           text-align: left;
-          max-width: 400px;
+          max-width: 350px; // Reduzido de 400px
           margin: 0 auto;
 
           h4 {
             margin: 0 0 15px 0;
             color: #495057;
-            font-size: 18px;
+            font-size: 16px; // Reduzido de 18px
           }
 
           ul {
@@ -104,6 +123,7 @@
               margin-bottom: 8px;
               color: #6c757d;
               line-height: 1.5;
+              font-size: 14px;
             }
           }
         }
@@ -114,7 +134,7 @@
     .listContent {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px; // Reduzido de 20px
     }
 
     /* Estados de loading */
@@ -122,8 +142,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 200px;
-      font-size: 18px;
+      height: 150px; // Reduzido de 200px
+      font-size: 16px; // Reduzido de 18px
       color: #6c757d;
       background: white;
       border-radius: 12px;
@@ -143,36 +163,36 @@
       flex-direction: column;
 
       .mapHeader {
-        padding: 20px;
+        padding: 15px; // Reduzido de 20px
         border-bottom: 1px solid #e9ecef;
         background: white;
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        gap: 15px;
+        gap: 12px; // Reduzido de 15px
 
         h3 {
           margin: 0;
-          font-size: 18px;
+          font-size: 16px; // Reduzido de 18px
           font-weight: 600;
           color: #495057;
         }
 
         .mapLegend {
           display: flex;
-          gap: 20px;
+          gap: 15px; // Reduzido de 20px
 
           .legendItem {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 14px;
+            gap: 6px; // Reduzido de 8px
+            font-size: 13px; // Reduzido de 14px
             color: #6c757d;
 
             .legendIcon {
-              width: 12px;
-              height: 12px;
+              width: 10px; // Reduzido de 12px
+              height: 10px; // Reduzido de 12px
               border-radius: 50%;
 
               &.buy {
@@ -194,14 +214,14 @@
       }
 
       .mapFooter {
-        padding: 10px 20px;
+        padding: 8px 15px; // Reduzido de 10px 20px
         background: #f8f9fa;
         border-top: 1px solid #e9ecef;
         text-align: center;
 
         small {
           color: #6c757d;
-          font-size: 12px;
+          font-size: 11px; // Reduzido de 12px
         }
       }
     }
@@ -213,7 +233,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 16px;
+      font-size: 14px; // Reduzido de 16px
       color: #6c757d;
       background: #f8f9fa;
     }
@@ -224,17 +244,36 @@
   }
 
   /* Responsive Design */
-  @media (max-width: 1024px) {
+  @include lg {
+    .listContainer {
+      .wrapper {
+        padding: 0 0.75rem;
+      }
+
+      .listHeader {
+        .listTitle {
+          font-size: 22px;
+        }
+      }
+    }
+  }
+
+  @include md {
     flex-direction: column;
     height: auto;
 
     .listContainer {
       flex: none;
       max-height: 60vh;
+      padding: 15px;
+
+      .wrapper {
+        padding: 0;
+      }
 
       .listHeader {
         .listTitle {
-          font-size: 24px;
+          font-size: 20px;
         }
 
         .activeFilters {
@@ -252,20 +291,20 @@
       min-height: 300px;
 
       .mapWrapper .mapHeader {
-        padding: 15px;
+        padding: 12px;
         flex-direction: column;
         align-items: flex-start;
 
         .mapLegend {
-          gap: 15px;
+          gap: 12px;
         }
       }
     }
   }
 
-  @media (max-width: 768px) {
+  @include sm {
     .listContainer {
-      padding: 15px;
+      padding: 10px;
       max-height: 50vh;
 
       .listHeader {
@@ -273,7 +312,7 @@
         padding-bottom: 15px;
 
         .listTitle {
-          font-size: 20px;
+          font-size: 18px;
         }
 
         .activeFilters {
@@ -287,19 +326,35 @@
       }
 
       .resultsInfo {
+        .resultsCount {
+          font-size: 14px;
+        }
+
         .noResults {
-          padding: 40px 15px;
+          padding: 30px 15px;
 
           .noResultsIcon {
-            font-size: 3rem;
+            font-size: 2.5rem;
           }
 
           h3 {
-            font-size: 20px;
+            font-size: 18px;
           }
 
           p {
-            font-size: 14px;
+            font-size: 13px;
+          }
+
+          .suggestions {
+            max-width: 300px;
+
+            h4 {
+              font-size: 14px;
+            }
+
+            ul li {
+              font-size: 13px;
+            }
           }
         }
       }
@@ -312,69 +367,32 @@
         padding: 10px;
 
         h3 {
-          font-size: 16px;
+          font-size: 14px;
         }
 
         .mapLegend {
-          gap: 10px;
+          gap: 8px;
+          width: 100%;
+          justify-content: center;
 
           .legendItem {
             font-size: 12px;
-            gap: 6px;
+            gap: 4px;
 
             .legendIcon {
-              width: 10px;
-              height: 10px;
+              width: 8px;
+              height: 8px;
             }
           }
         }
       }
 
       .mapWrapper .mapFooter {
-        padding: 8px 10px;
+        padding: 6px 10px;
 
         small {
-          font-size: 11px;
+          font-size: 10px;
         }
-      }
-    }
-  }
-
-  @media (max-width: 480px) {
-    .listContainer {
-      padding: 10px;
-
-      .listHeader {
-        .listTitle {
-          font-size: 18px;
-        }
-      }
-
-      .resultsInfo {
-        .resultsCount {
-          font-size: 14px;
-        }
-
-        .noResults {
-          padding: 30px 10px;
-
-          .suggestions {
-            h4 {
-              font-size: 16px;
-            }
-
-            ul li {
-              font-size: 14px;
-            }
-          }
-        }
-      }
-    }
-
-    .mapContainer .mapWrapper .mapHeader {
-      .mapLegend {
-        width: 100%;
-        justify-content: center;
       }
     }
   }

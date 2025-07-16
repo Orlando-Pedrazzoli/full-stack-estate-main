@@ -45,7 +45,7 @@ function SearchBar() {
             onClick={() => switchType(type)}
             className={query.type === type ? 'active' : ''}
           >
-            {type === 'buy' ? 'Comprar' : 'Arrendar'} {/* ← Português */}
+            {type === 'buy' ? 'Comprar' : 'Arrendar'}
           </button>
         ))}
       </div>
@@ -55,7 +55,7 @@ function SearchBar() {
           name='city'
           placeholder='Cidade (ex: Lisboa, Porto...)'
           onChange={handleChange}
-          list='cities' // ← Adiciona autocomplete
+          list='cities'
         />
         <datalist id='cities'>
           {cities.map(city => (
@@ -82,8 +82,23 @@ function SearchBar() {
         <Link
           to={`/list?type=${query.type}&city=${query.city}&minPrice=${query.minPrice}&maxPrice=${query.maxPrice}`}
         >
-          <button>
-            <img src='/search.png' alt='' />
+          <button className='searchButton'>
+            <svg 
+              width="20" 
+              height="20" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+              className='searchIcon'
+            >
+              <path 
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              />
+            </svg>
           </button>
         </Link>
       </form>
