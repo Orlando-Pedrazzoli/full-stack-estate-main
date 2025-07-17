@@ -107,7 +107,7 @@ function Footer() {
             <h3>Redes Sociais</h3>
             <div className='social-links'>
               <a
-                href='https://facebook.com'
+                href='https://www.facebook.com/profile.php?id=61550820177225#'
                 target='_blank'
                 rel='noopener noreferrer'
                 className='social-link facebook'
@@ -126,7 +126,7 @@ function Footer() {
               </a>
 
               <a
-                href='https://instagram.com'
+                href='https://www.instagram.com/raquelperez.pt/'
                 target='_blank'
                 rel='noopener noreferrer'
                 className='social-link instagram'
