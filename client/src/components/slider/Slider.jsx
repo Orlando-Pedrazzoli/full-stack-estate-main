@@ -1,11 +1,12 @@
-import { useState } from "react";
-import "./slider.scss";
+// Slider.jsx
+import { useState } from 'react';
+import './slider.scss';
 
 function Slider({ images }) {
   const [imageIndex, setImageIndex] = useState(null);
 
-  const changeSlide = (direction) => {
-    if (direction === "left") {
+  const changeSlide = direction => {
+    if (direction === 'left') {
       if (imageIndex === 0) {
         setImageIndex(images.length - 1);
       } else {
@@ -21,31 +22,62 @@ function Slider({ images }) {
   };
 
   return (
-    <div className="slider">
+    <div className='slider'>
       {imageIndex !== null && (
-        <div className="fullSlider">
-          <div className="arrow" onClick={() => changeSlide("left")}>
-            <img src="/arrow.png" alt="" />
+        <div className='fullSlider'>
+          <div className='arrow arrow-left' onClick={() => changeSlide('left')}>
+            <svg
+              width='50'
+              height='50'
+              viewBox='0 0 24 24'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path
+                d='M15 18L9 12L15 6'
+                stroke='white'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
+            </svg>
           </div>
-          <div className="imgContainer">
-            <img src={images[imageIndex]} alt="" />
+          <div className='imgContainer'>
+            <img src={images[imageIndex]} alt='' />
           </div>
-          <div className="arrow" onClick={() => changeSlide("right")}>
-            <img src="/arrow.png" className="right" alt="" />
+          <div
+            className='arrow arrow-right'
+            onClick={() => changeSlide('right')}
+          >
+            <svg
+              width='50'
+              height='50'
+              viewBox='0 0 24 24'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path
+                d='M9 18L15 12L9 6'
+                stroke='white'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
+            </svg>
           </div>
-          <div className="close" onClick={() => setImageIndex(null)}>
-            X
+          <div className='close' onClick={() => setImageIndex(null)}>
+            <span>×</span>
           </div>
         </div>
       )}
-      <div className="bigImage">
-        <img src={images[0]} alt="" onClick={() => setImageIndex(0)} />
+      <div className='bigImage'>
+        <img src={images[0]} alt='' onClick={() => setImageIndex(0)} />
       </div>
-      <div className="smallImages">
+      <div className='smallImages'>
         {images.slice(1).map((image, index) => (
           <img
             src={image}
-            alt=""
+            alt=''
             key={index}
             onClick={() => setImageIndex(index + 1)}
           />

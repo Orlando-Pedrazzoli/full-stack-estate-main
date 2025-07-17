@@ -13,19 +13,20 @@
     position: sticky;
     top: 0;
     z-index: 100;
+    flex-shrink: 0; // Impede que a navbar seja comprimida
   }
 
   .content {
-    flex: 1;
+    flex: 1; // Ocupa todo o espaço disponível
     width: 100%;
-    min-height: calc(100vh - 90px); // Altura da navbar
+    // Remove min-height fixo para permitir que o footer seja sempre visível
+    display: flex;
+    flex-direction: column;
+  }
 
-    @include md {
-      min-height: calc(100vh - 80px);
-    }
-
-    @include sm {
-      min-height: calc(100vh - 70px);
-    }
+  // O footer ficará sempre no final, usando flex
+  .professional-footer {
+    flex-shrink: 0; // Impede que o footer seja comprimido
+    margin-top: auto; // Empurra o footer para o final se o conteúdo for pequeno
   }
 }

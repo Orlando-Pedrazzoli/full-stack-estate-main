@@ -1,6 +1,7 @@
 // client/src/App.jsx
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext';
+import ScrollToTop from './components/ScrollToTop';
 
 // Páginas
 import Layout from './routes/layout/layout';
@@ -31,7 +32,12 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Layout />,
+      element: (
+        <>
+          <ScrollToTop />
+          <Layout />
+        </>
+      ),
       children: [
         {
           path: '/',

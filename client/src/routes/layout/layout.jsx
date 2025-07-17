@@ -1,6 +1,7 @@
 // client/src/routes/layout/layout.jsx
 import './layout.scss';
 import Navbar from '../../components/navbar/Navbar';
+import Footer from '../../components/footer/Footer';
 import { WhatsAppFloating } from '../../components/whatsapp/WhatsAppChat';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useContext } from 'react';
@@ -15,6 +16,7 @@ function Layout() {
       <div className='content'>
         <Outlet />
       </div>
+      <Footer />
       {/* Botão flutuante do WhatsApp */}
       <WhatsAppFloating />
     </div>
@@ -34,6 +36,7 @@ function RequireAuth() {
         <div className='content'>
           <Outlet />
         </div>
+        <Footer />
         {/* Botão flutuante do WhatsApp */}
         <WhatsAppFloating />
       </div>
