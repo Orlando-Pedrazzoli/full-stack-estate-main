@@ -47,7 +47,7 @@ Poderia entrar em contacto para conversarmos sobre a melhor estratégia de venda
 
 Obrigado(a)! 🙏`;
 
-    const whatsappURL = `https://wa.me/351912164220?text=${encodeURIComponent(
+    const whatsappURL = `https://wa.me/351933859122?text=${encodeURIComponent(
       message
     )}`;
     window.open(whatsappURL, '_blank');

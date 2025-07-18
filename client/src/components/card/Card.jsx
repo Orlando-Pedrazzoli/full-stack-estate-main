@@ -5,20 +5,20 @@ import './card.scss';
 
 function Card({ item }) {
   const openWhatsApp = () => {
-    const RAQUEL_WHATSAPP = '351912164220'; // Substitua pelo número real
+    const RAQUEL_WHATSAPP = '351933859122'; // Substitua pelo número real
 
-    const message = encodeURIComponent(`Olá Raquel! 👋
+    const message = encodeURIComponent(`Olá Raquel! 
 
 Tenho interesse na seguinte propriedade:
 
-🏠 *${item.title}*
-📍 ${item.address}
-💰 €${item.price.toLocaleString('pt-PT')}
-🛏️ ${item.bedroom} quartos | 🚿 ${item.bathroom} casas de banho
+ *${item.title}*
+ ${item.address}
+ €${item.price.toLocaleString('pt-PT')}
+ ${item.bedroom} quartos |  ${item.bathroom} casas de banho
 
 Poderia fornecer mais informações sobre este imóvel?
 
-Obrigado(a)! 🙏`);
+Obrigado(a)! `);
 
     const whatsappURL = `https://wa.me/${RAQUEL_WHATSAPP}?text=${message}`;
     window.open(whatsappURL, '_blank');

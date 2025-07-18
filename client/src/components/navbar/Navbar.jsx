@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import './navbar.scss';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
@@ -7,6 +7,20 @@ function Navbar() {
   const [open, setOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const { currentUser, updateUser } = useContext(AuthContext);
+
+  // Gerenciar scroll do body quando mobile menu está aberto
+  useEffect(() => {
+    if (open) {
+      document.body.classList.add('mobile-menu-open');
+    } else {
+      document.body.classList.remove('mobile-menu-open');
+    }
+
+    // Cleanup quando componente é desmontado
+    return () => {
+      document.body.classList.remove('mobile-menu-open');
+    };
+  }, [open]);
 
   const handleLogout = () => {
     // Implementar a lógica de logout aqui
@@ -18,6 +32,11 @@ function Navbar() {
   const closeMenus = () => {
     setOpen(false);
     setProfileMenuOpen(false);
+  };
+
+  // Fechar mobile menu quando clicar fora
+  const handleMobileMenuOverlayClick = () => {
+    setOpen(false);
   };
 
   return (
@@ -34,8 +53,8 @@ function Navbar() {
           </Link>
 
           <div className='nav-links'>
-            <Link to='/about' className='nav-link'>
-              Serviços
+            <Link to='/sell-property' className='nav-link sell-link'>
+              Vender
             </Link>
             <Link to='/list?type=buy' className='nav-link'>
               Comprar
@@ -43,8 +62,12 @@ function Navbar() {
             <Link to='/list?type=rent' className='nav-link'>
               Arrendar
             </Link>
-            <Link to='/sell-property' className='nav-link sell-link'>
-              Vender
+
+            <Link to='/about' className='nav-link'>
+              Sobre mim
+            </Link>
+            <Link to='/contact' className='nav-link'>
+              Contacto
             </Link>
           </div>
         </div>
@@ -225,85 +248,218 @@ function Navbar() {
 
           <div className='menuIcon'>
             <button onClick={() => setOpen(!open)} className='mobile-menu-btn'>
-              <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
-                <path
-                  d='M3 12h18m-9-9v18'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                />
-              </svg>
+              {open ? (
+                // Ícone X quando menu está aberto
+                <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
+                  <path
+                    d='M18 6L6 18M6 6l12 12'
+                    stroke='currentColor'
+                    strokeWidth='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  />
+                </svg>
+              ) : (
+                // Ícone hamburger quando menu está fechado
+                <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
+                  <path
+                    d='M3 12h18M3 6h18M3 18h18'
+                    stroke='currentColor'
+                    strokeWidth='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  />
+                </svg>
+              )}
             </button>
           </div>
 
-          <div className={`mobile-menu ${open ? 'active' : ''}`}>
-            <div className='mobile-menu-content'>
-              <Link to='/about' onClick={closeMenus} className='mobile-link'>
-                Serviços
-              </Link>
-              <Link
-                to='/list?type=buy'
-                onClick={closeMenus}
-                className='mobile-link'
-              >
-                Comprar
-              </Link>
-              <Link
-                to='/list?type=rent'
-                onClick={closeMenus}
-                className='mobile-link'
-              >
-                Arrendar
-              </Link>
-              <Link
-                to='/sell-property'
-                onClick={closeMenus}
-                className='mobile-link'
-              >
-                Vender
-              </Link>
+          {/* Mobile Menu com overlay */}
+          {open && (
+            <>
+              {/* Overlay para fechar quando clicar fora */}
+              <div
+                className='mobile-menu-overlay'
+                onClick={handleMobileMenuOverlayClick}
+              ></div>
 
-              <div className='mobile-divider'></div>
+              {/* Menu mobile */}
+              <div className={`mobile-menu ${open ? 'active' : ''}`}>
+                <div className='mobile-menu-content'>
+                  {/* Botão X no topo do menu */}
+                  <div className='mobile-menu-header'>
+                    <button
+                      className='mobile-close-btn'
+                      onClick={() => setOpen(false)}
+                    >
+                      <svg
+                        width='24'
+                        height='24'
+                        viewBox='0 0 24 24'
+                        fill='none'
+                      >
+                        <path
+                          d='M18 6L6 18M6 6l12 12'
+                          stroke='currentColor'
+                          strokeWidth='2'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                        />
+                      </svg>
+                    </button>
+                  </div>
 
-              {currentUser ? (
-                <>
                   <Link
-                    to='/profile'
+                    to='/about'
                     onClick={closeMenus}
                     className='mobile-link'
                   >
-                    Perfil
+                    Serviços
                   </Link>
-                  <Link to='/add' onClick={closeMenus} className='mobile-link'>
-                    Criar Anúncio
-                  </Link>
-                  <button onClick={handleLogout} className='mobile-link logout'>
-                    Terminar Sessão
-                  </button>
-                </>
-              ) : (
-                <>
                   <Link
-                    to='/login'
+                    to='/list?type=buy'
                     onClick={closeMenus}
                     className='mobile-link'
                   >
-                    Iniciar Sessão
+                    Comprar
                   </Link>
                   <Link
-                    to='/register'
+                    to='/list?type=rent'
                     onClick={closeMenus}
-                    className='mobile-link register'
+                    className='mobile-link'
                   >
-                    Criar Conta
+                    Arrendar
                   </Link>
-                </>
-              )}
-            </div>
-          </div>
+                  <Link
+                    to='/sell-property'
+                    onClick={closeMenus}
+                    className='mobile-link'
+                  >
+                    Vender
+                  </Link>
+
+                  <div className='mobile-divider'></div>
+
+                  {currentUser ? (
+                    <>
+                      <Link
+                        to='/profile'
+                        onClick={closeMenus}
+                        className='mobile-link'
+                      >
+                        Perfil
+                      </Link>
+                      <Link
+                        to='/add'
+                        onClick={closeMenus}
+                        className='mobile-link'
+                      >
+                        Criar Anúncio
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        className='mobile-link logout'
+                      >
+                        Terminar Sessão
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        to='/login'
+                        onClick={closeMenus}
+                        className='mobile-link'
+                      >
+                        Iniciar Sessão
+                      </Link>
+                      <Link
+                        to='/register'
+                        onClick={closeMenus}
+                        className='mobile-link register'
+                      >
+                        Criar Conta
+                      </Link>
+                    </>
+                  )}
+
+                  {/* Seção de Redes Sociais */}
+                  <div className='mobile-divider'></div>
+
+                  <div className='mobile-social-section'>
+                    <h4 className='mobile-social-title'>Redes Sociais</h4>
+
+                    <a
+                      href='https://www.facebook.com/profile.php?id=61550820177225#'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='mobile-social-link facebook'
+                      aria-label='Facebook'
+                    >
+                      <svg
+                        width='20'
+                        height='20'
+                        viewBox='0 0 24 24'
+                        fill='none'
+                      >
+                        <path
+                          d='M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z'
+                          stroke='currentColor'
+                          strokeWidth='2'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                        />
+                      </svg>
+                      <span>Facebook</span>
+                    </a>
+
+                    <a
+                      href='https://www.instagram.com/raquelperez.pt/'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='mobile-social-link instagram'
+                      aria-label='Instagram'
+                    >
+                      <svg
+                        width='20'
+                        height='20'
+                        viewBox='0 0 24 24'
+                        fill='none'
+                      >
+                        <rect
+                          x='2'
+                          y='2'
+                          width='20'
+                          height='20'
+                          rx='5'
+                          ry='5'
+                          stroke='currentColor'
+                          strokeWidth='2'
+                        />
+                        <path
+                          d='m16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z'
+                          stroke='currentColor'
+                          strokeWidth='2'
+                        />
+                        <line
+                          x1='17.5'
+                          y1='6.5'
+                          x2='17.51'
+                          y2='6.5'
+                          stroke='currentColor'
+                          strokeWidth='2'
+                        />
+                      </svg>
+                      <span>Instagram</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
-      {/* Overlay para fechar dropdowns */}
+      {/* Overlay para fechar dropdowns de desktop */}
       {profileMenuOpen && (
         <div
           className='dropdown-overlay'

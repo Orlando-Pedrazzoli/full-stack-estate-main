@@ -7,7 +7,7 @@ function WhatsAppChat({ property = null, contactType = 'general' }) {
   const { currentUser } = useContext(AuthContext);
 
   // Número da Raquel (substitua pelo número real)
-  const RAQUEL_WHATSAPP = '351912164220'; // Formato: código país + número
+  const RAQUEL_WHATSAPP = '351933859122'; // Formato: código país + número
 
   const generateWhatsAppMessage = () => {
     let message = '';
@@ -34,9 +34,9 @@ Email: ${currentUser.email}
 
 Poderia fornecer mais informações sobre este imóvel?
 
-Obrigado(a)! 🙏`;
+Obrigado(a)! `;
     } else if (contactType === 'sell') {
-      message = `Olá Raquel! 👋
+      message = `Olá Raquel!
 
 Tenho interesse em *vender* um imóvel e gostaria de conhecer os seus serviços.
 
@@ -54,7 +54,7 @@ Poderia entrar em contacto comigo para conversarmos?
 
 Obrigado(a)! 🙏`;
     } else if (contactType === 'buy') {
-      message = `Olá Raquel! 👋
+      message = `Olá Raquel!
 
 Estou à procura de um imóvel para *comprar* e gostaria do seu apoio profissional.
 
@@ -72,7 +72,7 @@ Poderia ajudar-me a encontrar a propriedade ideal?
 
 Obrigado(a)! 🙏`;
     } else if (contactType === 'rent') {
-      message = `Olá Raquel! 👋
+      message = `Olá Raquel!
 
 Estou à procura de um imóvel para *arrendar* e gostaria da sua ajuda.
 
@@ -90,7 +90,7 @@ Tem disponível alguma propriedade que se adeque às minhas necessidades?
 
 Obrigado(a)! 🙏`;
     } else {
-      message = `Olá Raquel! 👋
+      message = `Olá Raquel!
 
 Gostaria de falar consigo sobre serviços imobiliários.
 
@@ -106,7 +106,7 @@ Email: ${currentUser.email}
 
 Quando seria possível conversarmos?
 
-Obrigado(a)! 🙏`;
+Obrigado(a)!`;
     }
 
     return encodeURIComponent(message);
@@ -164,14 +164,14 @@ Obrigado(a)! 🙏`;
 
 // Componente para o botão flutuante do WhatsApp
 export function WhatsAppFloating() {
-  const RAQUEL_WHATSAPP = '351912164220';
+  const RAQUEL_WHATSAPP = '351933859122';
 
   const openWhatsApp = () => {
-    const message = encodeURIComponent(`Olá Raquel! 👋
+    const message = encodeURIComponent(`Olá Raquel!
 
 Vi o seu site e gostaria de falar consigo sobre serviços imobiliários.
 
-Obrigado(a)! 🙏`);
+Obrigado(a)! `);
 
     const whatsappURL = `https://wa.me/${RAQUEL_WHATSAPP}?text=${message}`;
     window.open(whatsappURL, '_blank');

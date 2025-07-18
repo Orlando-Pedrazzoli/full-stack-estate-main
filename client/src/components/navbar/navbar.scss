@@ -8,7 +8,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  z-index: 100;
+  z-index: 1000; // Aumentado para ficar acima de outros componentes
   background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -68,14 +68,14 @@
       }
 
       img {
-        width: 42px; // Ligeiramente maior
+        width: 42px;
         height: 42px;
-        border-radius: 10px; // Bordas mais arredondadas
+        border-radius: 10px;
         object-fit: cover;
-        border: 3px solid rgba(255, 255, 255, 0.9); // Borda branca mais espessa e opaca
-        background: white; // Fundo branco para garantir contraste
-        padding: 2px; // Espaço interno branco ao redor do logo
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); // Sombra sutil
+        border: 3px solid rgba(255, 255, 255, 0.9);
+        background: white;
+        padding: 2px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 
         @include sm {
           width: 38px;
@@ -95,26 +95,26 @@
 
         .name {
           font-family: 'Playfair Display', serif;
-          font-size: 1.3rem; // Aumentado de 1.25rem
+          font-size: 1.3rem;
           font-weight: 600;
           color: #ffffff;
           letter-spacing: -0.02em;
 
           @include md {
-            font-size: 1.15rem; // Aumentado de 1.1rem
+            font-size: 1.15rem;
           }
         }
 
         .subtitle {
           font-family: 'Inter', sans-serif;
-          font-size: 0.8rem; // Aumentado de 0.75rem
+          font-size: 0.8rem;
           font-weight: 400;
           color: #b0b0b0;
           text-transform: uppercase;
           letter-spacing: 0.1em;
 
           @include md {
-            font-size: 0.75rem; // Aumentado de 0.7rem
+            font-size: 0.75rem;
           }
         }
       }
@@ -131,7 +131,7 @@
 
       .nav-link {
         font-family: 'Inter', sans-serif;
-        font-size: 1rem; // Aumentado de 0.9rem para melhor legibilidade
+        font-size: 1rem;
         font-weight: 500;
         color: #e0e0e0;
         text-decoration: none;
@@ -202,7 +202,7 @@
 
         .username {
           font-family: 'Inter', sans-serif;
-          font-size: 1rem; // Aumentado de 0.9rem
+          font-size: 1rem;
           font-weight: 500;
           color: #ffffff;
         }
@@ -235,7 +235,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
       font-family: 'Inter', sans-serif;
-      font-size: 1rem; // Aumentado de 0.9rem
+      font-size: 1rem;
       font-weight: 500;
       color: #e0e0e0;
 
@@ -272,7 +272,7 @@
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
       min-width: 200px;
       overflow: hidden;
-      z-index: 1000;
+      z-index: 1100; // Maior que navbar
       animation: fadeInUp 0.2s ease;
 
       .dropdown-item {
@@ -281,7 +281,7 @@
         gap: 0.75rem;
         padding: 1rem 1.25rem;
         font-family: 'Inter', sans-serif;
-        font-size: 1rem; // Aumentado de 0.9rem
+        font-size: 1rem;
         font-weight: 500;
         color: #e0e0e0;
         text-decoration: none;
@@ -331,6 +331,7 @@
 
     .menuIcon {
       display: none;
+      z-index: 1200; // Maior que mobile menu
 
       @include md {
         display: block;
@@ -343,6 +344,8 @@
         padding: 0.5rem;
         color: #e0e0e0;
         transition: all 0.3s ease;
+        z-index: 1200;
+        position: relative;
 
         &:hover {
           color: #ffffff;
@@ -355,28 +358,73 @@
       }
     }
 
+    // Overlay do mobile menu (fundo escuro)
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1150;
+      animation: fadeIn 0.3s ease;
+    }
+
+    // Mobile menu
     .mobile-menu {
       position: fixed;
       top: 0;
       right: -100%;
-      width: 300px;
+      width: 320px;
       height: 100vh;
       background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
-      box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
-      transition: all 0.3s ease;
-      z-index: 1001;
+      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.7);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1200; // Maior que overlay
+      overflow-y: auto;
 
       @include sm {
         width: 280px;
+      }
+
+      @include xs {
+        width: 100vw;
       }
 
       &.active {
         right: 0;
       }
 
+      .mobile-menu-header {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+        .mobile-close-btn {
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 8px;
+          padding: 0.5rem;
+          cursor: pointer;
+          color: #e0e0e0;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            transform: scale(1.1);
+          }
+
+          svg {
+            color: inherit;
+          }
+        }
+      }
+
       .mobile-menu-content {
-        padding: 2rem 1.5rem;
-        padding-top: 5rem;
+        padding: 1rem 1.5rem;
+        padding-top: 1rem;
 
         .mobile-link {
           display: flex;
@@ -384,7 +432,7 @@
           padding: 1rem 1.25rem;
           margin-bottom: 0.5rem;
           font-family: 'Inter', sans-serif;
-          font-size: 1.1rem; // Aumentado de 1rem para mobile
+          font-size: 1.1rem;
           font-weight: 500;
           color: #e0e0e0;
           text-decoration: none;
@@ -415,6 +463,7 @@
             background: linear-gradient(135deg, #fece51 0%, #f39c12 100%);
             color: #1a1a1a;
             margin-top: 1rem;
+            font-weight: 600;
 
             &:hover {
               background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
@@ -429,6 +478,74 @@
           background: rgba(255, 255, 255, 0.1);
           margin: 1.5rem 0;
         }
+
+        // Seção de redes sociais no mobile menu
+        .mobile-social-section {
+          margin-top: 1rem;
+
+          .mobile-social-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            padding-left: 1.25rem;
+            letter-spacing: -0.02em;
+          }
+
+          .mobile-social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #e0e0e0;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+
+            svg {
+              flex-shrink: 0;
+              color: #e0e0e0;
+              transition: color 0.3s ease;
+            }
+
+            &:hover {
+              transform: translateX(5px);
+              border-color: rgba(255, 255, 255, 0.2);
+              background: rgba(255, 255, 255, 0.1);
+            }
+
+            &.facebook {
+              &:hover {
+                border-color: #1877f2;
+                background: rgba(24, 119, 242, 0.1);
+                color: #1877f2;
+
+                svg {
+                  color: #1877f2;
+                }
+              }
+            }
+
+            &.instagram {
+              &:hover {
+                border-color: #e4405f;
+                background: rgba(228, 64, 95, 0.1);
+                color: #e4405f;
+
+                svg {
+                  color: #e4405f;
+                }
+              }
+            }
+          }
+        }
       }
     }
 
@@ -439,7 +556,7 @@
       width: 100vw;
       height: 100vh;
       background: transparent;
-      z-index: 999;
+      z-index: 1050;
     }
   }
 }
@@ -455,18 +572,20 @@
   }
 }
 
-// Estados especiais para overlay quando menu mobile está aberto
-body.menu-open {
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Prevenir scroll quando mobile menu está aberto
+body.mobile-menu-open {
   overflow: hidden;
 
-  &::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+  @include md {
+    overflow: hidden;
   }
 }

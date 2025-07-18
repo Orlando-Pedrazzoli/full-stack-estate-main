@@ -237,7 +237,7 @@ function SinglePage() {
                               <button
                                 className='whatsappBtn'
                                 onClick={() => {
-                                  const RAQUEL_WHATSAPP = '351912164220';
+                                  const RAQUEL_WHATSAPP = '351933859122';
                                   const message =
                                     encodeURIComponent(`Olá Raquel! 👋
 
