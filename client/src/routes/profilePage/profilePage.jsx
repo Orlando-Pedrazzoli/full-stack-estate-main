@@ -22,9 +22,9 @@ function ProfilePage() {
   };
 
   const openWhatsAppSupport = () => {
-    const RAQUEL_WHATSAPP = '351912164220'; // Substitua pelo número real
+    const RAQUEL_WHATSAPP = '351933859122'; // Substitua pelo número real
 
-    const message = encodeURIComponent(`Olá Raquel! 👋
+    const message = encodeURIComponent(`Olá Raquel! 
 
 Sou ${currentUser.username} e tenho algumas questões sobre os meus anúncios ou conta.
 
@@ -103,7 +103,7 @@ Obrigado(a)! 🙏`);
           <div className='support-card'>
             <div className='support-header'>
               <img
-                src='/rq-profile.jpg'
+                src='/raquel-foto.png'
                 alt='Raquel Perez'
                 className='consultant-photo'
               />

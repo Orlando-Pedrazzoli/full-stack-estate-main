@@ -140,6 +140,12 @@
 
           .stat {
             text-align: center;
+            position: relative;
+            transition: transform 0.3s ease;
+
+            &:hover {
+              transform: translateY(-5px);
+            }
 
             .number {
               display: block;
@@ -147,6 +153,7 @@
               font-weight: 700;
               color: #2c3e50;
               margin-bottom: 0.5rem;
+              position: relative;
 
               @include md {
                 font-size: 2rem;
@@ -154,6 +161,11 @@
 
               @include sm {
                 font-size: 2.2rem;
+              }
+
+              // Apenas cor sólida, sem animações contínuas
+              &.animated-number {
+                color: #2c3e50;
               }
             }
 
@@ -163,6 +175,12 @@
               text-transform: uppercase;
               letter-spacing: 0.5px;
               font-weight: 500;
+              transition: color 0.3s ease;
+            }
+
+            // Efeito hover no stat completo
+            &:hover .label {
+              color: #2c3e50;
             }
           }
         }
@@ -252,6 +270,32 @@
         }
       }
     }
+  }
+}
+
+// Animação de entrada dos stats
+.heroStats .stat {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease-out forwards;
+
+  &:nth-child(1) {
+    animation-delay: 0.2s;
+  }
+
+  &:nth-child(2) {
+    animation-delay: 0.4s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 0.6s;
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

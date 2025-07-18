@@ -1,12 +1,14 @@
 import { useContext, useState, useEffect } from 'react';
 import './navbar.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import apiRequest from '../../lib/apiRequest';
 
 function Navbar() {
   const [open, setOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const { currentUser, updateUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   // Gerenciar scroll do body quando mobile menu está aberto
   useEffect(() => {
@@ -22,11 +24,21 @@ function Navbar() {
     };
   }, [open]);
 
-  const handleLogout = () => {
-    // Implementar a lógica de logout aqui
-    console.log('Utilizador desconectado.');
-    setOpen(false);
-    setProfileMenuOpen(false);
+  const handleLogout = async () => {
+    try {
+      await apiRequest.post('/auth/logout');
+      updateUser(null);
+      setOpen(false);
+      setProfileMenuOpen(false);
+      navigate('/');
+    } catch (err) {
+      console.log('Erro ao fazer logout:', err);
+      // Mesmo com erro, limpar o estado local
+      updateUser(null);
+      setOpen(false);
+      setProfileMenuOpen(false);
+      navigate('/');
+    }
   };
 
   const closeMenus = () => {
@@ -51,25 +63,25 @@ function Navbar() {
               <span className='subtitle'>Consultora Imobiliária</span>
             </div>
           </Link>
+        </div>
 
-          <div className='nav-links'>
-            <Link to='/sell-property' className='nav-link sell-link'>
-              Vender
-            </Link>
-            <Link to='/list?type=buy' className='nav-link'>
-              Comprar
-            </Link>
-            <Link to='/list?type=rent' className='nav-link'>
-              Arrendar
-            </Link>
-
-            <Link to='/about' className='nav-link'>
-              Sobre mim
-            </Link>
-            <Link to='/contact' className='nav-link'>
-              Contacto
-            </Link>
-          </div>
+        {/* Links de navegação centralizados */}
+        <div className='nav-links'>
+          <Link to='/sell-property' className='nav-link sell-link'>
+            Vender
+          </Link>
+          <Link to='/list?type=buy' className='nav-link'>
+            Comprar
+          </Link>
+          <Link to='/list?type=rent' className='nav-link'>
+            Arrendar
+          </Link>
+          <Link to='/about' className='nav-link'>
+            Sobre mim
+          </Link>
+          <Link to='/contact' className='nav-link'>
+            Contacto
+          </Link>
         </div>
 
         <div className='right'>
@@ -286,15 +298,25 @@ function Navbar() {
               {/* Menu mobile */}
               <div className={`mobile-menu ${open ? 'active' : ''}`}>
                 <div className='mobile-menu-content'>
-                  {/* Botão X no topo do menu */}
+                  {/* Header do menu mobile com logo e botão X */}
                   <div className='mobile-menu-header'>
+                    <Link to='/' className='mobile-logo' onClick={closeMenus}>
+                      <img src='/rqfavicon.jpg' alt='Logo RP' />
+                      <div className='mobile-text-block'>
+                        <span className='mobile-name'>Raquel Perez</span>
+                        <span className='mobile-subtitle'>
+                          Consultora Imobiliária
+                        </span>
+                      </div>
+                    </Link>
+
                     <button
                       className='mobile-close-btn'
                       onClick={() => setOpen(false)}
                     >
                       <svg
-                        width='24'
-                        height='24'
+                        width='20'
+                        height='20'
                         viewBox='0 0 24 24'
                         fill='none'
                       >
@@ -309,13 +331,15 @@ function Navbar() {
                     </button>
                   </div>
 
+                  {/* Links de navegação */}
                   <Link
-                    to='/about'
+                    to='/sell-property'
                     onClick={closeMenus}
                     className='mobile-link'
                   >
-                    Serviços
+                    Vender
                   </Link>
+
                   <Link
                     to='/list?type=buy'
                     onClick={closeMenus}
@@ -323,6 +347,7 @@ function Navbar() {
                   >
                     Comprar
                   </Link>
+
                   <Link
                     to='/list?type=rent'
                     onClick={closeMenus}
@@ -330,12 +355,21 @@ function Navbar() {
                   >
                     Arrendar
                   </Link>
+
                   <Link
-                    to='/sell-property'
+                    to='/about'
                     onClick={closeMenus}
                     className='mobile-link'
                   >
-                    Vender
+                    Sobre mim
+                  </Link>
+
+                  <Link
+                    to='/contact'
+                    onClick={closeMenus}
+                    className='mobile-link'
+                  >
+                    Contacto
                   </Link>
 
                   <div className='mobile-divider'></div>

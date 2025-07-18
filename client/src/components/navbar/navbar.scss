@@ -2,14 +2,14 @@
 @import '../../responsive.scss';
 
 .professional-navbar {
-  height: 90px;
+  height: 75px; // Reduzido de 90px
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: sticky; // Adicionado sticky
-  top: 0; // Adicionado top: 0
-  z-index: 9999; // Aumentado para garantir que fique acima do mapa
+  position: sticky;
+  top: 0;
+  z-index: 9999;
   background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -18,46 +18,51 @@
   margin: 0;
   box-sizing: border-box;
 
+  @include lg {
+    height: 70px; // Reduzido de 80px
+  }
+
   @include md {
-    height: 80px;
+    height: 65px; // Reduzido de 70px
   }
 
   @include sm {
-    height: 70px;
+    height: 60px;
   }
 
   // Container interno otimizado para diferentes tamanhos de tela
   .navbar-container {
     width: 100%;
-    max-width: 2000px; // Aumentado de 1400px para 2000px
+    max-width: 1600px; // Reduzido de 2000px
     display: flex;
-    justify-content: space-between;
+    justify-content: center; // Centralizar o conteúdo
     align-items: center;
-    padding: 0 3rem; // Aumentado de 2rem para 3rem
+    padding: 0 2rem; // Reduzido de 3rem
+    position: relative; // Para posicionamento absoluto dos elementos nas extremidades
 
-    // Responsividade específica para diferentes tamanhos
-    @include ultra-wide {
-      max-width: 2200px;
-      padding: 0 4rem;
-    }
-
-    @include xxl {
+    @media (min-width: 1920px) {
       max-width: 1800px;
-      padding: 0 3.5rem;
+      padding: 0 2.5rem;
     }
 
-    @include xl {
+    @media (min-width: 1440px) {
       max-width: 1600px;
-      padding: 0 3rem;
+      padding: 0 2rem;
+    }
+
+    @media (min-width: 1200px) {
+      max-width: 1400px;
+      padding: 0 2rem;
     }
 
     @include lg {
-      max-width: 1400px;
-      padding: 0 2.5rem;
+      max-width: 1200px;
+      padding: 0 1.5rem;
     }
 
     @include md {
       padding: 0 1rem;
+      justify-content: space-between; // Volta ao space-between no mobile
     }
 
     @include sm {
@@ -66,39 +71,37 @@
   }
 
   .left {
+    position: absolute; // Posicionamento absoluto
+    left: 2rem; // Posição fixa à esquerda
     display: flex;
     align-items: center;
-    gap: 4rem; // Aumentado de 3rem para 4rem em telas grandes
 
-    @include ultra-wide {
-      gap: 5rem;
-    }
-
-    @include xxl {
-      gap: 4.5rem;
-    }
-
-    @include xl {
-      gap: 4rem;
+    @media (min-width: 1920px) {
+      left: 2.5rem;
     }
 
     @include lg {
-      gap: 3rem;
+      left: 1.5rem;
     }
 
     @include md {
-      gap: 1.5rem;
+      position: static; // Volta ao fluxo normal no mobile
+      left: auto;
+    }
+
+    @include sm {
+      left: 0.75rem;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 1rem; // Aumentado de 0.75rem
+      gap: 0.75rem; // Reduzido de 1rem
       text-decoration: none;
       transition: all 0.3s ease;
 
-      @include ultra-wide {
-        gap: 1.25rem;
+      @media (min-width: 1920px) {
+        gap: 1rem;
       }
 
       &:hover {
@@ -106,35 +109,33 @@
       }
 
       img {
-        width: 48px; // Aumentado de 42px
-        height: 48px;
-        border-radius: 12px; // Aumentado de 10px
+        width: 40px; // Reduzido de 48px
+        height: 40px;
+        border-radius: 10px;
         object-fit: cover;
-        border: 3px solid rgba(255, 255, 255, 0.9);
+        border: 2px solid rgba(255, 255, 255, 0.9);
         background: white;
-        padding: 3px; // Aumentado de 2px
+        padding: 2px;
         box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
 
-        @include ultra-wide {
-          width: 52px;
-          height: 52px;
+        @media (min-width: 1920px) {
+          width: 44px;
+          height: 44px;
         }
 
-        @include xxl {
-          width: 50px;
-          height: 50px;
+        @media (min-width: 1440px) {
+          width: 42px;
+          height: 42px;
         }
 
         @include md {
-          width: 42px;
-          height: 42px;
-          padding: 2px;
+          width: 38px;
+          height: 38px;
         }
 
         @include sm {
-          width: 38px;
-          height: 38px;
-          padding: 2px;
+          width: 36px;
+          height: 36px;
         }
       }
 
@@ -149,198 +150,182 @@
 
         .name {
           font-family: 'Playfair Display', serif;
-          font-size: 1.4rem; // Aumentado de 1.3rem
+          font-size: 1.2rem; // Reduzido de 1.4rem
           font-weight: 600;
           color: #ffffff;
           letter-spacing: -0.02em;
 
-          @include ultra-wide {
-            font-size: 1.6rem;
-          }
-
-          @include xxl {
-            font-size: 1.5rem;
-          }
-
-          @include xl {
-            font-size: 1.4rem;
-          }
-
-          @include lg {
+          @media (min-width: 1920px) {
             font-size: 1.3rem;
           }
 
-          @include md {
+          @media (min-width: 1440px) {
+            font-size: 1.25rem;
+          }
+
+          @include lg {
             font-size: 1.15rem;
+          }
+
+          @include md {
+            font-size: 1.1rem;
           }
         }
 
         .subtitle {
           font-family: 'Inter', sans-serif;
-          font-size: 0.85rem; // Aumentado de 0.8rem
+          font-size: 0.75rem; // Reduzido de 0.85rem
           font-weight: 400;
           color: #b0b0b0;
           text-transform: uppercase;
           letter-spacing: 0.1em;
 
-          @include ultra-wide {
-            font-size: 0.9rem;
-          }
-
-          @include xxl {
-            font-size: 0.875rem;
-          }
-
-          @include xl {
-            font-size: 0.85rem;
-          }
-
-          @include lg {
+          @media (min-width: 1920px) {
             font-size: 0.8rem;
           }
 
-          @include md {
-            font-size: 0.75rem;
-          }
-        }
-      }
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2.5rem; // Aumentado de 2rem
-
-      @include ultra-wide {
-        gap: 3rem;
-      }
-
-      @include xxl {
-        gap: 2.75rem;
-      }
-
-      @include xl {
-        gap: 2.5rem;
-      }
-
-      @include lg {
-        gap: 2rem;
-      }
-
-      @include md {
-        display: none;
-      }
-
-      .nav-link {
-        font-family: 'Inter', sans-serif;
-        font-size: 1.05rem; // Aumentado de 1rem
-        font-weight: 500;
-        color: #e0e0e0;
-        text-decoration: none;
-        padding: 0.625rem 1.25rem; // Aumentado padding
-        border-radius: 8px; // Aumentado de 6px
-        transition: all 0.3s ease;
-        position: relative;
-        white-space: nowrap;
-
-        @include ultra-wide {
-          font-size: 1.1rem;
-          padding: 0.75rem 1.5rem;
-        }
-
-        @include xxl {
-          font-size: 1.075rem;
-          padding: 0.675rem 1.375rem;
-        }
-
-        @include xl {
-          font-size: 1.05rem;
-          padding: 0.625rem 1.25rem;
-        }
-
-        @include lg {
-          font-size: 1rem;
-          padding: 0.5rem 1rem;
-        }
-
-        &:hover {
-          color: #ffffff;
-          background: rgba(255, 255, 255, 0.1);
-          transform: translateY(-1px);
-        }
-
-        &.sell-link {
-          background: linear-gradient(
-            135deg,
-            #ffd700 0%,
-            #d4af37 50%,
-            #996515 100%
-          );
-          color: #1a1a1a;
-          font-weight: 600;
-          padding: 0.875rem 1.75rem; // Aumentado padding
-
-          @include ultra-wide {
-            padding: 1rem 2rem;
-          }
-
-          @include xxl {
-            padding: 0.925rem 1.875rem;
-          }
-
-          @include xl {
-            padding: 0.875rem 1.75rem;
-          }
-
           @include lg {
-            padding: 0.75rem 1.5rem;
+            font-size: 0.7rem;
           }
 
-          &:hover {
-            background: linear-gradient(
-              135deg,
-              #ffd700 0%,
-              #d4af37 50%,
-              #996515 100%
-            );
-            transform: translateY(-2px); // Aumentado de -1px
-            box-shadow: 0 6px 20px rgba(254, 206, 81, 0.4); // Sombra maior
-            color: #000000;
+          @include md {
+            font-size: 0.65rem;
           }
         }
       }
     }
   }
 
-  .right {
+  // Links de navegação centralizados (fora do .left)
+  .nav-links {
     display: flex;
     align-items: center;
-    gap: 1.25rem; // Aumentado de 1rem
-    position: relative;
+    gap: 1.5rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 
-    @include ultra-wide {
-      gap: 1.5rem;
+    @media (min-width: 1920px) {
+      gap: 2rem;
     }
 
-    @include xxl {
-      gap: 1.375rem;
-    }
-
-    @include xl {
-      gap: 1.25rem;
+    @media (min-width: 1440px) {
+      gap: 1.75rem;
     }
 
     @include lg {
-      gap: 1rem;
+      gap: 1.25rem;
+    }
+
+    @include md {
+      display: none;
+    }
+
+    .nav-link {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem; // Reduzido de 1.05rem
+      font-weight: 500;
+      color: #e0e0e0;
+      text-decoration: none;
+      padding: 0.5rem 1rem; // Reduzido padding
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      position: relative;
+      white-space: nowrap;
+
+      @media (min-width: 1920px) {
+        font-size: 0.95rem;
+        padding: 0.6rem 1.2rem;
+      }
+
+      @media (min-width: 1440px) {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+      }
+
+      @include lg {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+      }
+
+      &:hover {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-1px);
+      }
+
+      &.sell-link {
+        background: linear-gradient(
+          135deg,
+          #ffd700 0%,
+          #d4af37 50%,
+          #996515 100%
+        );
+        color: #1a1a1a;
+        font-weight: 600;
+        padding: 0.6rem 1.25rem; // Reduzido padding
+
+        @media (min-width: 1920px) {
+          padding: 0.7rem 1.5rem;
+        }
+
+        @media (min-width: 1440px) {
+          padding: 0.6rem 1.25rem;
+        }
+
+        @include lg {
+          padding: 0.5rem 1rem;
+        }
+
+        &:hover {
+          background: linear-gradient(
+            135deg,
+            #ffd700 0%,
+            #d4af37 50%,
+            #996515 100%
+          );
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(254, 206, 81, 0.4);
+          color: #000000;
+        }
+      }
+    }
+  }
+
+  .right {
+    position: absolute; // Posicionamento absoluto
+    right: 2rem; // Posição fixa à direita
+    display: flex;
+    align-items: center;
+    gap: 1rem; // Reduzido de 1.25rem
+
+    @media (min-width: 1920px) {
+      gap: 1.25rem;
+      right: 2.5rem;
+    }
+
+    @include lg {
+      gap: 0.75rem;
+      right: 1.5rem;
+    }
+
+    @include md {
+      position: static; // Volta ao fluxo normal no mobile
+      right: auto;
+    }
+
+    @include sm {
+      right: 0.75rem;
     }
 
     .user-section {
       display: flex;
       align-items: center;
-      gap: 1.25rem; // Aumentado de 1rem
+      gap: 0.75rem; // Reduzido de 1.25rem
 
-      @include ultra-wide {
-        gap: 1.5rem;
+      @media (min-width: 1920px) {
+        gap: 1rem;
       }
 
       @include md {
@@ -350,38 +335,34 @@
       .user-info {
         display: flex;
         align-items: center;
-        gap: 1rem; // Aumentado de 0.75rem
-
-        @include ultra-wide {
-          gap: 1.25rem;
-        }
+        gap: 0.75rem; // Reduzido de 1rem
 
         img {
-          width: 42px; // Aumentado de 38px
-          height: 42px;
+          width: 36px; // Reduzido de 42px
+          height: 36px;
           border-radius: 50%;
           object-fit: cover;
           border: 2px solid rgba(255, 255, 255, 0.2);
 
-          @include ultra-wide {
-            width: 46px;
-            height: 46px;
+          @media (min-width: 1920px) {
+            width: 40px;
+            height: 40px;
           }
 
-          @include xxl {
-            width: 44px;
-            height: 44px;
+          @media (min-width: 1440px) {
+            width: 38px;
+            height: 38px;
           }
         }
 
         .username {
           font-family: 'Inter', sans-serif;
-          font-size: 1.05rem; // Aumentado de 1rem
+          font-size: 0.9rem; // Reduzido de 1.05rem
           font-weight: 500;
           color: #ffffff;
 
-          @include ultra-wide {
-            font-size: 1.1rem;
+          @media (min-width: 1920px) {
+            font-size: 0.95rem;
           }
         }
       }
@@ -405,36 +386,31 @@
     .auth-btn {
       display: flex;
       align-items: center;
-      gap: 0.625rem; // Aumentado de 0.5rem
+      gap: 0.5rem; // Reduzido de 0.625rem
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 10px; // Aumentado de 8px
-      padding: 0.875rem 1.25rem; // Aumentado padding
+      border-radius: 8px; // Reduzido de 10px
+      padding: 0.6rem 1rem; // Reduzido padding
       cursor: pointer;
       transition: all 0.3s ease;
       font-family: 'Inter', sans-serif;
-      font-size: 1.05rem; // Aumentado de 1rem
+      font-size: 0.9rem; // Reduzido de 1.05rem
       font-weight: 500;
       color: #e0e0e0;
 
-      @include ultra-wide {
-        padding: 1rem 1.5rem;
-        font-size: 1.1rem;
+      @media (min-width: 1920px) {
+        padding: 0.7rem 1.25rem;
+        font-size: 0.95rem;
       }
 
-      @include xxl {
-        padding: 0.925rem 1.375rem;
-        font-size: 1.075rem;
-      }
-
-      @include xl {
-        padding: 0.875rem 1.25rem;
-        font-size: 1.05rem;
+      @media (min-width: 1440px) {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
       }
 
       @include lg {
-        padding: 0.75rem 1rem;
-        font-size: 1rem;
+        padding: 0.5rem 0.8rem;
+        font-size: 0.85rem;
       }
 
       &:hover {
@@ -448,12 +424,12 @@
       svg {
         transition: transform 0.3s ease;
         color: #e0e0e0;
-        width: 22px; // Aumentado de 20px
-        height: 22px;
+        width: 18px; // Reduzido de 22px
+        height: 18px;
 
-        @include ultra-wide {
-          width: 24px;
-          height: 24px;
+        @media (min-width: 1920px) {
+          width: 20px;
+          height: 20px;
         }
       }
 
@@ -473,9 +449,9 @@
       margin-top: 0.5rem;
       background: #2c2c2c;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
+      border-radius: 10px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-      min-width: 220px; // Aumentado de 200px
+      min-width: 200px; // Reduzido de 220px
       overflow: hidden;
       z-index: 1100;
       animation: fadeInUp 0.2s ease;
@@ -483,10 +459,10 @@
       .dropdown-item {
         display: flex;
         align-items: center;
-        gap: 0.875rem; // Aumentado de 0.75rem
-        padding: 1.125rem 1.375rem; // Aumentado padding
+        gap: 0.75rem; // Reduzido de 0.875rem
+        padding: 0.875rem 1.125rem; // Reduzido padding
         font-family: 'Inter', sans-serif;
-        font-size: 1.05rem; // Aumentado de 1rem
+        font-size: 0.9rem; // Reduzido de 1.05rem
         font-weight: 500;
         color: #e0e0e0;
         text-decoration: none;
@@ -499,8 +475,8 @@
 
         svg {
           color: #b0b0b0;
-          width: 18px; // Aumentado de 16px
-          height: 18px;
+          width: 16px; // Reduzido de 18px
+          height: 16px;
         }
 
         &:hover {
@@ -526,7 +502,7 @@
           background: linear-gradient(135deg, #fece51 0%, #f39c12 100%);
           color: #1a1a1a;
           margin: 0.5rem;
-          border-radius: 8px;
+          border-radius: 6px;
 
           &:hover {
             background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
@@ -604,14 +580,61 @@
 
       .mobile-menu-header {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+        align-items: center;
         padding: 1rem 1.5rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+        .mobile-logo {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          text-decoration: none;
+          transition: all 0.3s ease;
+
+          &:hover {
+            transform: translateY(-1px);
+          }
+
+          img {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            background: white;
+            padding: 2px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+          }
+
+          .mobile-text-block {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+
+            .mobile-name {
+              font-family: 'Playfair Display', serif;
+              font-size: 1.1rem;
+              font-weight: 600;
+              color: #ffffff;
+              letter-spacing: -0.02em;
+            }
+
+            .mobile-subtitle {
+              font-family: 'Inter', sans-serif;
+              font-size: 0.7rem;
+              font-weight: 400;
+              color: #b0b0b0;
+              text-transform: uppercase;
+              letter-spacing: 0.1em;
+            }
+          }
+        }
 
         .mobile-close-btn {
           background: rgba(255, 255, 255, 0.1);
           border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 8px;
+          border-radius: 6px;
           padding: 0.5rem;
           cursor: pointer;
           color: #e0e0e0;
@@ -639,7 +662,7 @@
           padding: 1rem 1.25rem;
           margin-bottom: 0.5rem;
           font-family: 'Inter', sans-serif;
-          font-size: 1.1rem;
+          font-size: 1.05rem;
           font-weight: 500;
           color: #e0e0e0;
           text-decoration: none;

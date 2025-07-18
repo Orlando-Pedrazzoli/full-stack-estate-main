@@ -10,6 +10,7 @@ function NewPostPage() {
   const [value, setValue] = useState('');
   const [images, setImages] = useState([]);
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
 
@@ -38,11 +39,11 @@ function NewPostPage() {
     'Vila Franca de Xira',
   ];
 
-  // 1. ATUALIZAR newPostPage.jsx - Apenas a função handleSubmit
-  // Substitua a função handleSubmit existente por esta:
-
   const handleSubmit = async e => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setError('');
+
     const formData = new FormData(e.target);
     const inputs = Object.fromEntries(formData);
 
@@ -98,16 +99,18 @@ function NewPostPage() {
       }
     } catch (err) {
       console.error('💥 Erro ao criar post:', err);
-      setError('Erro ao criar o anúncio');
+      setError('Erro ao criar o anúncio. Tente novamente.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className='newPostPage'>
       <div className='formContainer'>
-        <h1>Adicionar Novo Anúncio</h1>
+        <h1>Criar Novo Anúncio</h1>
         <div className='wrapper'>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} id='newPostForm'>
             {/* Informações Básicas */}
             <div className='section'>
               <h3>Informações Básicas</h3>
@@ -180,7 +183,7 @@ function NewPostPage() {
 
               <div className='row'>
                 <div className='item'>
-                  <label htmlFor='latitude'>Latitude</label>
+                  <label htmlFor='latitude'>Latitude (opcional)</label>
                   <input
                     id='latitude'
                     name='latitude'
@@ -190,7 +193,7 @@ function NewPostPage() {
                   />
                 </div>
                 <div className='item'>
-                  <label htmlFor='longitude'>Longitude</label>
+                  <label htmlFor='longitude'>Longitude (opcional)</label>
                   <input
                     id='longitude'
                     name='longitude'
@@ -209,6 +212,7 @@ function NewPostPage() {
                 <div className='item'>
                   <label htmlFor='type'>Tipo de Negócio</label>
                   <select name='type' required>
+                    <option value=''>Selecione...</option>
                     <option value='rent'>Arrendamento</option>
                     <option value='buy'>Venda</option>
                   </select>
@@ -216,6 +220,7 @@ function NewPostPage() {
                 <div className='item'>
                   <label htmlFor='property'>Tipo de Imóvel</label>
                   <select name='property' required>
+                    <option value=''>Selecione...</option>
                     <option value='apartment'>Apartamento</option>
                     <option value='house'>Moradia</option>
                     <option value='condo'>Condomínio</option>
@@ -249,15 +254,17 @@ function NewPostPage() {
                 </div>
               </div>
 
-              <div className='item'>
-                <label htmlFor='size'>Área Total (m²)</label>
-                <input
-                  min={0}
-                  id='size'
-                  name='size'
-                  type='number'
-                  placeholder='85'
-                />
+              <div className='row'>
+                <div className='item'>
+                  <label htmlFor='size'>Área Total (m²)</label>
+                  <input
+                    min={0}
+                    id='size'
+                    name='size'
+                    type='number'
+                    placeholder='85'
+                  />
+                </div>
               </div>
             </div>
 
@@ -319,28 +326,28 @@ function NewPostPage() {
                 </div>
               </div>
 
-              <div className='item'>
-                <label htmlFor='restaurant'>Restaurante</label>
-                <input
-                  min={0}
-                  id='restaurant'
-                  name='restaurant'
-                  type='number'
-                  placeholder='300'
-                />
+              <div className='row'>
+                <div className='item'>
+                  <label htmlFor='restaurant'>Restaurante</label>
+                  <input
+                    min={0}
+                    id='restaurant'
+                    name='restaurant'
+                    type='number'
+                    placeholder='300'
+                  />
+                </div>
               </div>
             </div>
 
-            <button className='sendButton' type='submit'>
-              Publicar Anúncio
-            </button>
-            {error && <span className='error'>{error}</span>}
+            {error && <div className='error'>{error}</div>}
           </form>
         </div>
       </div>
 
       <div className='sideContainer'>
         <h3>Fotografias do Imóvel</h3>
+
         <div className='imageGallery'>
           {images.map((image, index) => (
             <div key={index} className='imagePreview'>
@@ -377,6 +384,15 @@ function NewPostPage() {
             <li>Mantenha os espaços organizados</li>
           </ul>
         </div>
+
+        <button
+          className='publishButton'
+          type='submit'
+          form='newPostForm'
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Publicando...' : 'Publicar Anúncio'}
+        </button>
       </div>
     </div>
   );
