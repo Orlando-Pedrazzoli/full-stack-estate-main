@@ -105,7 +105,7 @@ function ContactPage() {
                   </div>
                   <div className='details'>
                     <h3>Email</h3>
-                    <p>raquelperez@century.pt</p>
+                    <p>raquelperez@century21.pt</p>
                     <span>Resposta em 24 horas</span>
                   </div>
                 </div>

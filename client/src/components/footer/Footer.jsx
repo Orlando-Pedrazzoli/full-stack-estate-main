@@ -43,10 +43,10 @@ function Footer() {
                   />
                 </svg>
                 <a
-                  href='mailto:raquelperez@century.pt'
+                  href='mailto:raquelperez@century21.pt'
                   className='contact-link'
                 >
-                  raquelperez@century.pt
+                  raquelperez@century21.pt
                 </a>
               </div>
 
