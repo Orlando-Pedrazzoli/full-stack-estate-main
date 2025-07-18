@@ -3,18 +3,36 @@
 
 .listPage {
   display: flex;
-  height: calc(100vh - 80px); // Ajustar conforme altura do navbar
+  min-height: calc(
+    100vh - 90px - 200px
+  ); // navbar height + footer height aproximado
+  margin: 2rem 0; // Espaçamento superior e inferior
+
+  @include md {
+    margin: 1.5rem 0;
+  }
+
+  @include sm {
+    margin: 1rem 0;
+  }
 
   .listContainer {
     flex: 3;
     padding: 20px;
     overflow-y: auto;
     background: #f8f9fa;
+    border-radius: 12px; // Adicionar border-radius
+    margin-right: 1rem; // Espaço entre lista e mapa
+
+    @include md {
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
 
     .wrapper {
-      max-width: 800px; // Reduzido de 1200px para 800px
+      max-width: 800px;
       margin: 0 auto;
-      padding: 0 1rem; // Adicionar padding interno
+      padding: 0 1rem;
 
       @include lg {
         max-width: 700px;
@@ -29,12 +47,12 @@
     /* Cabeçalho da lista */
     .listHeader {
       margin-bottom: 20px;
-      padding-bottom: 20px;
+      padding: 1.5rem 0 20px 0; // Padding superior maior
       border-bottom: 2px solid #e9ecef;
 
       .listTitle {
         margin: 0 0 15px 0;
-        font-size: 24px; // Reduzido de 28px
+        font-size: 24px;
         font-weight: 700;
         color: #2c3e50;
         line-height: 1.2;
@@ -82,37 +100,37 @@
 
       .noResults {
         text-align: center;
-        padding: 40px 20px; // Reduzido de 60px
+        padding: 40px 20px;
         background: white;
         border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 
         .noResultsIcon {
-          font-size: 3rem; // Reduzido de 4rem
+          font-size: 3rem;
           margin-bottom: 20px;
         }
 
         h3 {
           margin: 0 0 10px 0;
-          font-size: 20px; // Reduzido de 24px
+          font-size: 20px;
           color: #495057;
         }
 
         p {
-          margin: 0 0 20px 0; // Reduzido de 30px
+          margin: 0 0 20px 0;
           color: #6c757d;
-          font-size: 14px; // Reduzido de 16px
+          font-size: 14px;
         }
 
         .suggestions {
           text-align: left;
-          max-width: 350px; // Reduzido de 400px
+          max-width: 350px;
           margin: 0 auto;
 
           h4 {
             margin: 0 0 15px 0;
             color: #495057;
-            font-size: 16px; // Reduzido de 18px
+            font-size: 16px;
           }
 
           ul {
@@ -134,7 +152,8 @@
     .listContent {
       display: flex;
       flex-direction: column;
-      gap: 16px; // Reduzido de 20px
+      gap: 16px;
+      padding-bottom: 2rem; // Espaçamento inferior
     }
 
     /* Estados de loading */
@@ -142,8 +161,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 150px; // Reduzido de 200px
-      font-size: 16px; // Reduzido de 18px
+      height: 150px;
+      font-size: 16px;
       color: #6c757d;
       background: white;
       border-radius: 12px;
@@ -156,43 +175,49 @@
     flex: 2;
     position: relative;
     background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    z-index: 1; // Z-index baixo para não sobrepor navbar
 
     .mapWrapper {
       height: 100%;
       display: flex;
       flex-direction: column;
+      position: relative;
+      z-index: 1; // Z-index consistente
 
       .mapHeader {
-        padding: 15px; // Reduzido de 20px
+        padding: 15px;
         border-bottom: 1px solid #e9ecef;
         background: white;
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        gap: 12px; // Reduzido de 15px
+        gap: 12px;
 
         h3 {
           margin: 0;
-          font-size: 16px; // Reduzido de 18px
+          font-size: 16px;
           font-weight: 600;
           color: #495057;
         }
 
         .mapLegend {
           display: flex;
-          gap: 15px; // Reduzido de 20px
+          gap: 15px;
 
           .legendItem {
             display: flex;
             align-items: center;
-            gap: 6px; // Reduzido de 8px
-            font-size: 13px; // Reduzido de 14px
+            gap: 6px;
+            font-size: 13px;
             color: #6c757d;
 
             .legendIcon {
-              width: 10px; // Reduzido de 12px
-              height: 10px; // Reduzido de 12px
+              width: 10px;
+              height: 10px;
               border-radius: 50%;
 
               &.buy {
@@ -214,14 +239,14 @@
       }
 
       .mapFooter {
-        padding: 8px 15px; // Reduzido de 10px 20px
+        padding: 8px 15px;
         background: #f8f9fa;
         border-top: 1px solid #e9ecef;
         text-align: center;
 
         small {
           color: #6c757d;
-          font-size: 11px; // Reduzido de 12px
+          font-size: 11px;
         }
       }
     }
@@ -233,7 +258,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 14px; // Reduzido de 16px
+      font-size: 14px;
       color: #6c757d;
       background: #f8f9fa;
     }
@@ -260,18 +285,23 @@
 
   @include md {
     flex-direction: column;
-    height: auto;
+    min-height: auto;
+    margin: 1rem;
 
     .listContainer {
       flex: none;
-      max-height: 60vh;
+      max-height: none; // Remover altura máxima fixa
       padding: 15px;
+      margin-right: 0;
+      margin-bottom: 1rem;
 
       .wrapper {
         padding: 0;
       }
 
       .listHeader {
+        padding-top: 1rem; // Reduzir padding superior em mobile
+
         .listTitle {
           font-size: 20px;
         }
@@ -303,13 +333,14 @@
   }
 
   @include sm {
+    margin: 0.5rem;
+
     .listContainer {
       padding: 10px;
-      max-height: 50vh;
 
       .listHeader {
         margin-bottom: 15px;
-        padding-bottom: 15px;
+        padding: 0.5rem 0 15px 0; // Padding superior menor em mobile
 
         .listTitle {
           font-size: 18px;
@@ -357,6 +388,10 @@
             }
           }
         }
+      }
+
+      .listContent {
+        padding-bottom: 1rem; // Padding inferior menor em mobile
       }
     }
 

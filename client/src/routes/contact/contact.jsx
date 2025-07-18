@@ -83,8 +83,8 @@ function ContactPage() {
                   </div>
                   <div className='details'>
                     <h3>Telefone</h3>
-                    <p>+351 912 799 356</p>
-                    <span>Disponível das 9h às 19h</span>
+                    <p>+351 933 859 122</p>
+                    <span>Disponível das 10h às 19h</span>
                   </div>
                 </div>
 
@@ -130,9 +130,9 @@ function ContactPage() {
                   <div className='details'>
                     <h3>Escritório Century 21</h3>
                     <p>
-                      Praceta Professor Alfredo de Sousa, 7D
+                      Av. São Pedro, 1
                       <br />
-                      1495-072, Oeiras
+                      2765-446, Estoril
                     </p>
                     <span>Segunda a Sexta: 10h-19h</span>
                   </div>
