@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "build": "echo 'Build completed'",
+    "build": "npx prisma generate",
+    "postinstall": "npx prisma generate",
     "test": "echo 'No tests specified'",
     "test:db": "node scripts/testDatabase.js",
     "db:reset": "npx prisma migrate reset --force",
