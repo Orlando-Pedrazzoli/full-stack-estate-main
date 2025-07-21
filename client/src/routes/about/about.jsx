@@ -21,7 +21,7 @@ function AboutPage() {
               </div>
               <div className='contactInfo'>
                 <a href='/contact' className='email-contact'>
-                  Email Profissional
+                  raquelperez@century21.pt
                 </a>
               </div>
             </div>
