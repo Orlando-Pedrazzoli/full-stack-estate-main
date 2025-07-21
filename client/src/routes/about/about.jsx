@@ -59,11 +59,11 @@ function AboutPage() {
 
               <div className='metricsGrid'>
                 <div className='metric'>
-                  <span className='value'>16+</span>
+                  <span className='value'>10+</span>
                   <span className='label'>Anos de Experiência</span>
                 </div>
                 <div className='metric'>
-                  <span className='value'>2000+</span>
+                  <span className='value'>20+</span>
                   <span className='label'>Propriedades Vendidas</span>
                 </div>
                 <div className='metric'>
@@ -71,7 +71,7 @@ function AboutPage() {
                   <span className='label'>Clientes Satisfeitos</span>
                 </div>
                 <div className='metric'>
-                  <span className='value'>200+</span>
+                  <span className='value'>35+</span>
                   <span className='label'>Prêmios Recebidos</span>
                 </div>
               </div>

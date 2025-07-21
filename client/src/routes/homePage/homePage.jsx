@@ -116,19 +116,19 @@ function HomePage() {
 
             <div className='heroStats'>
               <AnimatedStat
-                number={16}
+                number={10}
                 suffix='+'
                 label='Anos de Experiência'
                 delay={0}
               />
               <AnimatedStat
-                number={200}
+                number={35}
                 suffix='+'
                 label='Prêmios e Reconhecimentos'
                 delay={300}
               />
               <AnimatedStat
-                number={2000}
+                number={20}
                 suffix='+'
                 label='Imóveis Vendidos'
                 delay={600}
