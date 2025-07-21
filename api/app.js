@@ -20,6 +20,7 @@ const app = express();
 const allowedOrigins = [
   process.env.CLIENT_URL,
   'http://localhost:5173', // Vite dev server
+  'https://raquelperez-five.vercel.app',
   'http://localhost:3000', // Create React App
   'http://localhost:3001', // Alternativa
 ].filter(Boolean);
