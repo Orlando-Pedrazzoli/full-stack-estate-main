@@ -1,5 +1,5 @@
 // api/middleware/validatePost.js
-export const validatePostData = (req, res, next) => {
+const validatePostData = (req, res, next) => {
   const { postData, postDetail } = req.body;
 
   console.log('🔍 Validando dados do post...');
@@ -149,7 +149,7 @@ export const validatePostData = (req, res, next) => {
 };
 
 // Middleware para log de requests
-export const logRequest = (req, res, next) => {
+const logRequest = (req, res, next) => {
   console.log('\n' + '='.repeat(50));
   console.log(`📥 ${req.method} ${req.originalUrl}`);
   console.log('🕐 Timestamp:', new Date().toISOString());
@@ -161,3 +161,5 @@ export const logRequest = (req, res, next) => {
 
   next();
 };
+
+module.exports = { validatePostData, logRequest };

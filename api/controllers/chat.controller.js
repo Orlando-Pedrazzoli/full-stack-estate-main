@@ -1,6 +1,6 @@
-import prisma from "../lib/prisma.js";
+const prisma = require('../lib/prisma.js');
 
-export const getChats = async (req, res) => {
+const getChats = async (req, res) => {
   const tokenUserId = req.userId;
 
   try {
@@ -13,7 +13,7 @@ export const getChats = async (req, res) => {
     });
 
     for (const chat of chats) {
-      const receiverId = chat.userIDs.find((id) => id !== tokenUserId);
+      const receiverId = chat.userIDs.find(id => id !== tokenUserId);
 
       const receiver = await prisma.user.findUnique({
         where: {
@@ -31,11 +31,11 @@ export const getChats = async (req, res) => {
     res.status(200).json(chats);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to get chats!" });
+    res.status(500).json({ message: 'Failed to get chats!' });
   }
 };
 
-export const getChat = async (req, res) => {
+const getChat = async (req, res) => {
   const tokenUserId = req.userId;
 
   try {
@@ -49,7 +49,7 @@ export const getChat = async (req, res) => {
       include: {
         messages: {
           orderBy: {
-            createdAt: "asc",
+            createdAt: 'asc',
           },
         },
       },
@@ -68,11 +68,11 @@ export const getChat = async (req, res) => {
     res.status(200).json(chat);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to get chat!" });
+    res.status(500).json({ message: 'Failed to get chat!' });
   }
 };
 
-export const addChat = async (req, res) => {
+const addChat = async (req, res) => {
   const tokenUserId = req.userId;
   try {
     const newChat = await prisma.chat.create({
@@ -83,14 +83,13 @@ export const addChat = async (req, res) => {
     res.status(200).json(newChat);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to add chat!" });
+    res.status(500).json({ message: 'Failed to add chat!' });
   }
 };
 
-export const readChat = async (req, res) => {
+const readChat = async (req, res) => {
   const tokenUserId = req.userId;
 
-  
   try {
     const chat = await prisma.chat.update({
       where: {
@@ -108,6 +107,8 @@ export const readChat = async (req, res) => {
     res.status(200).json(chat);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to read chat!" });
+    res.status(500).json({ message: 'Failed to read chat!' });
   }
 };
+
+module.exports = { getChats, getChat, addChat, readChat };

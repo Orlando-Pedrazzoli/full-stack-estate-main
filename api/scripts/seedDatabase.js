@@ -1,6 +1,6 @@
 // api/scripts/seedDatabase.js
-import { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcrypt';
+const { PrismaClient } = require('@prisma/client');
+const bcrypt = require('bcrypt');
 
 const prisma = new PrismaClient();
 
@@ -64,8 +64,8 @@ async function seedDatabase() {
           city: 'São Paulo',
           bedroom: 2,
           bathroom: 2,
-          latitude: -23.5505,
-          longitude: -46.6333,
+          latitude: '-23.5505',
+          longitude: '-46.6333',
           type: 'buy',
           property: 'apartment',
           images: [
@@ -90,8 +90,8 @@ async function seedDatabase() {
           city: 'Campinas',
           bedroom: 3,
           bathroom: 2,
-          latitude: -22.9099,
-          longitude: -47.0626,
+          latitude: '-22.9099',
+          longitude: '-47.0626',
           type: 'rent',
           property: 'house',
           images: [
@@ -116,8 +116,8 @@ async function seedDatabase() {
           city: 'Rio de Janeiro',
           bedroom: 4,
           bathroom: 3,
-          latitude: -22.9068,
-          longitude: -43.1729,
+          latitude: '-22.9068',
+          longitude: '-43.1729',
           type: 'buy',
           property: 'condo',
           images: [
@@ -142,8 +142,8 @@ async function seedDatabase() {
           city: 'Belo Horizonte',
           bedroom: 1,
           bathroom: 1,
-          latitude: -19.9191,
-          longitude: -43.9386,
+          latitude: '-19.9191',
+          longitude: '-43.9386',
           type: 'rent',
           property: 'apartment',
           images: [
@@ -167,8 +167,8 @@ async function seedDatabase() {
           city: 'Sorocaba',
           bedroom: 0,
           bathroom: 0,
-          latitude: -23.5015,
-          longitude: -47.4526,
+          latitude: '-23.5015',
+          longitude: '-47.4526',
           type: 'buy',
           property: 'land',
           images: [
@@ -253,11 +253,11 @@ async function seedDatabase() {
 }
 
 // Executar seed se chamado diretamente
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (require.main === module) {
   seedDatabase().catch(error => {
     console.error(error);
     process.exit(1);
   });
 }
 
-export default seedDatabase;
+module.exports = seedDatabase;

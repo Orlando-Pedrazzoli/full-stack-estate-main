@@ -1,13 +1,16 @@
-import express from 'express';
-import { verifyToken } from '../middleware/verifyToken.js';
-import { validatePostData, logRequest } from '../middleware/validatePost.js';
-import {
+const express = require('express');
+const { verifyToken } = require('../middleware/verifyToken.js');
+const {
+  validatePostData,
+  logRequest,
+} = require('../middleware/validatePost.js');
+const {
   addPost,
   deletePost,
   getPost,
   getPosts,
   updatePost,
-} from '../controllers/post.controller.js';
+} = require('../controllers/post.controller.js');
 
 const router = express.Router();
 
@@ -28,4 +31,4 @@ router.put('/:id', logRequest, verifyToken, validatePostData, updatePost);
 
 router.delete('/:id', logRequest, verifyToken, deletePost);
 
-export default router;
+module.exports = router;

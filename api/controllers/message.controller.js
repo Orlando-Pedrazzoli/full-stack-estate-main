@@ -1,6 +1,6 @@
-import prisma from "../lib/prisma.js";
+const prisma = require('../lib/prisma.js');
 
-export const addMessage = async (req, res) => {
+const addMessage = async (req, res) => {
   const tokenUserId = req.userId;
   const chatId = req.params.chatId;
   const text = req.body.text;
@@ -15,7 +15,7 @@ export const addMessage = async (req, res) => {
       },
     });
 
-    if (!chat) return res.status(404).json({ message: "Chat not found!" });
+    if (!chat) return res.status(404).json({ message: 'Chat not found!' });
 
     const message = await prisma.message.create({
       data: {
@@ -38,6 +38,8 @@ export const addMessage = async (req, res) => {
     res.status(200).json(message);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to add message!" });
+    res.status(500).json({ message: 'Failed to add message!' });
   }
 };
+
+module.exports = { addMessage };

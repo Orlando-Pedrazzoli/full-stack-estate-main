@@ -1,15 +1,15 @@
-import express from 'express';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv';
+const express = require('express');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const dotenv = require('dotenv');
 
 // Rotas
-import authRoute from './routes/auth.route.js';
-import postRoute from './routes/post.route.js';
-import testRoute from './routes/test.route.js';
-import userRoute from './routes/user.route.js';
-import chatRoute from './routes/chat.route.js';
-import messageRoute from './routes/message.route.js';
+const authRoute = require('./routes/auth.route.js');
+const postRoute = require('./routes/post.route.js');
+const testRoute = require('./routes/test.route.js');
+const userRoute = require('./routes/user.route.js');
+const chatRoute = require('./routes/chat.route.js');
+const messageRoute = require('./routes/message.route.js');
 
 // Configura .env
 dotenv.config();
@@ -82,4 +82,5 @@ if (process.env.NODE_ENV !== 'production') {
   console.log('🔧 Modo produção - Vercel gerencia o servidor');
 }
 
-export default app;
+// IMPORTANTE: Para Vercel
+module.exports = app;

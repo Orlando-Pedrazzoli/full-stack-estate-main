@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
-export const shouldBeLoggedIn = async (req, res) => {
+const shouldBeLoggedIn = async (req, res) => {
   console.log('🔐 shouldBeLoggedIn chamado');
   console.log('userId do token:', req.userId);
 
@@ -10,7 +10,7 @@ export const shouldBeLoggedIn = async (req, res) => {
   });
 };
 
-export const shouldBeAdmin = async (req, res) => {
+const shouldBeAdmin = async (req, res) => {
   console.log('👑 shouldBeAdmin chamado');
 
   const token = req.cookies.token;
@@ -37,3 +37,5 @@ export const shouldBeAdmin = async (req, res) => {
     res.status(200).json({ message: 'You are Authenticated' });
   });
 };
+
+module.exports = { shouldBeLoggedIn, shouldBeAdmin };
