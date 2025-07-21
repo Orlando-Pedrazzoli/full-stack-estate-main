@@ -174,7 +174,7 @@ Obrigado(a)! 🙏`);
                     `Olá Raquel! Quero vender um imóvel. Nome: ${currentUser.username}, Email: ${currentUser.email}`
                   );
                   window.open(
-                    `https://wa.me/351912164220?text=${message}`,
+                    `https://wa.me/351933859122?text=${message}`,
                     '_blank'
                   );
                 }}
@@ -190,7 +190,7 @@ Obrigado(a)! 🙏`);
                     `Olá Raquel! Quero comprar um imóvel. Nome: ${currentUser.username}, Email: ${currentUser.email}`
                   );
                   window.open(
-                    `https://wa.me/351912164220?text=${message}`,
+                    `https://wa.me/351933859122?text=${message}`,
                     '_blank'
                   );
                 }}
@@ -206,7 +206,7 @@ Obrigado(a)! 🙏`);
                     `Olá Raquel! Quero arrendar um imóvel. Nome: ${currentUser.username}, Email: ${currentUser.email}`
                   );
                   window.open(
-                    `https://wa.me/351912164220?text=${message}`,
+                    `https://wa.me/351933859122?text=${message}`,
                     '_blank'
                   );
                 }}
@@ -222,7 +222,7 @@ Obrigado(a)! 🙏`);
                     `Olá Raquel! Gostaria de uma avaliação do meu imóvel. Nome: ${currentUser.username}, Email: ${currentUser.email}`
                   );
                   window.open(
-                    `https://wa.me/351912164220?text=${message}`,
+                    `https://wa.me/351933859122?text=${message}`,
                     '_blank'
                   );
                 }}
