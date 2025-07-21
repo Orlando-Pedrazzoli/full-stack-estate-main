@@ -154,11 +154,11 @@ Obrigado(a)! 🙏`);
               <div className='contact-methods'>
                 <div className='method'>
                   <span className='icon'>📱</span>
-                  <span>+351 912 345 678</span>
+                  <span>+351 933 859 122</span>
                 </div>
                 <div className='method'>
                   <span className='icon'>✉️</span>
-                  <span>raquel.perez@email.com</span>
+                  <span>raquelperez@century21.pt</span>
                 </div>
               </div>
             </div>
