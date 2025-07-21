@@ -1,55 +1,484 @@
+@import '../../responsive.scss';
+
 .profileUpdatePage {
-  height: 100%;
-  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 2rem 0;
 
-  .formContainer {
-    flex:3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    form {
+  @include md {
+    padding: 1rem 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+
+    @include md {
+      padding: 0 1rem;
+    }
+
+    @include sm {
+      padding: 0 0.75rem;
+    }
+  }
+
+  .pageHeader {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+
+    @include md {
+      margin-bottom: 2rem;
+    }
+
+    .backButton {
+      position: absolute;
+      left: 0;
+      top: 0;
       display: flex;
-      flex-direction: column;
-      gap: 20px;
+      align-items: center;
+      gap: 0.5rem;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.3s ease;
 
-      .item {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-
-        label {
-        }
-
-        input {
-          padding: 20px;
-          border-radius: 5px;
-          border: 1px solid gray;
-        }
+      @include md {
+        position: static;
+        margin: 0 auto 1.5rem;
+        width: fit-content;
       }
-      button {
-        padding: 20px;
-        border-radius: 5px;
-        border: none;
-        background-color: teal;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
+
+      &:hover {
+        background: #f8fafc;
+        border-color: #cbd5e1;
+        color: #475569;
+        transform: translateX(-2px);
+      }
+
+      svg {
+        transition: transform 0.3s ease;
+      }
+
+      &:hover svg {
+        transform: translateX(-2px);
+      }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+
+      @include md {
+        font-size: 2rem;
+      }
+
+      @include sm {
+        font-size: 1.75rem;
+      }
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #64748b;
+      margin: 0;
+
+      @include sm {
+        font-size: 1rem;
       }
     }
   }
 
-  .sideContainer {
-    flex: 2;
-    background-color: #fcf5f3;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
+  .content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    align-items: start;
 
-    .avatar{
-      width: 50%;
-      object-fit: cover;
+    @include lg {
+      gap: 1.5rem;
+    }
+
+    @include md {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  .formContainer {
+    .formCard {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+
+      .formHeader {
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        color: white;
+        padding: 2rem;
+        text-align: center;
+
+        @include sm {
+          padding: 1.5rem 1rem;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+
+          @include sm {
+            font-size: 1.25rem;
+          }
+        }
+
+        p {
+          font-size: 0.95rem;
+          opacity: 0.9;
+          margin: 0;
+        }
+      }
+
+      .updateForm {
+        padding: 2rem;
+
+        @include sm {
+          padding: 1.5rem 1rem;
+        }
+
+        .formGroup {
+          margin-bottom: 1.5rem;
+
+          label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+
+            svg {
+              color: #6b7280;
+              width: 16px;
+              height: 16px;
+            }
+          }
+
+          input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+
+            &:focus {
+              outline: none;
+              border-color: #3b82f6;
+              background: white;
+              box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            }
+
+            &::placeholder {
+              color: #9ca3af;
+            }
+          }
+
+          .fieldHint {
+            display: block;
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+            font-style: italic;
+          }
+        }
+
+        .errorMessage {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: #fef2f2;
+          border: 1px solid #fecaca;
+          border-radius: 8px;
+          padding: 0.875rem 1rem;
+          font-size: 0.9rem;
+          color: #dc2626;
+          margin-bottom: 1.5rem;
+
+          svg {
+            color: #dc2626;
+            flex-shrink: 0;
+          }
+        }
+
+        .formActions {
+          display: flex;
+          gap: 1rem;
+          justify-content: flex-end;
+          margin-top: 2rem;
+
+          @include sm {
+            flex-direction: column-reverse;
+            gap: 0.75rem;
+          }
+
+          .cancelButton {
+            padding: 0.875rem 1.5rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            color: #6b7280;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+              border-color: #d1d5db;
+              background: #f9fafb;
+              color: #374151;
+            }
+          }
+
+          .submitButton {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+
+            &:hover:not(:disabled) {
+              transform: translateY(-1px);
+              box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            }
+
+            &:disabled {
+              opacity: 0.7;
+              cursor: not-allowed;
+              transform: none;
+            }
+
+            .spinner {
+              width: 16px;
+              height: 16px;
+              border: 2px solid transparent;
+              border-top: 2px solid white;
+              border-radius: 50%;
+              animation: spin 1s linear infinite;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .avatarContainer {
+    .avatarCard {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      position: sticky;
+      top: 2rem;
+
+      .avatarHeader {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        padding: 1.5rem;
+        text-align: center;
+        border-bottom: 1px solid #e2e8f0;
+
+        h3 {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: #1e293b;
+          margin-bottom: 0.25rem;
+        }
+
+        p {
+          font-size: 0.85rem;
+          color: #64748b;
+          margin: 0;
+        }
+      }
+
+      .avatarPreview {
+        display: flex;
+        justify-content: center;
+        padding: 2rem 1rem;
+
+        .avatarImageContainer {
+          position: relative;
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          overflow: hidden;
+          cursor: pointer;
+          transition: transform 0.3s ease;
+
+          &:hover {
+            transform: scale(1.05);
+
+            .avatarOverlay {
+              opacity: 1;
+            }
+          }
+
+          .avatarImage {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 4px solid #e2e8f0;
+          }
+
+          .avatarOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+
+            svg {
+              color: white;
+            }
+          }
+        }
+      }
+
+      .uploadSection {
+        padding: 1.5rem;
+        border-top: 1px solid #e2e8f0;
+
+        .cloudinary-button {
+          width: 100%;
+          background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+          color: white;
+          border: none;
+          border-radius: 8px;
+          padding: 0.875rem 1rem;
+          font-size: 0.9rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          margin-bottom: 1rem;
+
+          &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+          }
+        }
+
+        .uploadTips {
+          h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+          }
+
+          ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+              font-size: 0.8rem;
+              color: #6b7280;
+              margin-bottom: 0.25rem;
+              padding-left: 1rem;
+              position: relative;
+
+              &::before {
+                content: '•';
+                position: absolute;
+                left: 0;
+                color: #3b82f6;
+                font-weight: bold;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Animação do spinner
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// Estados de foco para acessibilidade
+.profileUpdatePage {
+  input:focus,
+  button:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+}
+
+// Responsividade adicional para telas muito pequenas
+@include xs {
+  .profileUpdatePage {
+    .pageHeader {
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+
+    .formContainer .formCard .updateForm {
+      padding: 1rem;
+
+      .formActions {
+        gap: 0.5rem;
+
+        .cancelButton,
+        .submitButton {
+          padding: 0.75rem 1rem;
+          font-size: 0.85rem;
+        }
+      }
+    }
+
+    .avatarContainer .avatarCard {
+      .avatarPreview .avatarImageContainer {
+        width: 120px;
+        height: 120px;
+      }
+
+      .uploadSection {
+        padding: 1rem;
+      }
     }
   }
 }
