@@ -69,16 +69,16 @@ Obrigado(a)! 🙏`;
           <div className='hero-text'>
             <h1>Venda o Seu Imóvel com Confiança</h1>
             <p className='hero-subtitle'>
-              Mais de 2000 propriedades vendidas com sucesso. Deixe-nos cuidar
-              de todo o processo para si.
+              Mais de 20 propriedades vendidas com sucesso. Deixe-nos cuidar de
+              todo o processo para si.
             </p>
             <div className='hero-stats'>
               <div className='stat'>
-                <span className='number'>16+</span>
+                <span className='number'>10+</span>
                 <span className='label'>Anos de Experiência</span>
               </div>
               <div className='stat'>
-                <span className='number'>2000+</span>
+                <span className='number'>20+</span>
                 <span className='label'>Propriedades Vendidas</span>
               </div>
               <div className='stat'>
