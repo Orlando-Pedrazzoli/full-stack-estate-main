@@ -11,16 +11,25 @@
   }
 
   .fullSlider {
-    position: fixed; // Mudança de absolute para fixed
+    position: fixed;
     width: 100vw;
     height: 100vh;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.95); // Background preto
+    background-color: rgba(0, 0, 0, 0.95);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 9999;
+    z-index: 99999; // Aumentado para ficar acima da navbar (que tem z-index: 9999)
+    padding-top: 90px; // Espaço para a navbar
+
+    @include md {
+      padding-top: 80px; // Altura da navbar no tablet
+    }
+
+    @include sm {
+      padding-top: 70px; // Altura da navbar no mobile
+    }
 
     .arrow {
       flex: 1;
@@ -29,16 +38,23 @@
       justify-content: center;
       cursor: pointer;
       transition: opacity 0.3s ease;
-      padding: 20px; // Adicionar padding para área de clique maior
+      padding: 40px; // Aumentar área de clique
+      z-index: 100000; // Garantir que estejam acima do overlay
+      position: relative; // Para garantir z-index
 
       &:hover {
         opacity: 0.8;
+
+        svg {
+          transform: scale(1.1);
+        }
       }
 
-      // Remover todas as regras de img e usar SVG diretamente
       svg {
         width: 50px;
         height: 50px;
+        transition: transform 0.3s ease;
+        pointer-events: none; // Prevenir conflitos de evento
 
         @include md {
           width: 40px;
@@ -51,17 +67,34 @@
         }
       }
 
-      // Classes específicas para cada direção
-      &.arrow-left {
-        svg {
-          // Seta esquerda já está correta no SVG
+      // Melhorar visibilidade com background sutil
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80px;
+        height: 80px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 50%;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+
+        @include md {
+          width: 60px;
+          height: 60px;
+        }
+
+        @include sm {
+          width: 50px;
+          height: 50px;
         }
       }
 
-      &.arrow-right {
-        svg {
-          // Seta direita já está correta no SVG
-        }
+      &:hover::before {
+        opacity: 1;
       }
     }
 
@@ -70,69 +103,115 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      max-height: 90vh;
+      max-height: calc(90vh - 90px); // Ajustar altura considerando navbar
       background: transparent;
+
+      @include md {
+        max-height: calc(90vh - 80px);
+      }
+
+      @include sm {
+        max-height: calc(90vh - 70px);
+      }
 
       img {
         max-width: 100%;
         max-height: 100%;
         object-fit: contain;
         border-radius: 10px;
-        background: transparent !important;
-        filter: none !important;
-        mix-blend-mode: normal !important;
-        opacity: 1 !important;
-
-        // Remover qualquer tint ou overlay
-        &::before,
-        &::after {
-          display: none !important;
-        }
+        background: transparent;
+        filter: none;
+        mix-blend-mode: normal;
+        opacity: 1;
       }
     }
 
     .close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      color: white !important;
-      font-size: 36px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 10001;
-      background: rgba(0, 0, 0, 0.7) !important;
-      border: none !important;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
+      position: absolute !important;
+      top: 120px !important; // Mais espaço da navbar (90px + 30px)
+      right: 30px !important;
+      background: rgba(0, 0, 0, 0.8) !important;
+      border: 2px solid rgba(255, 255, 255, 0.3) !important;
+      border-radius: 50% !important;
+      width: 60px !important;
+      height: 60px !important;
       display: flex !important;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s ease;
-      user-select: none;
-      outline: none !important;
-      box-shadow: none !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      z-index: 100001 !important; // Maior que o fullSlider
+      transition: all 0.3s ease !important;
+      color: #ffffff !important;
 
-      &:hover,
-      &:focus,
-      &:active {
-        background: rgba(0, 0, 0, 0.9) !important;
-        color: white !important;
-        outline: none !important;
-        box-shadow: none !important;
-        transform: none !important;
+      svg {
+        width: 24px !important;
+        height: 24px !important;
+        color: #ffffff !important;
       }
 
-      &:visited {
-        color: white !important;
+      &:hover {
+        background: rgba(255, 255, 255, 0.9) !important;
+        border-color: rgba(0, 0, 0, 0.3) !important;
+        transform: scale(1.1) !important;
+
+        svg {
+          color: #000000 !important;
+        }
+      }
+
+      &:active {
+        transform: scale(0.95) !important;
+      }
+
+      @include md {
+        top: 110px !important; // 80px + 30px
+        right: 20px !important;
+        width: 50px !important;
+        height: 50px !important;
+
+        svg {
+          width: 20px !important;
+          height: 20px !important;
+        }
       }
 
       @include sm {
-        top: 10px;
-        right: 10px;
-        font-size: 24px;
-        width: 40px;
-        height: 40px;
+        top: 100px !important; // 70px + 30px
+        right: 15px !important;
+        width: 45px !important;
+        height: 45px !important;
+
+        svg {
+          width: 18px !important;
+          height: 18px !important;
+        }
+      }
+    }
+
+    .slideIndicator {
+      position: absolute;
+      bottom: 40px; // Mais espaço na parte inferior
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      z-index: 100000;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+
+      @include md {
+        bottom: 30px;
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+      }
+
+      @include sm {
+        bottom: 25px;
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
       }
     }
   }
@@ -147,9 +226,44 @@
 
   .bigImage {
     flex: 3;
+    position: relative;
 
     @include sm {
       flex: 2;
+    }
+
+    .imageCounter {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      z-index: 10;
+
+      svg {
+        width: 14px;
+        height: 14px;
+        color: white;
+      }
+
+      @include sm {
+        top: 10px;
+        right: 10px;
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+
+        svg {
+          width: 12px;
+          height: 12px;
+        }
+      }
     }
   }
 
@@ -172,5 +286,46 @@
         height: 80px;
       }
     }
+  }
+}
+
+// Reset específico para o botão de fechar - garante que nenhum estilo externo interfira
+.fullSlider .close {
+  all: unset !important;
+  position: absolute !important;
+  top: 120px !important;
+  right: 30px !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 50% !important;
+  width: 60px !important;
+  height: 60px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s ease !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  z-index: 100001 !important;
+  box-sizing: border-box !important;
+
+  @include md {
+    top: 110px !important;
+  }
+
+  @include sm {
+    top: 100px !important;
+  }
+}
+
+// Garantir que o slider modal fique acima de tudo
+.slider .fullSlider {
+  z-index: 99999 !important;
+}
+
+// Garantir que a navbar não interfira
+body.slider-open {
+  .professional-navbar {
+    z-index: 10000 !important; // Menor que o slider modal
   }
 }
