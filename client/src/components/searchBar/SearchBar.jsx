@@ -13,19 +13,55 @@ function SearchBar() {
   });
   const navigate = useNavigate();
 
+  // ✅ Apenas Lisboa, Sintra, Almada e Mafra (organizado e mais coerente)
   const cities = [
+    // Lisboa e arredores
     'Lisboa',
-    'Porto',
-    'Braga',
-    'Coimbra',
-    'Faro',
-    'Setúbal',
-    'Aveiro',
-    'Évora',
-    'Leiria',
-    'Viseu',
-    'Guimarães',
+    'Amadora',
     'Cascais',
+    'Loures',
+    'Odivelas',
+    'Oeiras',
+    'Vila Franca de Xira',
+
+    // Sintra
+    'Agualva',
+    'Algueirão–Mem Martins',
+    'Belas',
+    'Cacém',
+    'Colares',
+    'Massamá',
+    'Mira-Sintra',
+    'Queluz',
+    'Rio de Mouro',
+    'São João das Lampas',
+    'Sintra',
+    'Terrugem',
+
+    // Almada
+    'Almada',
+    'Cacilhas',
+    'Charneca de Caparica',
+    'Costa da Caparica',
+    'Feijó',
+    'Laranjeiro',
+    'Pragal',
+    'Sobreda',
+    'Trafaria',
+
+    // Mafra
+    'Azueira',
+    'Carvoeira',
+    'Cheleiros',
+    'Encarnação',
+    'Ericeira',
+    'Igreja Nova',
+    'Malveira',
+    'Mafra',
+    'Milharado',
+    'Santo Isidoro',
+    'Sobral da Abelheira',
+    'Venda do Pinheiro',
   ];
 
   const switchType = val => {
@@ -63,7 +99,7 @@ function SearchBar() {
         <input
           type='text'
           name='city'
-          placeholder='Cidade (ex: Lisboa, Porto...)'
+          placeholder='Localidade ou concelho (ex: Sintra, Ericeira...)'
           onChange={handleChange}
           list='cities'
         />
@@ -91,8 +127,8 @@ function SearchBar() {
         />
         <button type='submit' className='searchButton'>
           <svg
-            width='24' // Aumentei de 20 para 24
-            height='24' // Aumentei de 20 para 24
+            width='24'
+            height='24'
             viewBox='0 0 24 24'
             fill='none'
             xmlns='http://www.w3.org/2000/svg'
@@ -101,7 +137,7 @@ function SearchBar() {
             <path
               d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
               stroke='currentColor'
-              strokeWidth='2.5' // Aumentei de 2 para 2.5
+              strokeWidth='2.5'
               strokeLinecap='round'
               strokeLinejoin='round'
             />

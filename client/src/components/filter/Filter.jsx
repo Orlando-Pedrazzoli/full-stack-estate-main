@@ -13,28 +13,55 @@ function Filter() {
     bedroom: searchParams.get('bedroom') || '',
   });
 
-  // Cidades portuguesas principais
+  // ✅ Concelhos e freguesias principais apenas de Lisboa, Sintra, Almada e Mafra
   const cities = [
+    // Concelho de Lisboa
     'Lisboa',
-    'Porto',
-    'Braga',
-    'Coimbra',
-    'Faro',
-    'Setúbal',
-    'Aveiro',
-    'Évora',
-    'Leiria',
-    'Viseu',
-    'Guimarães',
-    'Cascais',
-    'Vila Nova de Gaia',
-    'Almada',
-    'Funchal',
-    'Sintra',
+    'Amadora',
     'Odivelas',
     'Loures',
-    'Matosinhos',
-    'Gondomar',
+    'Oeiras',
+    'Cascais',
+    'Vila Franca de Xira',
+
+    // Concelho de Sintra (freguesias mais conhecidas)
+    'Sintra',
+    'Algueirão–Mem Martins',
+    'Queluz',
+    'Cacém',
+    'Rio de Mouro',
+    'Massamá',
+    'Belas',
+    'Agualva',
+    'Mira-Sintra',
+    'Colares',
+    'São João das Lampas',
+    'Terrugem',
+
+    // Concelho de Almada (Distrito de Setúbal)
+    'Almada',
+    'Costa da Caparica',
+    'Charneca de Caparica',
+    'Sobreda',
+    'Laranjeiro',
+    'Feijó',
+    'Cacilhas',
+    'Pragal',
+    'Trafaria',
+
+    // Concelho de Mafra
+    'Mafra',
+    'Ericeira',
+    'Malveira',
+    'Venda do Pinheiro',
+    'Carvoeira',
+    'Encarnação',
+    'Santo Isidoro',
+    'Azueira',
+    'Igreja Nova',
+    'Cheleiros',
+    'Milharado',
+    'Sobral da Abelheira',
   ];
 
   const handleChange = e => {
@@ -85,7 +112,7 @@ function Filter() {
               type='text'
               id='city'
               name='city'
-              placeholder='Escolha uma cidade'
+              placeholder='Escolha uma localidade ou concelho'
               onChange={handleChange}
               value={query.city}
               list='cities'
