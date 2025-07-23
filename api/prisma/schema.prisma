@@ -49,6 +49,8 @@ model PostDetail {
   id         String  @id @default(auto()) @map("_id") @db.ObjectId
   desc       String
   utilities  String?
+  condition  String?
+  energy  String?
   pet        String?
   income     String?
   size       Int?

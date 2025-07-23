@@ -213,6 +213,8 @@ const addPost = async (req, res) => {
     const postDetailToInsert = {
       ...body.postDetail,
       // Garantir que campos opcionais sejam tratados corretamente
+      condition: body.postDetail.condition || null,
+      energy: body.postDetail.energy || null,
       utilities: body.postDetail.utilities || null,
       pet: body.postDetail.pet || null,
       income: body.postDetail.income || null,

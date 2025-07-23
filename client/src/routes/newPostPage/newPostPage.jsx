@@ -65,6 +65,8 @@ function NewPostPage() {
         },
         postDetail: {
           desc: value,
+          condition: inputs.condition, // ← ADICIONADO
+          energy: inputs.energy, // ← ADICIONADO
           utilities: inputs.utilities,
           pet: inputs.pet,
           income: inputs.income,
@@ -273,18 +275,44 @@ function NewPostPage() {
               <h3>Condições</h3>
               <div className='row'>
                 <div className='item'>
+                  <label htmlFor='condition'>Condição do imóvel</label>
+                  <select name='condition'>
+                    <option value='Novo'>Novo</option>
+                    <option value='Usado'>Usado</option>
+                  </select>
+                </div>
+                <div className='item'>
+                  <label htmlFor='energy'>Certificado energético</label>
+                  <select name='energy'>
+                    <option value='A+'>A+</option>
+                    <option value='A'>A</option>
+                    <option value='B'>B</option>
+                    <option value='B-'>B-</option>
+                    <option value='C'>C</option>
+                    <option value='D'>D</option>
+                    <option value='E'>E</option>
+                    <option value='F'>F</option>
+                  </select>
+                </div>
+                <div className='item'>
                   <label htmlFor='utilities'>Despesas</label>
                   <select name='utilities'>
-                    <option value='owner'>Incluídas no preço</option>
-                    <option value='tenant'>Por conta do inquilino</option>
-                    <option value='shared'>Partilhadas</option>
+                    <option value='Incluídas no preço'>
+                      Incluídas no preço
+                    </option>
+                    <option value='Por conta do locatário'>
+                      Por conta do locatário
+                    </option>
+                    <option value='Partilhadas'>Partilhadas</option>
+                    <option value='Não se aplica'>Não se aplica</option>
                   </select>
                 </div>
                 <div className='item'>
                   <label htmlFor='pet'>Animais de Estimação</label>
                   <select name='pet'>
-                    <option value='allowed'>Permitidos</option>
-                    <option value='not-allowed'>Não Permitidos</option>
+                    <option value='Permitidos'>Permitidos</option>
+                    <option value='Não Permitidos'>Não Permitidos</option>
+                    <option value='Não se aplica'>Não se aplica</option>
                   </select>
                 </div>
               </div>

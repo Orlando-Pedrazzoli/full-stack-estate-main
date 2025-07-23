@@ -220,6 +220,26 @@ function SinglePage() {
                               <div className='feature'>
                                 <img src='/utility.png' alt='Despesas' />
                                 <div className='featureText'>
+                                  <span>Condição do imóvel</span>
+                                  <p>
+                                    {post.postDetail.condition ||
+                                      'Não especificado'}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className='feature'>
+                                <img src='/utility.png' alt='Despesas' />
+                                <div className='featureText'>
+                                  <span>Certificado energético</span>
+                                  <p>
+                                    {post.postDetail.energy ||
+                                      'Não especificado'}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className='feature'>
+                                <img src='/utility.png' alt='Despesas' />
+                                <div className='featureText'>
                                   <span>Despesas</span>
                                   <p>
                                     {post.postDetail.utilities ||
@@ -230,7 +250,10 @@ function SinglePage() {
                               <div className='feature'>
                                 <img src='/pet.png' alt='Política de Animais' />
                                 <div className='featureText'>
-                                  <span>Política de Animais</span>
+                                  <span>
+                                    Política de Animais (em caso de
+                                    arrendamento)
+                                  </span>
                                   <p>
                                     {post.postDetail.pet || 'Não especificado'}
                                   </p>
@@ -242,7 +265,10 @@ function SinglePage() {
                                   alt='Requisitos de Rendimento'
                                 />
                                 <div className='featureText'>
-                                  <span>Requisitos de Rendimento</span>
+                                  <span>
+                                    Requisitos de Rendimento (em caso de
+                                    arrendamento)
+                                  </span>
                                   <p>
                                     {post.postDetail.income ||
                                       'Não especificado'}

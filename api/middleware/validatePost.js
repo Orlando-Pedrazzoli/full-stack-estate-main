@@ -138,6 +138,8 @@ const validatePostData = (req, res, next) => {
   req.body.postDetail = {
     ...postDetail,
     desc: postDetail.desc.trim(),
+    condition: postDetail.condition || null,
+    energy: postDetail.energy || null,
     utilities: postDetail.utilities || null,
     pet: postDetail.pet || null,
     income: postDetail.income || null,
