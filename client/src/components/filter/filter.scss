@@ -1,3 +1,5 @@
+@import '../../responsive.scss';
+
 .filter {
   display: flex;
   flex-direction: column;
@@ -21,26 +23,13 @@
       color: #1f2937;
       margin: 0;
 
-      b {
-        color: #fbbf24;
-        font-weight: 600;
+      @include md {
+        font-size: 20px;
       }
-    }
 
-    .clearButton {
-      background: #ef4444;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-size: 13px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-weight: 500;
-
-      &:hover {
-        background: #dc2626;
-        transform: translateY(-1px);
+      b {
+        color: #2c3e50;
+        font-weight: 600;
       }
     }
   }
@@ -77,8 +66,8 @@
 
       &:focus {
         outline: none;
-        border-color: #fbbf24;
-        box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+        border-color: #2c3e50;
+        box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
       }
 
       &::placeholder {
@@ -127,59 +116,105 @@
     .buttonGroup {
       display: flex;
       align-items: end;
+      gap: 10px;
+
+      @include sm {
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+      }
     }
 
+    // Botão Pesquisar - Design Clean
     .searchButton {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
-      width: auto;
       min-width: 120px;
       padding: 12px 20px;
-      border: none;
-      cursor: pointer;
-      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      background: #2c3e50;
       color: white;
+      border: 2px solid #2c3e50;
       border-radius: 8px;
-      font-weight: 600;
       font-size: 14px;
-      transition: all 0.2s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
 
       &:hover {
-        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3);
+        background: #34495e;
+        border-color: #34495e;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(44, 62, 80, 0.2);
       }
 
       &:active {
         transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(44, 62, 80, 0.2);
       }
 
-      img {
-        width: 18px;
-        height: 18px;
-        filter: brightness(0) invert(1);
+      svg {
+        flex-shrink: 0;
       }
 
       span {
         font-weight: 600;
       }
+
+      @include sm {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    // Botão Limpar - Design Clean
+    .clearButton {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 16px;
+      background: transparent;
+      color: #6c757d;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: #f8f9fa;
+        border-color: #adb5bd;
+        color: #495057;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      &:active {
+        transform: translateY(0);
+        background: #e9ecef;
+      }
+
+      svg {
+        flex-shrink: 0;
+      }
+
+      @include sm {
+        width: 100%;
+        justify-content: center;
+      }
     }
   }
 
   // Responsividade
-  @media (max-width: 768px) {
+  @include md {
     padding: 20px;
 
     .header {
       flex-direction: column;
       align-items: flex-start;
-
-      h1 {
-        font-size: 20px;
-      }
     }
 
     .bottom {
@@ -196,19 +231,111 @@
       .buttonGroup {
         justify-content: center;
         margin-top: 10px;
+      }
+    }
+  }
 
-        .searchButton {
-          width: 100%;
-          justify-content: center;
+  @include sm {
+    padding: 15px;
+    gap: 15px;
+
+    .bottom {
+      .item {
+        margin-bottom: 10px;
+      }
+
+      .buttonGroup {
+        margin-top: 15px;
+
+        .searchButton,
+        .clearButton {
+          padding: 10px 16px;
+          font-size: 13px;
+          min-height: 44px;
+
+          svg {
+            width: 16px;
+            height: 16px;
+          }
         }
       }
     }
   }
 
-  @media (max-width: 480px) {
+  // Estados de loading (opcional)
+  .searchButton:disabled,
+  .clearButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  // Melhorias de acessibilidade
+  .searchButton:focus,
+  .clearButton:focus {
+    outline: 2px solid #495057;
+    outline-offset: 2px;
+  }
+}
+
+// Tema dark (opcional)
+@media (prefers-color-scheme: dark) {
+  .filter {
+    background: #1a1a1a;
+    border-color: #495057;
+
+    .header h1 {
+      color: #f8f9fa;
+
+      b {
+        color: #fece51;
+      }
+    }
+
+    .item {
+      label {
+        color: #ced4da;
+      }
+
+      input,
+      select {
+        background: #2d2d2d;
+        border-color: #495057;
+        color: #f8f9fa;
+
+        &:focus {
+          border-color: #fece51;
+          box-shadow: 0 0 0 3px rgba(254, 206, 81, 0.1);
+        }
+
+        &::placeholder {
+          color: #6c757d;
+        }
+      }
+    }
+
     .bottom {
-      .item {
-        margin-bottom: 10px;
+      .searchButton {
+        background: #495057;
+        border-color: #495057;
+
+        &:hover {
+          background: #5a6268;
+          border-color: #5a6268;
+        }
+      }
+
+      .clearButton {
+        background: transparent;
+        color: #adb5bd;
+        border-color: #495057;
+
+        &:hover {
+          background: #343a40;
+          border-color: #6c757d;
+          color: #ced4da;
+        }
       }
     }
   }

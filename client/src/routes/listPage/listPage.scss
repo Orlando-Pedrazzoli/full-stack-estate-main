@@ -330,15 +330,39 @@
     }
   }
 
-  /* Container do Mapa */
+  /* Container do Mapa - STICKY */
   .mapContainer {
     flex: 2;
-    position: relative;
+    position: sticky; // ← ADICIONADO
+    top: 2rem; // ← ADICIONADO - Espaço da navbar + margem
+    height: calc(
+      100vh - 6rem
+    ); // ← ADICIONADO - Altura fixa considerando navbar e margens
     background: white;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     z-index: 1; // Z-index baixo para não sobrepor navbar
+    align-self: flex-start; // ← ADICIONADO - Para funcionar corretamente com sticky
+
+    // Ajustes para diferentes tamanhos de navbar
+    @include lg {
+      top: 1.75rem;
+      height: calc(100vh - 5.5rem);
+    }
+
+    @include md {
+      // Em mobile, remove sticky e volta ao comportamento normal
+      position: relative;
+      top: auto;
+      height: 40vh;
+      min-height: 300px;
+      align-self: auto;
+    }
+
+    @include sm {
+      height: 50vh;
+    }
 
     .mapWrapper {
       height: 100%;
@@ -356,6 +380,7 @@
         align-items: center;
         flex-wrap: wrap;
         gap: 12px;
+        flex-shrink: 0; // ← ADICIONADO - Previne compressão
 
         h3 {
           margin: 0;
@@ -403,6 +428,7 @@
         background: #f8f9fa;
         border-top: 1px solid #e9ecef;
         text-align: center;
+        flex-shrink: 0; // ← ADICIONADO - Previne compressão
 
         small {
           color: #6c757d;
