@@ -1,12 +1,14 @@
 // client/src/routes/singlePage/singlePage.jsx
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import { Await, useLoaderData } from 'react-router-dom';
-import Slider from '../../components/slider/Slider';
+import ImageModal from '../../components/imageModal/ImageModal';
 import Map from '../../components/map/Map';
 import './singlePage.scss';
 
 function SinglePage() {
   const data = useLoaderData();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className='singlePage'>
@@ -20,13 +22,160 @@ function SinglePage() {
               {postResponse => {
                 const post = postResponse.data;
 
+                // Preparar informações para o slider
+                const propertyInfo = {
+                  title: post.title,
+                  address: post.address,
+                  price: post.price,
+                  bedroom: post.bedroom,
+                  bathroom: post.bathroom,
+                };
+
                 return (
                   <div className='content'>
                     {/* Lado Esquerdo - Conteúdo Principal */}
                     <div className='left'>
                       <div className='content-inner'>
-                        {/* Slider de Imagens */}
-                        <Slider images={post.images} />
+                        {/* Carousel de Imagens */}
+                        <div className='propertyCarousel'>
+                          <div className='carouselContainer'>
+                            <img
+                              src={post.images[currentImageIndex || 0]}
+                              alt={`${post.title} - Imagem ${
+                                (currentImageIndex || 0) + 1
+                              }`}
+                              onClick={() => setIsModalOpen(true)}
+                              style={{ cursor: 'pointer' }}
+                            />
+
+                            {/* Setas de Navegação */}
+                            {post.images.length > 1 && (
+                              <>
+                                <button
+                                  className='carouselArrow carouselArrow--left'
+                                  onClick={e => {
+                                    e.stopPropagation();
+                                    const newIndex =
+                                      (currentImageIndex || 0) === 0
+                                        ? post.images.length - 1
+                                        : (currentImageIndex || 0) - 1;
+                                    setCurrentImageIndex(newIndex);
+                                  }}
+                                  aria-label='Imagem anterior'
+                                >
+                                  <svg
+                                    width='24'
+                                    height='24'
+                                    viewBox='0 0 24 24'
+                                    fill='none'
+                                  >
+                                    <path
+                                      d='M15 18L9 12L15 6'
+                                      stroke='currentColor'
+                                      strokeWidth='2'
+                                      strokeLinecap='round'
+                                      strokeLinejoin='round'
+                                    />
+                                  </svg>
+                                </button>
+
+                                <button
+                                  className='carouselArrow carouselArrow--right'
+                                  onClick={e => {
+                                    e.stopPropagation();
+                                    const newIndex =
+                                      (currentImageIndex || 0) ===
+                                      post.images.length - 1
+                                        ? 0
+                                        : (currentImageIndex || 0) + 1;
+                                    setCurrentImageIndex(newIndex);
+                                  }}
+                                  aria-label='Próxima imagem'
+                                >
+                                  <svg
+                                    width='24'
+                                    height='24'
+                                    viewBox='0 0 24 24'
+                                    fill='none'
+                                  >
+                                    <path
+                                      d='M9 18L15 12L9 6'
+                                      stroke='currentColor'
+                                      strokeWidth='2'
+                                      strokeLinecap='round'
+                                      strokeLinejoin='round'
+                                    />
+                                  </svg>
+                                </button>
+                              </>
+                            )}
+
+                            {/* Contador de Imagens */}
+                            {post.images.length > 1 && (
+                              <div className='imageCounter'>
+                                <svg
+                                  width='16'
+                                  height='16'
+                                  viewBox='0 0 24 24'
+                                  fill='none'
+                                >
+                                  <rect
+                                    x='3'
+                                    y='3'
+                                    width='18'
+                                    height='18'
+                                    rx='2'
+                                    ry='2'
+                                    stroke='currentColor'
+                                    strokeWidth='2'
+                                  />
+                                  <circle
+                                    cx='8.5'
+                                    cy='8.5'
+                                    r='1.5'
+                                    fill='currentColor'
+                                  />
+                                  <polyline
+                                    points='21,15 16,10 5,21'
+                                    stroke='currentColor'
+                                    strokeWidth='2'
+                                  />
+                                </svg>
+                                {(currentImageIndex || 0) + 1} /{' '}
+                                {post.images.length}
+                              </div>
+                            )}
+
+                            {/* Indicadores de Posição */}
+                            {post.images.length > 1 && (
+                              <div className='carouselIndicators'>
+                                {post.images.map((_, index) => (
+                                  <button
+                                    key={index}
+                                    className={`indicator ${
+                                      (currentImageIndex || 0) === index
+                                        ? 'active'
+                                        : ''
+                                    }`}
+                                    onClick={e => {
+                                      e.stopPropagation();
+                                      setCurrentImageIndex(index);
+                                    }}
+                                    aria-label={`Ir para imagem ${index + 1}`}
+                                  />
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Modal com Grid de Imagens */}
+                        <ImageModal
+                          images={post.images}
+                          isOpen={isModalOpen}
+                          onClose={() => setIsModalOpen(false)}
+                          initialIndex={currentImageIndex}
+                        />
 
                         {/* Informações Principais */}
                         <div className='info'>

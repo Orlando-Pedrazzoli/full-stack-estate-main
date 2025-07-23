@@ -1,0 +1,352 @@
+// client/src/components/imageModal/imageModal.scss
+@import '../../responsive.scss';
+
+.imageModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 100000; // Aumentado para ficar acima da navbar (9999)
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  padding-top: calc(75px + 2rem); // Altura da navbar + padding extra
+  backdrop-filter: blur(4px);
+
+  @include lg {
+    padding-top: calc(70px + 2rem); // Altura da navbar no lg
+  }
+
+  @include md {
+    padding-top: calc(65px + 2rem); // Altura da navbar no md
+  }
+
+  @include sm {
+    padding: 1rem;
+    padding-top: calc(60px + 1rem); // Altura da navbar no sm
+  }
+
+  @include xs {
+    padding: 0.5rem;
+    padding-top: calc(60px + 0.5rem); // Altura da navbar no xs
+  }
+
+  .modalContent {
+    background: white;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 1200px;
+    max-height: calc(90vh - 75px); // Reduzir altura máxima considerando navbar
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+    @include lg {
+      max-height: calc(90vh - 70px);
+    }
+
+    @include md {
+      max-height: calc(90vh - 65px);
+    }
+
+    @include sm {
+      max-height: calc(95vh - 60px);
+      border-radius: 12px;
+    }
+
+    @include xs {
+      max-height: calc(100vh - 60px);
+      border-radius: 8px;
+    }
+
+    /* Cabeçalho do Modal */
+    .modalHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid #e9ecef;
+      background: #f8f9fa;
+
+      @include sm {
+        padding: 1rem 1.5rem;
+      }
+
+      @include xs {
+        padding: 1rem;
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #2c3e50;
+
+        @include sm {
+          font-size: 1.125rem;
+        }
+
+        @include xs {
+          font-size: 1rem;
+        }
+      }
+
+      .closeButton {
+        background: none;
+        border: none;
+        padding: 0.5rem;
+        cursor: pointer;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        color: #6c757d;
+
+        &:hover {
+          background: #e9ecef;
+          color: #2c3e50;
+          transform: scale(1.1);
+        }
+
+        svg {
+          width: 24px;
+          height: 24px;
+
+          @include sm {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+    }
+
+    /* Grid de Imagens */
+    .imageGrid {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+
+      @include lg {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        padding: 1.5rem;
+      }
+
+      @include md {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 0.75rem;
+      }
+
+      @include sm {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        padding: 1rem;
+        gap: 0.5rem;
+      }
+
+      @include xs {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        padding: 0.75rem;
+      }
+
+      .gridItem {
+        position: relative;
+        aspect-ratio: 4/3;
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        background: #f8f9fa;
+
+        &:hover {
+          transform: scale(1.05);
+
+          .imageOverlay {
+            opacity: 1;
+          }
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.3s ease;
+        }
+
+        .imageOverlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          color: white;
+
+          svg {
+            width: 32px;
+            height: 32px;
+
+            @include sm {
+              width: 24px;
+              height: 24px;
+            }
+          }
+        }
+      }
+    }
+
+    /* Visualizador de Imagem Ampliada */
+    .imageViewer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100001; // Ainda mais alto que o modal base
+
+      .imageViewerContent {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+          border-radius: 8px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .backButton {
+          position: absolute;
+          top: 30px; // Mais espaço do topo
+          right: 20px;
+          background: rgba(0, 0, 0, 0.8);
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          padding: 1rem;
+          border-radius: 50%;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          color: white;
+          z-index: 100002; // Maior z-index para garantir visibilidade
+
+          @include sm {
+            top: 25px;
+            right: 15px;
+            padding: 0.75rem;
+          }
+
+          @include xs {
+            top: 20px;
+            right: 10px;
+            padding: 0.5rem;
+          }
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: #2c3e50;
+            transform: scale(1.1);
+            border-color: rgba(0, 0, 0, 0.3);
+          }
+
+          svg {
+            width: 24px;
+            height: 24px;
+
+            @include sm {
+              width: 20px;
+              height: 20px;
+            }
+
+            @include xs {
+              width: 18px;
+              height: 18px;
+            }
+          }
+        }
+
+        .imageCounter {
+          position: absolute;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: rgba(0, 0, 0, 0.8);
+          color: white;
+          padding: 0.75rem 1.25rem;
+          border-radius: 25px;
+          font-size: 1rem;
+          font-weight: 600;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          backdrop-filter: blur(4px);
+
+          @include sm {
+            bottom: 15px;
+            font-size: 0.9rem;
+            padding: 0.6rem 1rem;
+          }
+
+          @include xs {
+            bottom: 10px;
+            font-size: 0.8rem;
+            padding: 0.5rem 0.8rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Prevenir scroll do body quando modal estiver aberto */
+body.modal-open {
+  overflow: hidden !important;
+}
+
+/* Garantir que o modal fique sempre acima de tudo */
+.imageModal {
+  z-index: 100000 !important; // Força o z-index mais alto
+}
+
+.imageModal .imageViewer {
+  z-index: 100001 !important;
+}
+
+.imageModal .backButton {
+  z-index: 100002 !important;
+}
+
+/* Scrollbar customizada para o grid */
+.imageGrid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.imageGrid::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.imageGrid::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.imageGrid::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}

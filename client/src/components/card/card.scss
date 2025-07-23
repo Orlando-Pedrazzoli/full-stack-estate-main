@@ -1,321 +1,444 @@
 @import '../../responsive.scss';
 
-.card {
-  display: flex;
-  gap: 20px;
-  background: white;
+.modernCard {
   border-radius: 12px;
-  padding: 1rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  border: 1px solid #f0f0f0;
+  background: white;
 
   &:hover {
+    transform: translateY(-4px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
-  }
-
-  @include md {
-    flex-direction: column;
-    gap: 15px;
-    padding: 1.5rem;
   }
 
   @include sm {
-    gap: 12px;
-    padding: 1rem;
-    margin: 0 0.5rem;
+    border-radius: 8px;
+  }
+
+  .cardLink {
+    display: block;
+    text-decoration: none;
+    color: inherit;
   }
 
   .imageContainer {
-    flex: 2;
-    height: 200px;
-    border-radius: 10px;
+    position: relative;
+    width: 100%;
+    height: 280px;
     overflow: hidden;
 
-    @include lg {
-      height: 180px;
-    }
-
     @include md {
-      height: 220px;
-      order: -1; // Imagem no topo em mobile
+      height: 250px;
     }
 
     @include sm {
-      height: 180px;
+      height: 220px;
     }
 
-    img {
+    @include xs {
+      height: 200px;
+    }
+
+    .mainImage {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.3s ease;
+      transition: transform 0.5s ease;
     }
 
-    &:hover img {
+    &:hover .mainImage {
       transform: scale(1.05);
     }
-  }
 
-  .textContainer {
-    flex: 3;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 10px;
-
-    @include md {
-      gap: 12px;
-    }
-
-    @include sm {
-      gap: 8px;
-    }
-
-    img {
-      width: 16px;
-      height: 16px;
-    }
-
-    .title {
-      font-size: 20px;
+    // Contador de imagens
+    .imageCounter {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(0, 0, 0, 0.75);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 11px;
       font-weight: 600;
-      color: #444;
-      transition: all 0.4s ease;
-      line-height: 1.3;
-      margin: 0;
-
-      @include md {
-        font-size: 18px;
-      }
-
-      @include sm {
-        font-size: 16px;
-        line-height: 1.4;
-      }
-
-      &:hover {
-        color: #000;
-        scale: 1.01;
-      }
-    }
-
-    .address {
-      font-size: 14px;
       display: flex;
       align-items: center;
-      gap: 5px;
-      color: #888;
-      margin: 0;
+      gap: 4px;
+      z-index: 10;
 
       @include sm {
-        font-size: 13px;
+        top: 8px;
+        left: 8px;
+        padding: 3px 6px;
+        font-size: 10px;
       }
 
-      img {
-        width: 14px;
-        height: 14px;
+      svg {
+        width: 10px;
+        height: 10px;
         flex-shrink: 0;
       }
-
-      span {
-        line-height: 1.4;
-      }
     }
 
-    .price {
-      font-size: 20px;
-      font-weight: 500;
-      padding: 8px 12px;
-      border-radius: 8px;
-      background-color: rgba(254, 205, 81, 0.3);
-      width: max-content;
-      color: #2c3e50;
-      margin: 5px 0;
-
-      @include md {
-        font-size: 18px;
-        padding: 6px 10px;
-      }
-
-      @include sm {
-        font-size: 16px;
-        padding: 6px 10px;
-      }
-    }
-
-    .bottom {
+    // Setas de navegação
+    .navArrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.6);
+      border: none;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 10px;
-      margin-top: auto;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 15;
 
-      @include md {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
+      &:hover {
+        background: rgba(0, 0, 0, 0.8);
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      &--left {
+        left: 8px;
+      }
+
+      &--right {
+        right: 8px;
       }
 
       @include sm {
-        flex-direction: column;
-        gap: 10px;
+        width: 28px;
+        height: 28px;
+
+        svg {
+          width: 14px;
+          height: 14px;
+        }
+      }
+    }
+
+    &:hover .navArrow {
+      opacity: 1;
+    }
+
+    // Dots indicator
+    .dotsContainer {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+
+      @include sm {
+        bottom: 70px;
+        gap: 4px;
+      }
+
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 0;
+
+        &.active,
+        &:hover {
+          background: white;
+          transform: scale(1.2);
+        }
+
+        @include sm {
+          width: 5px;
+          height: 5px;
+        }
+      }
+    }
+
+    // Overlay com informações
+    .overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+      color: white;
+      padding: 20px 15px 15px 15px;
+      z-index: 5;
+
+      @include sm {
+        padding: 15px 12px 12px 12px;
+      }
+
+      .price {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+
+        @include md {
+          font-size: 18px;
+        }
+
+        @include sm {
+          font-size: 16px;
+          margin-bottom: 6px;
+        }
+      }
+
+      .title {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+
+        @include sm {
+          font-size: 13px;
+          margin-bottom: 10px;
+          -webkit-line-clamp: 1;
+        }
       }
 
       .features {
         display: flex;
-        gap: 20px;
-        font-size: 14px;
-
-        @include md {
-          gap: 15px;
-          justify-content: space-between;
-        }
+        gap: 12px;
+        align-items: center;
 
         @include sm {
-          gap: 10px;
-          flex-wrap: wrap;
-          justify-content: space-between;
+          gap: 8px;
         }
 
         .feature {
           display: flex;
           align-items: center;
-          gap: 5px;
-          background-color: #f8f9fa;
-          padding: 6px 10px;
-          border-radius: 6px;
-          white-space: nowrap;
+          gap: 4px;
+          font-size: 12px;
+          font-weight: 600;
+          background: rgba(255, 255, 255, 0.15);
+          padding: 4px 8px;
+          border-radius: 12px;
+          backdrop-filter: blur(4px);
 
           @include sm {
-            padding: 5px 8px;
-            font-size: 13px;
-            flex: 1;
-            min-width: 0;
+            font-size: 11px;
+            padding: 3px 6px;
+            gap: 3px;
           }
 
-          img {
-            width: 14px;
-            height: 14px;
+          svg {
             flex-shrink: 0;
+            opacity: 0.9;
           }
 
           span {
-            @include sm {
-              overflow: hidden;
-              text-overflow: ellipsis;
-            }
-          }
-        }
-      }
+            font-weight: 700;
 
-      .icons {
-        display: flex;
-        gap: 15px;
+            &.label {
+              font-weight: 500;
+              opacity: 0.9;
+              font-size: 10px;
 
-        @include md {
-          justify-content: center;
-          gap: 20px;
-        }
-
-        @include sm {
-          justify-content: space-around;
-          gap: 15px;
-        }
-
-        .icon {
-          border: 1px solid #ddd;
-          padding: 8px 12px;
-          border-radius: 6px;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: all 0.3s ease;
-          background-color: white;
-
-          @include sm {
-            padding: 10px 12px;
-            flex: 1;
-          }
-
-          &:hover {
-            background-color: #f8f9fa;
-            border-color: #fece51;
-            transform: translateY(-1px);
-          }
-
-          // Estilo específico para o ícone WhatsApp
-          &.whatsapp-icon {
-            border-color: #25d366;
-
-            &:hover {
-              background-color: #25d366;
-              border-color: #25d366;
-              transform: translateY(-2px);
-              box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-
-              img {
-                filter: brightness(0) invert(1);
+              @include sm {
+                font-size: 9px;
               }
             }
           }
+        }
+      }
+    }
 
-          img {
-            width: 16px;
-            height: 16px;
+    // Ícones de ação
+    .actionIcons {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 10;
+
+      @include sm {
+        top: 8px;
+        right: 8px;
+        gap: 6px;
+      }
+
+      .actionIcon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(8px);
+
+        @include sm {
+          width: 32px;
+          height: 32px;
+
+          svg {
+            width: 14px;
+            height: 14px;
+          }
+        }
+
+        &.saveIcon {
+          background: rgba(255, 255, 255, 0.9);
+          color: #495057;
+
+          &:hover {
+            background: #495057;
+            color: white;
+            transform: scale(1.1);
+          }
+
+          &.saved {
+            background: #495057;
+            color: white;
+          }
+        }
+
+        &.whatsappIcon {
+          background: rgba(37, 211, 102, 0.9);
+          color: white;
+
+          &:hover {
+            background: #25d366;
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
           }
         }
       }
+    }
+  }
+
+  // Animações de hover para toda a card
+  &:hover {
+    .overlay {
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+    }
+
+    .actionIcons .actionIcon {
+      transform: scale(1.05);
     }
   }
 
   // Estados especiais
   &.featured {
-    border: 2px solid #fece51;
+    border: 2px solid #ffd700;
 
-    .price {
-      background-color: rgba(254, 206, 81, 0.5);
-      font-weight: 600;
+    .overlay .price {
+      color: #ffd700;
+    }
+  }
+
+  &.sold {
+    opacity: 0.7;
+
+    &::after {
+      content: 'VENDIDO';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-15deg);
+      background: rgba(220, 53, 69, 0.9);
+      color: white;
+      padding: 8px 24px;
+      font-weight: 700;
+      font-size: 14px;
+      border-radius: 4px;
+      z-index: 20;
     }
   }
 
   &.loading {
-    opacity: 0.7;
+    opacity: 0.6;
     pointer-events: none;
+
+    .mainImage {
+      filter: grayscale(1);
+    }
   }
 }
 
-// Melhorias para telas muito pequenas
-@media (max-width: 480px) {
-  .card {
-    margin: 0;
-    border-radius: 8px;
+// Animações de entrada
+.modernCard {
+  animation: cardFadeIn 0.6s ease-out;
+}
 
-    .textContainer {
-      .title {
-        font-size: 15px;
-      }
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-      .price {
-        font-size: 15px;
-        padding: 5px 8px;
-      }
+// Estados de focus para acessibilidade
+.modernCard:focus-within {
+  outline: 2px solid #495057;
+  outline-offset: 2px;
+}
 
-      .bottom {
-        .features {
-          gap: 8px;
+.navArrow:focus,
+.actionIcon:focus,
+.dot:focus {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
 
-          .feature {
-            padding: 4px 6px;
-            font-size: 12px;
-          }
-        }
+// Melhorias para touch devices
+@media (hover: none) {
+  .modernCard {
+    .navArrow {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.4);
+    }
 
-        .icons .icon {
-          padding: 8px 10px;
-        }
+    .imageContainer:hover .mainImage {
+      transform: none;
+    }
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+// Modo escuro
+@media (prefers-color-scheme: dark) {
+  .modernCard {
+    background: #2d2d2d;
+
+    .actionIcons .actionIcon.saveIcon {
+      background: rgba(255, 255, 255, 0.15);
+      color: #f8f9fa;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.9);
+        color: #2d2d2d;
       }
     }
   }

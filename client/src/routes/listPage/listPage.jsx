@@ -9,6 +9,7 @@ function ListPage() {
   const data = useLoaderData();
   const [searchParams] = useSearchParams();
   const [currentFilter, setCurrentFilter] = useState({});
+  const [showMobileFilter, setShowMobileFilter] = useState(false);
 
   // Extrair filtros da URL
   useEffect(() => {
@@ -21,6 +22,11 @@ function ListPage() {
       property: searchParams.get('property'),
     };
     setCurrentFilter(filters);
+  }, [searchParams]);
+
+  // Fechar o filtro mobile quando os parâmetros mudarem (após aplicar filtro)
+  useEffect(() => {
+    setShowMobileFilter(false);
   }, [searchParams]);
 
   // Texto descritivo do filtro
@@ -67,6 +73,11 @@ function ListPage() {
     return parts.join(' ');
   };
 
+  // Contar filtros ativos
+  const getActiveFiltersCount = () => {
+    return Object.values(currentFilter).filter(value => value).length;
+  };
+
   return (
     <div className='listPage'>
       <div className='listContainer'>
@@ -103,7 +114,65 @@ function ListPage() {
             </div>
           </div>
 
-          <Filter />
+          {/* Botão Filtros para Mobile */}
+          <div className='mobileFilterButton'>
+            <button
+              className='filterButton'
+              onClick={() => setShowMobileFilter(!showMobileFilter)}
+              aria-expanded={showMobileFilter}
+              aria-label='Abrir filtros de pesquisa'
+            >
+              <svg
+                width='20'
+                height='20'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+              >
+                <path d='M22 3H2l8 9.46V19l4 2v-8.54L22 3z' />
+              </svg>
+              Filtros
+              {getActiveFiltersCount() > 0 && (
+                <span className='filterCount'>{getActiveFiltersCount()}</span>
+              )}
+            </button>
+          </div>
+
+          {/* Filtros - Desktop sempre visível, Mobile condicional */}
+          <div className={`filterContainer ${showMobileFilter ? 'show' : ''}`}>
+            {showMobileFilter && (
+              <div
+                className='mobileFilterOverlay'
+                onClick={() => setShowMobileFilter(false)}
+              />
+            )}
+            <div className='filterContent'>
+              {showMobileFilter && (
+                <div className='mobileFilterHeader'>
+                  <h3>Filtros de Pesquisa</h3>
+                  <button
+                    className='closeFilterButton'
+                    onClick={() => setShowMobileFilter(false)}
+                    aria-label='Fechar filtros'
+                  >
+                    <svg
+                      width='24'
+                      height='24'
+                      viewBox='0 0 24 24'
+                      fill='none'
+                      stroke='currentColor'
+                      strokeWidth='2'
+                    >
+                      <line x1='18' y1='6' x2='6' y2='18'></line>
+                      <line x1='6' y1='6' x2='18' y2='18'></line>
+                    </svg>
+                  </button>
+                </div>
+              )}
+              <Filter />
+            </div>
+          </div>
 
           <Suspense
             fallback={<div className='loading'>Carregando propriedades...</div>}

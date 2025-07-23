@@ -74,14 +74,174 @@
         .filterTag {
           display: inline-block;
           padding: 6px 12px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: #6c757d;
           color: white;
-          border-radius: 20px;
+          border-radius: 6px;
           font-size: 12px;
+          font-weight: 500;
+          border: 1px solid #adb5bd;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+
+    /* Botão Filtros Mobile */
+    .mobileFilterButton {
+      display: none;
+      margin-bottom: 20px;
+
+      @include md {
+        display: block;
+      }
+
+      .filterButton {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        padding: 12px 16px;
+        background: #ffffff;
+        color: #495057;
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        position: relative;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+        &:hover {
+          border-color: #495057;
+          background: #f8f9fa;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        &:active {
+          transform: translateY(1px);
+        }
+
+        svg {
+          flex-shrink: 0;
+          color: #6c757d;
+        }
+
+        .filterCount {
+          margin-left: auto;
+          background: #495057;
+          color: white;
+          border-radius: 4px;
+          padding: 2px 6px;
+          font-size: 11px;
           font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+          min-width: 18px;
+          text-align: center;
+        }
+      }
+    }
+
+    /* Container dos Filtros */
+    .filterContainer {
+      position: relative;
+      margin-bottom: 20px;
+
+      // Desktop - sempre visível
+      @media (min-width: 769px) {
+        display: block !important;
+      }
+
+      // Mobile - inicialmente oculto
+      @include md {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+
+        &.show {
+          display: flex;
+          align-items: flex-end;
+        }
+      }
+
+      .mobileFilterOverlay {
+        display: none;
+
+        @include md {
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          backdrop-filter: blur(2px);
+        }
+      }
+
+      .filterContent {
+        position: relative;
+        z-index: 1001;
+
+        @include md {
+          width: 100%;
+          background: white;
+          border-radius: 16px 16px 0 0;
+          box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+          max-height: 80vh;
+          overflow-y: auto;
+          animation: slideUpMobile 0.3s ease-out;
+        }
+
+        .mobileFilterHeader {
+          display: none;
+
+          @include md {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            border-bottom: 1px solid #e9ecef;
+            background: white;
+            border-radius: 16px 16px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 1002;
+
+            h3 {
+              margin: 0;
+              font-size: 18px;
+              font-weight: 600;
+              color: #2c3e50;
+            }
+
+            .closeFilterButton {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 32px;
+              height: 32px;
+              background: #f8f9fa;
+              border: 1px solid #dee2e6;
+              border-radius: 6px;
+              color: #6c757d;
+              cursor: pointer;
+              transition: all 0.2s ease;
+
+              &:hover {
+                background: #e9ecef;
+                border-color: #adb5bd;
+                color: #495057;
+              }
+
+              svg {
+                width: 18px;
+                height: 18px;
+              }
+            }
+          }
         }
       }
     }
@@ -218,14 +378,14 @@
             .legendIcon {
               width: 10px;
               height: 10px;
-              border-radius: 50%;
+              border-radius: 3px;
 
               &.buy {
-                background: linear-gradient(135deg, #4caf50, #45a049);
+                background: #28a745;
               }
 
               &.rent {
-                background: linear-gradient(135deg, #2196f3, #1976d2);
+                background: #007bff;
               }
             }
           }
@@ -309,7 +469,8 @@
         .activeFilters {
           .filterTag {
             font-size: 11px;
-            padding: 4px 10px;
+            padding: 3px 8px;
+            font-weight: 500;
           }
         }
       }
@@ -352,6 +513,20 @@
           .filterTag {
             font-size: 10px;
             padding: 3px 8px;
+          }
+        }
+      }
+
+      .mobileFilterButton {
+        .filterButton {
+          padding: 10px 14px;
+          font-size: 13px;
+          font-weight: 500;
+
+          .filterCount {
+            padding: 1px 5px;
+            font-size: 10px;
+            min-width: 16px;
           }
         }
       }
@@ -480,10 +655,23 @@
   }
 }
 
+@keyframes slideUpMobile {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Melhorias de acessibilidade */
 .filterTag:focus,
-.legendItem:focus {
-  outline: 2px solid #007bff;
+.legendItem:focus,
+.filterButton:focus,
+.closeFilterButton:focus {
+  outline: 2px solid #495057;
   outline-offset: 2px;
 }
 
@@ -495,6 +683,57 @@
 
       .listHeader .listTitle {
         color: #f8f9fa;
+      }
+
+      .mobileFilterButton .filterButton {
+        background: #2d3748;
+        color: #f8f9fa;
+        border-color: #4a5568;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+          background: #4a5568;
+          border-color: #718096;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        svg {
+          color: #cbd5e0;
+        }
+
+        .filterCount {
+          background: #f8f9fa;
+          color: #2d3748;
+        }
+      }
+
+      .filterContainer .filterContent {
+        @include md {
+          background: #2d2d2d;
+          box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobileFilterHeader {
+          @include md {
+            background: #2d2d2d;
+            border-bottom-color: #495057;
+
+            h3 {
+              color: #f8f9fa;
+            }
+
+            .closeFilterButton {
+              background: #4a5568;
+              border-color: #718096;
+              color: #f8f9fa;
+
+              &:hover {
+                background: #718096;
+                border-color: #a0aec0;
+              }
+            }
+          }
+        }
       }
 
       .resultsInfo .resultsCount {

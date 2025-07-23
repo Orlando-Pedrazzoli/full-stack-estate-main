@@ -3,13 +3,16 @@
 .slider {
   width: 100%;
   height: 350px;
-  display: flex;
-  gap: 20px;
+
+  @include md {
+    height: 300px;
+  }
 
   @include sm {
     height: 280px;
   }
 
+  // Modal fullscreen - mantém o design atual
   .fullSlider {
     position: fixed;
     width: 100vw;
@@ -20,15 +23,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 99999; // Aumentado para ficar acima da navbar (que tem z-index: 9999)
-    padding-top: 90px; // Espaço para a navbar
+    z-index: 99999;
+    padding-top: 90px;
 
     @include md {
-      padding-top: 80px; // Altura da navbar no tablet
+      padding-top: 80px;
     }
 
     @include sm {
-      padding-top: 70px; // Altura da navbar no mobile
+      padding-top: 70px;
     }
 
     .arrow {
@@ -38,9 +41,14 @@
       justify-content: center;
       cursor: pointer;
       transition: opacity 0.3s ease;
-      padding: 40px; // Aumentar área de clique
-      z-index: 100000; // Garantir que estejam acima do overlay
-      position: relative; // Para garantir z-index
+      padding: 40px;
+      z-index: 100000;
+      position: relative;
+
+      // Ocultar setas em mobile para economizar espaço
+      @include sm {
+        display: none;
+      }
 
       &:hover {
         opacity: 0.8;
@@ -54,20 +62,14 @@
         width: 50px;
         height: 50px;
         transition: transform 0.3s ease;
-        pointer-events: none; // Prevenir conflitos de evento
+        pointer-events: none;
 
         @include md {
           width: 40px;
           height: 40px;
         }
-
-        @include sm {
-          width: 30px;
-          height: 30px;
-        }
       }
 
-      // Melhorar visibilidade com background sutil
       &::before {
         content: '';
         position: absolute;
@@ -86,11 +88,6 @@
           width: 60px;
           height: 60px;
         }
-
-        @include sm {
-          width: 50px;
-          height: 50px;
-        }
       }
 
       &:hover::before {
@@ -103,15 +100,19 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      max-height: calc(90vh - 90px); // Ajustar altura considerando navbar
+      max-height: calc(90vh - 90px);
       background: transparent;
+
+      // Em mobile, usar toda a largura disponível
+      @include sm {
+        flex: 1;
+        width: 100%;
+        max-height: calc(85vh - 70px);
+        padding: 0 1rem;
+      }
 
       @include md {
         max-height: calc(90vh - 80px);
-      }
-
-      @include sm {
-        max-height: calc(90vh - 70px);
       }
 
       img {
@@ -128,7 +129,7 @@
 
     .close {
       position: absolute !important;
-      top: 120px !important; // Mais espaço da navbar (90px + 30px)
+      top: 120px !important;
       right: 30px !important;
       background: rgba(0, 0, 0, 0.8) !important;
       border: 2px solid rgba(255, 255, 255, 0.3) !important;
@@ -139,7 +140,7 @@
       align-items: center !important;
       justify-content: center !important;
       cursor: pointer !important;
-      z-index: 100001 !important; // Maior que o fullSlider
+      z-index: 100001 !important;
       transition: all 0.3s ease !important;
       color: #ffffff !important;
 
@@ -164,7 +165,7 @@
       }
 
       @include md {
-        top: 110px !important; // 80px + 30px
+        top: 110px !important;
         right: 20px !important;
         width: 50px !important;
         height: 50px !important;
@@ -176,7 +177,7 @@
       }
 
       @include sm {
-        top: 100px !important; // 70px + 30px
+        top: 100px !important;
         right: 15px !important;
         width: 45px !important;
         height: 45px !important;
@@ -190,7 +191,7 @@
 
     .slideIndicator {
       position: absolute;
-      bottom: 40px; // Mais espaço na parte inferior
+      bottom: 40px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(0, 0, 0, 0.8);
@@ -216,80 +217,203 @@
     }
   }
 
-  img {
-    width: 100%;
+  // Layout Desktop - mantém o design atual
+  .desktopSlider {
+    display: flex;
+    gap: 20px;
     height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-    cursor: pointer;
-  }
 
-  .bigImage {
-    flex: 3;
-    position: relative;
-
+    // Ocultar em mobile
     @include sm {
-      flex: 2;
+      display: none;
     }
 
-    .imageCounter {
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .bigImage {
+      flex: 3;
+      position: relative;
+
+      .imageCounter {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 0.4rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        z-index: 10;
+
+        svg {
+          width: 14px;
+          height: 14px;
+          color: white;
+        }
+      }
+    }
+
+    .smallImages {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+
+      img {
+        height: 100px;
+      }
+    }
+  }
+
+  // Layout Mobile - novo design
+  .mobileSlider {
+    display: none;
+    height: 100%;
+    position: relative;
+    margin: 0 -2rem; // Compensar padding do container pai
+    border-radius: 0; // Remover border-radius para ocupar toda largura
+
+    // Mostrar apenas em mobile
+    @include sm {
+      display: block;
+      margin: 0 -1.5rem; // Ajustar para mobile
+    }
+
+    @include xs {
+      margin: 0 -1rem; // Ajustar para telas muito pequenas
+    }
+
+    .mobileImageContainer {
+      display: flex;
+      height: 100%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      gap: 0;
+      border-radius: 0; // Remover border-radius
+
+      // Ocultar scrollbar mas manter funcionalidade
+      scrollbar-width: none; // Firefox
+      -ms-overflow-style: none; // IE/Edge
+
+      &::-webkit-scrollbar {
+        display: none; // Chrome/Safari
+      }
+
+      .mobileImageItem {
+        flex: 0 0 100%;
+        width: 100%;
+        height: 100%;
+        scroll-snap-align: start;
+        cursor: pointer;
+        position: relative;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 0; // Remover border-radius da imagem
+          transition: transform 0.2s ease;
+
+          &:active {
+            transform: scale(0.98);
+          }
+        }
+      }
+    }
+
+    // Contador de imagens mobile
+    .mobileCounter {
       position: absolute;
       top: 15px;
       right: 15px;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.8);
       color: white;
-      padding: 0.4rem 0.8rem;
-      border-radius: 15px;
+      padding: 0.5rem 0.8rem;
+      border-radius: 20px;
       font-size: 0.8rem;
-      font-weight: 500;
+      font-weight: 600;
       display: flex;
       align-items: center;
       gap: 0.4rem;
       z-index: 10;
+      border: 1px solid rgba(255, 255, 255, 0.2);
 
       svg {
-        width: 14px;
-        height: 14px;
+        width: 12px;
+        height: 12px;
         color: white;
+        flex-shrink: 0;
       }
 
-      @include sm {
+      @include xs {
         top: 10px;
         right: 10px;
         font-size: 0.75rem;
-        padding: 0.3rem 0.6rem;
+        padding: 0.4rem 0.6rem;
 
         svg {
-          width: 12px;
-          height: 12px;
+          width: 10px;
+          height: 10px;
         }
       }
     }
-  }
 
-  .smallImages {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 20px;
+    // Dots indicator
+    .mobileDots {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
 
-    @include sm {
-      flex: 1;
-      gap: 10px;
-    }
+      @include xs {
+        bottom: 10px;
+        gap: 6px;
+      }
 
-    img {
-      height: 100px;
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 0;
 
-      @include sm {
-        height: 80px;
+        &.active {
+          background: white;
+          transform: scale(1.2);
+        }
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.8);
+        }
+
+        @include xs {
+          width: 6px;
+          height: 6px;
+        }
       }
     }
   }
 }
 
-// Reset específico para o botão de fechar - garante que nenhum estilo externo interfira
+// Reset específico para o botão de fechar
 .fullSlider .close {
   all: unset !important;
   position: absolute !important;
@@ -326,6 +450,33 @@
 // Garantir que a navbar não interfira
 body.slider-open {
   .professional-navbar {
-    z-index: 10000 !important; // Menor que o slider modal
+    z-index: 10000 !important;
   }
+}
+
+// Animações suaves para mobile
+@keyframes fadeInMobile {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobileSlider {
+  animation: fadeInMobile 0.4s ease-out;
+}
+
+// Melhorar touch feedback
+.mobileImageItem {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: pan-x;
+}
+
+.mobileDots .dot {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
