@@ -67,9 +67,6 @@ function Navbar() {
 
         {/* Links de navegação centralizados */}
         <div className='nav-links'>
-          <Link to='/sell-property' className='nav-link sell-link'>
-            Vender
-          </Link>
           <Link to='/list?type=buy' className='nav-link'>
             Comprar
           </Link>
@@ -81,6 +78,9 @@ function Navbar() {
           </Link>
           <Link to='/contact' className='nav-link'>
             Contacto
+          </Link>
+          <Link to='/sell-property' className='nav-link sell-link'>
+            Vender
           </Link>
         </div>
 
