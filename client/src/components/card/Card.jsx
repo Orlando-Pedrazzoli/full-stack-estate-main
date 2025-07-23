@@ -146,11 +146,10 @@ Obrigado(a)! 🙏`);
 
           {/* Overlay com informações */}
           <div className='overlay'>
-            {/* Preço */}
-            <div className='price'>€{item.price.toLocaleString('pt-PT')}</div>
-
             {/* Título */}
             <div className='title'>{item.title}</div>
+            {/* Preço */}
+            <div className='price'>€{item.price.toLocaleString('pt-PT')}</div>
 
             {/* Características em linha */}
             <div className='features'>
@@ -192,7 +191,7 @@ Obrigado(a)! 🙏`);
                   />
                 </svg>
                 <span>{item.bedroom}</span>
-                <span className='label'>Qtos</span>
+                <span className='label'>Quartos</span>
               </div>
 
               <div className='feature'>
