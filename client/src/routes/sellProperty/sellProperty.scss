@@ -279,6 +279,15 @@
         }
 
         .service-image {
+          // Esconder imagens apenas em mobile (sm e xs)
+          @include sm {
+            display: none !important;
+          }
+
+          @include xs {
+            display: none !important;
+          }
+
           img {
             width: 100%;
             height: 400px;
@@ -288,10 +297,6 @@
 
             @include md {
               height: 300px;
-            }
-
-            @include sm {
-              height: 250px;
             }
           }
         }
@@ -346,6 +351,15 @@
         }
 
         .strategy-image {
+          // Esconder imagem também em mobile
+          @include sm {
+            display: none !important;
+          }
+
+          @include xs {
+            display: none !important;
+          }
+
           img {
             width: 100%;
             height: 300px;
